@@ -12,7 +12,12 @@ if ($product == null) {
 	die();
 
 }
-
+$cart = [];
+	if(isset($_COOKIE['cart'])) {
+		$json = $_COOKIE['cart'];
+		$cart = json_decode($json, true);
+	}
+	
 ?>
     <!-- END nav -->
 
@@ -87,7 +92,10 @@ if ($product == null) {
 	          		<p style="color: #000;">600 kg available</p>
 	          	</div>
           	</div>
-          	<p><a href="cart.php" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+          	<p>
+				<a href="" class="btn btn-black py-3 px-5">Add to Cart</a>
+				<button class="btn btn-dark py-3 px-5" onclick="addToCart(<?=$id?>)">Add to Cart</button>
+		</p>
     			</div>
     		</div>
     	</div>
@@ -120,7 +128,7 @@ if ($product == null) {
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center" >
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
 	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
@@ -285,6 +293,16 @@ include_once('./inc/footer.php');
 		    
 		});
 	</script>
-    
+    <script type="text/javascript">
+		function addToCart (id){
+			$.post('api/cookie.php',{
+				'action' : 'add',
+				'id' : id,
+				'num' : 1
+			}, function(data){
+				location.reload();
+			} )
+		}
+	</script>
   </body>
 </html>
