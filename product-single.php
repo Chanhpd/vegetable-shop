@@ -93,8 +93,8 @@ $cart = [];
 	          	</div>
           	</div>
           	<p>
-				<a href="" class="btn btn-black py-3 px-5">Add to Cart</a>
-				<button class="btn btn-dark py-3 px-5" onclick="addToCart(<?=$id?>)">Add to Cart</button>
+				<a  class="btn btn-black py-3 px-5" onclick="addToCart(<?=$id?>)">Add to Cart</a>
+				<!-- <button class="btn btn-dark py-3 px-5" onclick="addToCart(<?=$id?>)">Add to Cart</button> -->
 		</p>
     			</div>
     		</div>

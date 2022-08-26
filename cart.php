@@ -14,7 +14,8 @@ if (count($idList) > 0) {
 	$idList = implode(',', $idList);
 	//[2, 5, 6] => 2,5,6
 
-	$sql = "select * from products where id in ($idList)";
+	$sql = "select * from product where id in ($idList)";
+
 	$cartList = executeResult($sql);
 } else {
 	$cartList = [];
@@ -51,9 +52,21 @@ if (count($idList) > 0) {
 						</thead>
 						<tbody>
 							<?php
+							$total = 0;
 							foreach ($cartList as $item) {
+
+								$num = 0;
+								foreach ($cart as $val) {
+									if ($val['id'] == $item['id']) {
+										$num = $val['num'];
+										$total += $num * $item['price'];
+										break;
+									}
+								}
+
 								echo '<tr class="text-center">
-							<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+							<td class="product-remove"><a onclick="deleteCart(' . $item['id'] . ')"><span class="ion-ios-close"></span></a></td>
+							
 
 							<td class="image-prod">
 								<div class="img" style="background-image:url(images/' . $item['img'] . ');"></div>
@@ -64,43 +77,21 @@ if (count($idList) > 0) {
 								<p>Far far away, behind the word mountains, far from the countries</p>
 							</td>
 
-							<td class="price">$' . $item['price'] . '</td>
+							<td class="price">$' . number_format($item['price'], '2', '.', '.')  . '</td>
 
 							<td class="quantity">
 								<div class="input-group mb-3">
-									<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+									<input type="text" name="quantity" class="quantity form-control input-number" value="' . $num . '" min="1" max="100">
 								</div>
 							</td>
 
-							<td class="total">$4.90</td>
+							<td class="total">$' . number_format($item['price'] * $num, '2', '.', '.') . '</td>
 						</tr>';
 							}
 							?>
 							<!-- END TR-->
 
-							<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
-								<td class="image-prod">
-									<div class="img" style="background-image:url(images/product-4.jpg);"></div>
-								</td>
-
-								<td class="product-name">
-									<h3>Bell Pepper</h3>
-									<p>Far far away, behind the word mountains, far from the countries</p>
-								</td>
-
-								<td class="price">$15.70</td>
-
-								<td class="quantity">
-									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-									</div>
-								</td>
-
-								<td class="total">$15.70</td>
-							</tr><!-- END TR-->
-						</tbody>
 					</table>
 				</div>
 			</div>
@@ -143,25 +134,30 @@ if (count($idList) > 0) {
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Cart Totals</h3>
+					<?php
+					$delivery = $total * .08;
+					$discount = $total * 0.01;
+					$totalAll = $total - $delivery - $discount;
+					?>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span>$20.60</span>
+						<span>$<?= number_format($total, '2', '.', '.') ?></span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
-						<span>$0.00</span>
+						<span>$<?= number_format($delivery, '2', '.', '.') ?></span>
 					</p>
 					<p class="d-flex">
 						<span>Discount</span>
-						<span>$3.00</span>
+						<span>$<?= number_format($discount, '2', '.', '.') ?></span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span>$17.60</span>
+						<span>$<?= number_format($totalAll, '2', '.', '.') ?></span>
 					</p>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
 			</div>
 		</div>
 	</div>
@@ -234,6 +230,17 @@ include_once('./inc/footer.php')
 	});
 </script>
 
+<script type="text/javascript">
+	function deleteCart(id) {
+		$.post('api/cookie.php', {
+			'action': 'delete',
+			'id': id,
+			 
+		}, function(data) {
+			location.reload();
+		})
+	}
+</script>
 </body>
 
 </html>
