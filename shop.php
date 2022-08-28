@@ -1,5 +1,6 @@
 <?php
 include_once('./inc/header.php');
+include_once('./DB/dbhelper.php');
 $con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 ?>
 <!-- END nav -->
@@ -36,8 +37,23 @@ $con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 		</div>
 		<div class="row">
 		<?php
+			$sql = 'select count(id) as number from product';
+			$result = executeResult($sql);
+			$number = 0;
+			if($result != null && count($result) >0){
+				$number = $result[0]['number'];
+			}
+			$page = ceil($number/8);
 			
-			$sql = "SELECT * FROM product";
+			$current_page = 1;
+			
+			if(isset($_GET['page'])){
+				$current_page = $_GET['page'];
+			}
+			$index = ($current_page-1)*8;
+			
+
+			$sql = 'SELECT * FROM product limit '.$index.', 8';
 			$result = mysqli_query($con, $sql);
 			
 			while ($row = mysqli_fetch_array($result)) {
@@ -104,13 +120,32 @@ $con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 			<div class="col text-center">
 				<div class="block-27">
 					<ul>
-						<li><a href="#">&lt;</a></li>
+						<?php 
+							$pageNum =1;
+							
+							for($i=1; $i<=$page; $i++){
+								if(isset($_GET['page'])){
+									$pageNum =(int)$_GET['page'];
+								}
+								else {
+									$pageNum =1;;
+								}
+								if($i == $pageNum){
+									echo '<li class="active"><a href="?page='.$i.'">'.$i.'</a></li>';
+								}
+								else {
+									echo '<li><a href="?page='.$i.'">'.$i.'</a></li>';
+								}
+							}
+						?>
+						<!-- <li><a href="#">&lt;</a></li>
+						
 						<li class="active"><span>1</span></li>
 						<li><a href="#">2</a></li>
 						<li><a href="#">3</a></li>
 						<li><a href="#">4</a></li>
 						<li><a href="#">5</a></li>
-						<li><a href="#">&gt;</a></li>
+						<li><a href="#">&gt;</a></li> -->
 					</ul>
 				</div>
 			</div>

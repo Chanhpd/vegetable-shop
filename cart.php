@@ -74,7 +74,7 @@ if (count($idList) > 0) {
 
 							<td class="product-name">
 								<h3>' . $item['name'] . '</h3>
-								<p>Far far away, behind the word mountains, far from the countries</p>
+								
 							</td>
 
 							<td class="price">$' . number_format($item['price'], '2', '.', '.')  . '</td>

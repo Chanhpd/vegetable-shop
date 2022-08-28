@@ -12,7 +12,7 @@ function execute($sql) {
 	mysqli_query($conn, $sql);
 
 	//Dong ket noi
-	mysqli_close($conn);
+	mysqli_close($conn); 
 }
 
 /**
