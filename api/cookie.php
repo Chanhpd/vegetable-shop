@@ -42,3 +42,44 @@ if(!empty($_POST)) {
 		break;
 	}
 }
+if(!empty($_POST)) {
+	$action = getPost('action');
+	$id = getPost('idW');
+	$num = getPost('num');
+	
+	$wish = [];
+	if(isset($_COOKIE['wish'])) {
+		$json = $_COOKIE['wish'];
+		$wish = json_decode($json, true);
+	}
+
+	switch ($action) {
+		case 'addW':
+			$isFind = false;
+			for ($i=0; $i < count($wish); $i++) {
+				if($wish[$i]['id'] == $id) {
+					$wish[$i]['num'] += $num;
+					$isFind = true;
+					break;
+				}
+			}
+
+			if(!$isFind) {
+				$wish[] = [
+					'id'=>$id,
+					'num'=>$num
+				];
+			}
+			setcookie('wish', json_encode($wish), time() + 30*24*60*60, '/');
+			break;
+		case 'deleteW':
+			for ($i=0; $i < count($wish); $i++) { 
+				if($wish[$i]['id'] == $id) {
+					array_splice($wish, $i, 1);
+					break;
+				}
+			}
+			setcookie('wish', json_encode($wish), time() + 30*24*60*60, '/');
+		break;
+	}
+}

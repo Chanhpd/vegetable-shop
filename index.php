@@ -1,6 +1,12 @@
  <?php
 	include_once('./inc/header.php');
 	$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
+
+	$wish = [];
+	if (isset($_COOKIE['wish'])) {
+	$json = $_COOKIE['wish'];
+	$wish = json_decode($json, true);
+	}
 	?>
  <!-- END nav -->
 
@@ -167,8 +173,7 @@
  										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['sale_price'], '2', '.', '.') ?></span></p>
  									</div>
  								</div>
- 							<?php
-							;
+ 							<?php ;
 							} else {
 								?>
  								<div class="col-md-6 col-lg-3 ftco-animate">
@@ -183,28 +188,40 @@
  													<p class="price"><span>$<?= number_format($row['price'], '2', '.', '.') ?></span></p>
  												</div>
  											</div>
- 										<?php
-										;
+ 										<?php ;
 										} ?>
  										<div class="bottom-area d-flex px-3">
  											<div class="m-auto d-flex">
- 												<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+											 <a  class="add-to-cart d-flex justify-content-center align-items-center text-center">
  													<span><i class="ion-ios-menu"></i></span>
  												</a>
+ 												<!-- <button class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 													<span><i class="ion-ios-menu"></i></span>
+ 												</button> -->
+
+ 												<button onclick="addToCart(<?=$row['id']?>)" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 													<span><i class="ion-ios-cart"></i></span>
+ 												</button>
+ 												<!-- 
  												<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
  													<span><i class="ion-ios-cart"></i></span>
  												</a>
  												<a href="#" class="heart d-flex justify-content-center align-items-center ">
  													<span><i class="ion-ios-heart"></i></span>
- 												</a>
-
+ 												</a> -->
+ 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+ 													<span><i class="ion-ios-heart"></i></span>
+ 												</button>
  											</div>
  										</div>
+
+ 										</div>
+ 										<div>
+
  										</div>
  									</div>
  								</div>
- 							<?php
-							;
+ 							<?php ;
 							}
 
 							mysqli_close($con);
@@ -330,6 +347,8 @@
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
  <script src="js/google-map.js"></script>
  <script src="js/main.js"></script>
+
+ <script src="js/action-cookie.js"></script>
 
  </body>
 

@@ -2,6 +2,13 @@
 include_once('./inc/header.php');
 include_once('./DB/dbhelper.php');
 $con = mysqli_connect('localhost', 'root', '', 'Vegefood');
+
+$cart = [];
+if (isset($_COOKIE['cart'])) {
+	$json = $_COOKIE['cart'];
+	$cart = json_decode($json, true);
+}
+
 ?>
 <!-- END nav -->
 
@@ -93,7 +100,7 @@ $con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 									<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
 									</a>
-									<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+									<a onclick=addToCart('.$row['id'].') href="" class="buy-now d-flex justify-content-center align-items-center mx-1">
 										<span><i class="ion-ios-cart"></i></span>
 									</a>
 									<a href="#" class="heart d-flex justify-content-center align-items-center ">
@@ -182,6 +189,7 @@ include_once('./inc/footer.php');
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 
+<script src="js/action-cookie.js"></script>
 </body>
 
 </html>

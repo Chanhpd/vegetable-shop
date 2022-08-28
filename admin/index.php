@@ -5,8 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h3>Welcome to Admin</h3>
+    <h2 class="title_admin">Welcome to Admin</h2>
+    <div class="wrapper">
+    <?php 
+        include('modules/header.php');
+        include('modules/menu.php');
+        include('modules/main.php');
+        include('modules/footer.php');
+    ?>
+    </div>
+    
 </body>
 </html>

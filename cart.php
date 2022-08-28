@@ -229,18 +229,8 @@ include_once('./inc/footer.php')
 
 	});
 </script>
+<script src="js/action-cookie.js"></script>
 
-<script type="text/javascript">
-	function deleteCart(id) {
-		$.post('api/cookie.php', {
-			'action': 'delete',
-			'id': id,
-			 
-		}, function(data) {
-			location.reload();
-		})
-	}
-</script>
 </body>
 
 </html>
