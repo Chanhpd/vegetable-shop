@@ -1,5 +1,17 @@
 <?php
 include('./inc/header.php');
+require_once('./DB/util.php');
+require_once('./DB/dbhelper.php');
+$id = getGet('id');
+if($id == null){
+	$id = 1;
+}
+$blog = executeResult('select * from blog where id = ' . $id, true);
+if ($blog == null) {
+	header('Location: index.php');
+	die();
+
+}
 ?>
 <!-- END nav -->
 
@@ -18,10 +30,10 @@ include('./inc/header.php');
   <div class="container">
     <div class="row">
       <div class="col-lg-8 ftco-animate">
-        <h2 class="mb-3">Organic foods is good for your health</h2>
+        <h2 class="mb-3"><?= $blog['title']?></h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
         <p>
-          <img src="images/image_1.jpg" alt="" class="img-fluid">
+          <img src="images/<?= $blog['thumbnail']?>" alt="" class="img-fluid">
         </p>
         <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
         <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
