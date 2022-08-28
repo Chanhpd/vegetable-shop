@@ -1,0 +1,17 @@
+.login-wrap {
+  background-color: var(--white);
+  border-radius: 6px;
+}
+.login-wrap .icon {
+  width: 80px;
+  height: 80px;
+  background: #1089ff;
+  border-radius: 50%;
+  font-size: 30px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+.mt-8 {
+  margin-top: 8rem;
+}

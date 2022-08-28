@@ -1,11 +1,12 @@
 <?php
 
 /**
-* Su dung cho cac lenh: insert, update, delete
-*/
-function execute($sql) {
+ * Su dung cho cac lenh: insert, update, delete
+ */
+function execute($sql)
+{
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'vegefood');
+	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
 	mysqli_set_charset($conn, 'utf8');
 
 	//query
@@ -16,21 +17,26 @@ function execute($sql) {
 }
 
 /**
-* Su dung cho cac lenh: select
-*/
-function executeResult($sql, $onlyOne = false) {
+ * Su dung cho cac lenh: select
+ */
+function executeResult($sql, $onlyOne = false)
+{
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'vegefood');
+	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
 	mysqli_set_charset($conn, 'utf8');
 
 	//query
 	$resultset = mysqli_query($conn, $sql);
 
-	if($onlyOne) {
+	if (!$resultset) {
+		mysqli_close($conn);
+		return [];
+	}
+	if ($onlyOne) {
 		$data = mysqli_fetch_array($resultset, 1);
 	} else {
 		$data = [];
-		while(($row = mysqli_fetch_array($resultset, 1)) != null) {
+		while (($row = mysqli_fetch_array($resultset, 1)) != null) {
 			$data[] = $row;
 		}
 	}
