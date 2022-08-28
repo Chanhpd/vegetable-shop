@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 26, 2022 lúc 10:10 AM
+-- Thời gian đã tạo: Th8 28, 2022 lúc 03:10 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `vegefood`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `blog`
+--
+
+CREATE TABLE `blog` (
+  `id` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short` varchar(600) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `des` varchar(2000) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `create_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `blog`
+--
+
+INSERT INTO `blog` (`id`, `title`, `thumbnail`, `short`, `des`, `create_at`) VALUES
+(1, 'Organic foods is good for your health', 'image_1.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', '', '2022-08-31'),
+(2, 'Creative WordPress Themes', 'image_2.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26'),
+(3, 'Even the all-powerful Pointing has no control about the blind texts', 'image_3.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26'),
+(4, 'Even the all-powerful Pointing has no control about the blind texts', 'image_4.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26'),
+(5, 'Even the all-powerful Pointing has no control about the blind texts', 'image_5.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26'),
+(6, 'Even the all-powerful Pointing has no control about the blind texts', 'image_6.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-06');
 
 -- --------------------------------------------------------
 
@@ -55,9 +82,40 @@ INSERT INTO `product` (`id`, `name`, `img`, `price`, `sale_price`, `status`, `de
 (11, 'Garlic', 'product-11.jpg', 85, NULL, NULL, 'garlic could help fight inflammation, reduce cholesterol levels, and protect against chronic disease. Given its many medicinal properties, people may also wonder whether garlic can improve sexual function or increase libido.'),
 (12, 'Chilli', 'product-12.jpg', 120, NULL, NULL, 'Boasting high amounts of vitamin C and antioxidants, chillies have been found to help prevent lifestyle diseases including some cancers and stomach ulcers. Meanwhile, their ability to create heat within the body has also linked the peppers to weight loss as well as lowering the risk of type II diabetes.');
 
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `recommend`
+--
+
+CREATE TABLE `recommend` (
+  `id` int(11) NOT NULL,
+  `name` varchar(70) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `position` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `recommend`
+--
+
+INSERT INTO `recommend` (`id`, `name`, `position`, `thumbnail`, `comment`) VALUES
+(1, 'Garreth Smith', 'Marketing Manager', 'person_1.jpg', 'ar far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.'),
+(2, 'Garreth Smith', 'Interface Designer', 'person_2.jpg', 'I love it'),
+(3, 'Eren', 'UI Designer', 'person_3.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.'),
+(4, 'Taylor', 'Web Developer', 'person_4.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.'),
+(5, 'William', 'System Analyst', 'person_5.jpg', 'Evething is wonderful. ');
+
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `blog`
+--
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `product`
@@ -67,14 +125,32 @@ ALTER TABLE `product`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Chỉ mục cho bảng `recommend`
+--
+ALTER TABLE `recommend`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
+
+--
+-- AUTO_INCREMENT cho bảng `blog`
+--
+ALTER TABLE `blog`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT cho bảng `recommend`
+--
+ALTER TABLE `recommend`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
