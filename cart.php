@@ -65,7 +65,7 @@ if (count($idList) > 0) {
 								}
 
 								echo '<tr class="text-center">
-							<td class="product-remove"><a onclick="deleteCart(' . $item['id'] . ')"><span class="ion-ios-close"></span></a></td>
+							<td class="product-remove"><a href="" onclick="deleteCart(' . $item['id'] . ') "><span class="ion-ios-close"></span></a></td>
 							
 
 							<td class="image-prod">

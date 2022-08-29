@@ -2,12 +2,7 @@
 	include_once('./inc/header.php');
 	$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 
-	$wish = [];
-	if (isset($_COOKIE['wish'])) {
-	$json = $_COOKIE['wish'];
-	$wish = json_decode($json, true);
-	}
-	?>
+	 ?>
  <!-- END nav -->
 
  <section id="home-section" class="hero">
@@ -209,7 +204,7 @@
  												<a href="#" class="heart d-flex justify-content-center align-items-center ">
  													<span><i class="ion-ios-heart"></i></span>
  												</a> -->
- 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+ 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success  heart d-flex justify-content-center align-items-center">
  													<span><i class="ion-ios-heart"></i></span>
  												</button>
  											</div>

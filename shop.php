@@ -97,13 +97,13 @@ if (isset($_COOKIE['cart'])) {
 				}
 					echo 	'<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
-									<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+									<a  href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
 									</a>
 									<a onclick=addToCart('.$row['id'].') href="" class="buy-now d-flex justify-content-center align-items-center mx-1">
 										<span><i class="ion-ios-cart"></i></span>
 									</a>
-									<a href="#" class="heart d-flex justify-content-center align-items-center ">
+									<a onclick=addToWishList('.$row['id'].') href="" class="heart d-flex justify-content-center align-items-center ">
 										<span><i class="ion-ios-heart"></i></span>
 									</a>
 								</div>

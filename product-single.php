@@ -157,7 +157,7 @@ if (isset($_COOKIE['cart'])) {
 						<a href="" onclick=addToCart('.$row['id'].') class="buy-now d-flex justify-content-center align-items-center mx-1">
 							<span><i class="ion-ios-cart"></i></span>
 						</a>
-						<a href="" class="heart d-flex justify-content-center align-items-center ">
+						<a onclick=addToWishList('.$row['id'].') href="" class="heart d-flex justify-content-center align-items-center ">
 							<span><i class="ion-ios-heart"></i></span>
 						</a>
 						

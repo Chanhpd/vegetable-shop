@@ -8945,10 +8945,12 @@ h1, h2, h3, h4, h5,
     .table tbody tr td.product-remove a {
       bordeR: 1px solid rgba(0, 0, 0, 0.1);
       padding: 4px 10px;
-      color: #000000; }
+      font-size: 20px ;
+      color: red;
+    border-radius: 40px; }
       .table tbody tr td.product-remove a:hover {
         border: 1px solid #82ae46;
-        background: #82ae46; }
+        background: red; }
         .table tbody tr td.product-remove a:hover span {
           color: #fff; }
     .table tbody tr td.quantity {
