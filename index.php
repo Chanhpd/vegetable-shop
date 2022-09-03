@@ -13,7 +13,7 @@
  				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
  					<div class="col-md-12 ftco-animate text-center">
- 						<h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
+ 						<h1 class="mb-2">Fresh Vegestables &amp; Fruits</h1>
  						<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
  						<p><a href="#" class="btn btn-primary">View Details</a></p>
  					</div>
@@ -107,12 +107,12 @@
  					<div class="col-md-6">
  						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
  							<div class="text px-3 py-1">
- 								<h2 class="mb-0"><a href="#">Fruits</a></h2>
+ 								<h2 class="mb-0"><a href="shop.php?category=fruit">Fruits</a></h2>
  							</div>
  						</div>
  						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
  							<div class="text px-3 py-1">
- 								<h2 class="mb-0"><a href="#">Vegetables</a></h2>
+ 								<h2 class="mb-0"><a href="shop.php?category=vegetables">Vegetables</a></h2>
  							</div>
  						</div>
  					</div>
@@ -122,12 +122,12 @@
  			<div class="col-md-4">
  				<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
  					<div class="text px-3 py-1">
- 						<h2 class="mb-0"><a href="#">Juices</a></h2>
+ 						<h2 class="mb-0"><a href="shop.php?category=juice">Juices</a></h2>
  					</div>
  				</div>
  				<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
  					<div class="text px-3 py-1">
- 						<h2 class="mb-0"><a href="#">Dried</a></h2>
+ 						<h2 class="mb-0"><a href="shop.php?category=dried">Dried</a></h2>
  					</div>
  				</div>
  			</div>
@@ -165,7 +165,7 @@
  								<h3><a href="#"><?= $row['name'] ?></a></h3>
  								<div class="d-flex">
  									<div class="pricing">
- 										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['sale_price'], '2', '.', '.') ?></span></p>
+ 										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.') ?></span></p>
  									</div>
  								</div>
  							<?php ;
@@ -194,7 +194,7 @@
  													<span><i class="ion-ios-menu"></i></span>
  												</button> -->
 
- 												<button onclick="addToCart(<?=$row['id']?>)" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 												<button onclick="addToCart(<?=$row['id']?>)"  id="add-to-cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
  													<span><i class="ion-ios-cart"></i></span>
  												</button>
  												<!-- 
@@ -236,7 +236,7 @@
  				<h3><a href="#">Spinach</a></h3>
  				<span class="price">$10 <a href="#">now $5 only</a></span>
  				<div id="timer" class="d-flex mt-5">
- 					<div class="time" id="days"></div>
+ 					<!-- <div class="time" id="days"></div> -->
  					<div class="time pl-3" id="hours"></div>
  					<div class="time pl-3" id="minutes"></div>
  					<div class="time pl-3" id="seconds"></div>
@@ -312,7 +312,6 @@
  		</div>
  	</div>
  </section>
-
  <?php
 	include_once('./inc/footer.php');
 	?>
@@ -344,7 +343,27 @@
  <script src="js/main.js"></script>
 
  <script src="js/action-cookie.js"></script>
-
+<script>
+	$(document).ready(function(){
+		
+		$("#add-to-cart").click(function (){
+			$.ajax({
+				url : "fetch.php",
+				method: "post",
+				dataType: "json",
+				data : {
+					id : $(this).attr("id"),
+					num : 1,
+					type : "ajax"
+				},
+				success : function (data){
+					console.log(data);
+					$("#num-cart").html(data);
+				}
+			})
+		})
+	})
+</script>
  </body>
 
  </html>

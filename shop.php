@@ -16,7 +16,7 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Products</span></p>
 				<h1 class="mb-0 bread">Products</h1>
 			</div>
 		</div>
@@ -28,47 +28,76 @@ if (isset($_COOKIE['cart'])) {
 		<div class="row justify-content-center">
 			<div class="col-md-10 mb-5 text-center">
 				<ul class="product-category">
-					<li><a href="#" class="active">All</a></li>
-					<li><a href="#">Vegetables</a></li>
-					<li><a href="#">Fruits</a></li>
-					<li><a href="#">Juice</a></li>
-					<li><a href="#">Dried</a></li>
+					<li><a href="shop.php" class="active">All</a></li>
+					<li><a href="?category=vegetables">Vegetables</a></li>
+					<li><a href="?category=fruit">Fruits</a></li>
+					<li><a href="?category=juice">Juice</a></li>
+					<li><a href="?category=dried">Dried</a></li>
 				</ul>
 			</div>
-			<div class="form">
-				<form action="" method="get">
-					<input type="text" name="text-search" placeholder="Enter to search">
-					<input type="submit" value="Search" class="btn-success" >
-				</form>
+
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 my-4">
+					<input type="text" name="search_text" id="search_text" placeholder="Search">
+				</div>
+
 			</div>
 		</div>
-		<div class="row">
-		<?php
+
+		<div class="row" id="result">
+
+			<?php
+			
+			$category = '';
+			if(isset($_GET['category'])){
+				$category= $_GET['category'];
+			}
 			$sql = 'select count(id) as number from product';
+			if(isset($_POST['category'])){
+				$sql = 'SELECT count(id) as number FROM product ';
+			}
+			elseif($category==''){
+				$sql = 'SELECT count(id) as number FROM product ';
+			}
+			else{
+				$sql = "SELECT  count(id) as number FROM product where category='$category'";
+				
+			}
+
 			$result = executeResult($sql);
 			$number = 0;
-			if($result != null && count($result) >0){
+			if ($result != null && count($result) > 0) {	
 				$number = $result[0]['number'];
 			}
-			$page = ceil($number/8);
-			
+			$page = ceil($number / 12);
+
 			$current_page = 1;
-			
-			if(isset($_GET['page'])){
+
+			if (isset($_GET['page'])) {
 				$current_page = $_GET['page'];
 			}
-			$index = ($current_page-1)*8;
+			$index = ($current_page - 1) * 12;
+
+			if(isset($_POST['category'])){
+				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
+			}
+			elseif($category==''){
+				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
+			}
+			else{
+				$sql = "SELECT * FROM product where category='$category' limit $index, 12";
+				
+			}
 			
 
-			$sql = 'SELECT * FROM product limit '.$index.', 8';
 			$result = mysqli_query($con, $sql);
-			
+
 			while ($row = mysqli_fetch_array($result)) {
-				
+
 				if ($row['status'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
-					<a href="product-single.php?id='. $row['id'] .'" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
+					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
 						<span class="status">' . $row['status'] . '%</span>
 						<div class="overlay"></div>
 					</a>
@@ -76,14 +105,14 @@ if (isset($_COOKIE['cart'])) {
 						<h3><a href="#">' . $row['name'] . '</a></h3>
 						<div class="d-flex">
 							<div class="pricing">
-								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['sale_price'], '2', '.', '.') . '$</span></p>
+								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' .number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.'). '$</span></p>
 							</div>
 						</div>
 						';
 				} else {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="product-single.php?id=' .$row['id']. '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
+						<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -95,15 +124,15 @@ if (isset($_COOKIE['cart'])) {
 							</div>
 							';
 				}
-					echo 	'<div class="bottom-area d-flex px-3">
+				echo 	'<div class="bottom-area d-flex px-3">
 								<div class="m-auto d-flex">
 									<a  href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
 									</a>
-									<a onclick=addToCart('.$row['id'].') href="" class="buy-now d-flex justify-content-center align-items-center mx-1">
+									<a onclick=addToCart(' . $row['id'] . ') href="" class="buy-now d-flex justify-content-center align-items-center mx-1">
 										<span><i class="ion-ios-cart"></i></span>
 									</a>
-									<a onclick=addToWishList('.$row['id'].') href="" class="heart d-flex justify-content-center align-items-center ">
+									<a onclick=addToWishList(' . $row['id'] . ') href="" class="heart d-flex justify-content-center align-items-center ">
 										<span><i class="ion-ios-heart"></i></span>
 									</a>
 								</div>
@@ -111,52 +140,40 @@ if (isset($_COOKIE['cart'])) {
 						</div>
 					</div>
 				</div>';
-
-				
 			}
+			echo '</div>
+
+			<div class="row mt-5">
+				<div class="col text-center">
+					<div class="block-27">
+						<ul>';
+						$pageNum = 1;
+
+						for ($i = 1; $i <= $page; $i++) {
+							if (isset($_GET['page'])) {
+								$pageNum = (int)$_GET['page'];
+							} else {
+								$pageNum = 1;;
+							}
+							if ($i == $pageNum) {
+								echo '<li class="active"><a href="?page=' . $i . '">' . $i . '</a></li>';
+							} else {
+								echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
+							}
+						}
+
+
 
 			mysqli_close($con);
 			?>
-			
-			
-			
-			
-			
 		</div>
-		<div class="row mt-5">
-			<div class="col text-center">
-				<div class="block-27">
-					<ul>
-						<?php 
-							$pageNum =1;
-							
-							for($i=1; $i<=$page; $i++){
-								if(isset($_GET['page'])){
-									$pageNum =(int)$_GET['page'];
-								}
-								else {
-									$pageNum =1;;
-								}
-								if($i == $pageNum){
-									echo '<li class="active"><a href="?page='.$i.'">'.$i.'</a></li>';
-								}
-								else {
-									echo '<li><a href="?page='.$i.'">'.$i.'</a></li>';
-								}
-							}
-						?>
 						<!-- <li><a href="#">&lt;</a></li>
-						
 						<li class="active"><span>1</span></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
 						<li><a href="#">&gt;</a></li> -->
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> <!---->
 	</div>
 </section>
 
@@ -189,7 +206,28 @@ include_once('./inc/footer.php');
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="js/action-cookie.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$('#search_text').keyup(function() {
+			var txt = $(this).val();
+				$('#result').html('');
+				$.ajax({
+					url: "fetch.php",
+					method: "post",
+					data: {
+						search: txt
+					},
+					dataType: "text",
+					success: function(data) {
+						$('#result').html(data);
+					}
+				})
+		});
+	});
+</script>
 </body>
 
 </html>

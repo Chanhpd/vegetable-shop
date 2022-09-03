@@ -3,10 +3,11 @@ include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
 $id = getGet('id');
+
+$product = executeResult('select * from product where id = ' . $id, true);
 if ($id == null) {
 	$id = 1;
 }
-$product = executeResult('select * from product where id = ' . $id, true);
 if ($product == null) {
 	header('Location: index.php');
 	die();
@@ -130,7 +131,7 @@ if (isset($_COOKIE['cart'])) {
 			<h3><a href="#">' . $row['name'] . '</a></h3>
 			<div class="d-flex">
 				<div class="pricing">
-					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['sale_price'], '2', '.', '.') . '$</span></p>
+					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.') . '$</span></p>
 				</div>
 			</div>
 			';

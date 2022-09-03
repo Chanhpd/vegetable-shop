@@ -22,7 +22,8 @@ function execute($sql)
 function executeResult($sql, $onlyOne = false)
 {
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
+	$conn = mysqli_connect('localhost', 'root', '', 'vegefood');
+	//$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
 	mysqli_set_charset($conn, 'utf8');
 
 	//query
