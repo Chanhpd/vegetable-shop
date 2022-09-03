@@ -60,7 +60,7 @@ if (isset($_COOKIE['cart'])) {
 				$sql = 'SELECT count(id) as number FROM product ';
 			}
 			else{
-				$sql = "SELECT  count(id) as number FROM product where category='$category'";
+				$sql = "SELECT  count(id) as number FROM product where id_cate='$category'";
 				
 			}
 
@@ -80,12 +80,15 @@ if (isset($_COOKIE['cart'])) {
 
 			if(isset($_POST['category'])){
 				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
+				
 			}
 			elseif($category==''){
 				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
+				
 			}
 			else{
-				$sql = "SELECT * FROM product where category='$category' limit $index, 12";
+				$sql = "SELECT * FROM product where id_cate='$category' limit $index, 12";
+				
 				
 			}
 			
@@ -94,18 +97,18 @@ if (isset($_COOKIE['cart'])) {
 
 			while ($row = mysqli_fetch_array($result)) {
 
-				if ($row['status'] !== null) {
+				if ($row['sale'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
 					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
-						<span class="status">' . $row['status'] . '%</span>
+						<span class="status">' . $row['sale'] . '%</span>
 						<div class="overlay"></div>
 					</a>
 					<div class="text py-3 pb-4 px-3 text-center">
 						<h3><a href="#">' . $row['name'] . '</a></h3>
 						<div class="d-flex">
 							<div class="pricing">
-								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' .number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.'). '$</span></p>
+								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' .number_format($row['price']*(100-$row['sale'])*0.01, '2', '.', '.'). '$</span></p>
 							</div>
 						</div>
 						';
