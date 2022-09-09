@@ -218,7 +218,7 @@ include_once('./inc/footer.php');
 			var txt = $(this).val();
 				$('#result').html('');
 				$.ajax({
-					url: "fetch.php",
+					url: "api/fetch-search.php",
 					method: "post",
 					data: {
 						search: txt

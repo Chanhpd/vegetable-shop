@@ -2132,7 +2132,7 @@ fieldset:disabled a.btn {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
   .btn-success.disabled, .btn-success:disabled {
-    color: #fff;
+    color: #ffffff;
     background-color: #28a745;
     border-color: #28a745; }
   .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
@@ -9028,7 +9028,7 @@ h1, h2, h3, h4, h5,
   padding-left: 15px;
   padding-right: 15px;
   background: transparent !important;
-  color: rgba(0, 0, 0, 0.4) !important;
+  color: #000 !important;
   font-size: 14px;
   border-radius: 0px;
   -webkit-box-shadow: none !important;

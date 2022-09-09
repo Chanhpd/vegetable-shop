@@ -28,6 +28,11 @@
 		<link rel="stylesheet" href="css/flaticon.css">
 		<link rel="stylesheet" href="css/icomoon.css">
 		<link rel="stylesheet" href="css/style.css">
+		<!-- <script type="text/javascript">
+			$(document).on('click', 'ul li',function(){
+				$(this).addClass('active').siblings().removeClass('active');
+			})
+		</script> -->
 	</head>
 
 	<body class="goto-here">
@@ -82,13 +87,14 @@
 							$cart = json_decode($json, true);
 						}
 						$count = 0;
-						foreach ($cart as $item){
+						foreach ($cart as $item) {
 							$count += $item['num'];
 						}
 						?>
-						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?= $count?>]</a></li>
+						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?= $count ?>]</a></li>
 
 					</ul>
 				</div>
 			</div>
 		</nav>
+		

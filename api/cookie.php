@@ -9,7 +9,7 @@ if (!empty($_POST)) {
 	$cart = [];
 	if (isset($_COOKIE['cart'])) {
 		$json = $_COOKIE['cart'];
-		$cart = json_decode($json, true);
+		$cart = json_decode($json, true); 
 	}
 
 	switch ($action) {

@@ -108,7 +108,7 @@ if (count($idList) > 0) {
 						</div>
 					</form>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
 			</div>
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
@@ -129,7 +129,7 @@ if (count($idList) > 0) {
 						</div>
 					</form>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Estimate</a></p>
 			</div>
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">

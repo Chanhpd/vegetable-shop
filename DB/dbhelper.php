@@ -6,7 +6,7 @@
 function execute($sql)
 {
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
+	$conn = mysqli_connect('localhost', 'root', '', 'vegefood');
 	mysqli_set_charset($conn, 'utf8');
 
 	//query

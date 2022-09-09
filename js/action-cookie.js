@@ -25,8 +25,10 @@ function addToWishList(id) {
         'id': id,
        
     }, function(data) {
-        location.reload();
+        // location.reload();
+        alert('Added to the favorite list');
     })
+    
 }
 function deleteToWishList(id) {
     $.post('api/cookie.php', {

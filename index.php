@@ -194,7 +194,7 @@
  													<span><i class="ion-ios-menu"></i></span>
  												</button> -->
 
- 												<button onclick="addToCart(<?=$row['id']?>)"  id="add-to-cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 												<button onclick="addToCart(<?=$row['id']?>)"  id="add_to_cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
  													<span><i class="ion-ios-cart"></i></span>
  												</button>
  												<!-- 
@@ -204,7 +204,7 @@
  												<a href="#" class="heart d-flex justify-content-center align-items-center ">
  													<span><i class="ion-ios-heart"></i></span>
  												</a> -->
- 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success  heart d-flex justify-content-center align-items-center">
+ 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
  													<span><i class="ion-ios-heart"></i></span>
  												</button>
  											</div>
@@ -346,7 +346,8 @@
 <script>
 	$(document).ready(function(){
 		
-		$("#add-to-cart").click(function (){
+		$("#add_to_cart").on('click',function(e){
+			e.preventDefault();
 			$.ajax({
 				url : "fetch.php",
 				method: "post",
@@ -364,6 +365,7 @@
 		})
 	})
 </script>
+
  </body>
 
  </html>

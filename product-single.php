@@ -3,11 +3,11 @@ include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
 $id = getGet('id');
-
-$product = executeResult('select * from product where id = ' . $id, true);
 if ($id == null) {
 	$id = 1;
 }
+$product = executeResult('select * from product where id = ' . $id, true);
+
 if ($product == null) {
 	header('Location: index.php');
 	die();
