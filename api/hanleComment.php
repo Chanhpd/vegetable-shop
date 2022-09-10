@@ -10,12 +10,12 @@ if ($name != null && $email != null && $message != null) {
         values ('$name','$email','$message','person_1.jpg','$create_date')";
     execute($sql);
 
-    $sql = "select * from comment";
+    $sql = "select * from comment order by created_at DESC";
     $list = executeResult($sql);
     foreach ($list as $item) {
         echo '<li class="comment">
         <div class="vcard bio">
-          <img src="images' . $item['created_at'] . '" alt="Image placeholder">
+          <img src="images/' . $item['thumb'] . '" alt="Image placeholder">
         </div>
         <div class="comment-body">
           <h3>' . $item['name_user'] . '</h3>

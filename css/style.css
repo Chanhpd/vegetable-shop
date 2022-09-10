@@ -492,7 +492,12 @@ pre {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px; }
-
+.col-xs-4 {
+    width: 33.33333333%;
+}
+.col-xs-6{
+  width: 50%;
+}
 .col {
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -8001,7 +8006,7 @@ body {
   font-size: 15px;
   line-height: 1.8;
   font-weight: 400;
-  color: gray; }
+  color: #000; }
   body.menu-show {
     overflow: hidden;
     position: fixed;
@@ -8016,7 +8021,9 @@ a {
   a:hover, a:focus {
     text-decoration: none;
     color: #27A800; }
-
+.col-xs-6.text-right.pull-right.invoice-total {
+    font-size: 17px;
+}
 h1, h2, h3, h4, h5,
 .h1, .h2, .h3, .h4, .h5 {
   line-height: 1.5;

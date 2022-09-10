@@ -7,9 +7,9 @@ if (!empty($_POST)) {
         $json = $_COOKIE['cart'];
         $cart = json_decode($json, true);
     }
-    // if($cart == null || count($cart) ==0){
-    //     header('Location: index.php');
-    // }
+    if($cart == null || count($cart) ==0){
+        header('Location: index.php');
+    }
 
     $fullname = getPost('fullname');
     $address = getPost('address');
@@ -52,8 +52,9 @@ if (!empty($_POST)) {
             $sql = "insert into order_details (id_order, price, num, product_id) values ($orderId, " . $item['price'] . ", $num, " . $item['id'] . ")";
             execute($sql);
         }
-        header("Location: complete.php?id=$orderId");
+        
     }
-
-    // setcookie('cart', '[]', time()-1000, '/');
+    header("Location: complete.php?id=$orderId");
+    setcookie('cart', '[]', time()-1000, '/');
 }
+ 

@@ -5,10 +5,28 @@ require_once('./DB/dbhelper.php');
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $sql = "select * from orders where id =$id";
-    $product = executeResult($sql, true);
+    $order = executeResult($sql, true);
 }
+$time = date_create($order['order_date']);
+
+$sql = "select * from order_details where id_order = $id";
+$or_de = executeResult($sql);
+$idList = [];
+foreach ($or_de as $d) {
+    $idList[] = $d['product_id'];
+}
+if (count($idList) > 0) {
+    $idList = implode(',', $idList);
+    $sql = "select * from product where id in ($idList)";
+
+    $cartList = executeResult($sql);
+} else {
+    $cartList = [];
+}
+
+
 ?>
-<!-- <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
@@ -17,92 +35,123 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </div>
-</div> -->
-<link rel="stylesheet" href="css/print-bill.css">
+</div>
+<hr>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdeys">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default invoice" id="invoice">
+                <div class="panel-body">
 
-<body onload="window.print();">
-    <div id="page" class="page">
-        <div class="header">
-            <div class="logo"><img src="../images/logo.jpg" /></div>
-            <div class="company">Vegefoods</div>
+                    <div class="row">
+
+                        <div class="col-sm-6 top-left">
+                            <i class="fa fa-rocket"></i>
+                        </div>
+
+                        <div class="col-sm-6 top-right">
+                            <h3 class="marginright"><b>INVOICE #<?= $order['id'] ?></b></h3>
+                            <span class="marginright"><?= date_format($time, 'd M Y') ?></span>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+
+                        <div class="col-xs-4 from">
+                            <p class="lead marginbottom"><b>From</b> : Vegeshop</p>
+                            <p>470 Tran Dai Nghia Street</p>
+                            <p>Ngu Hanh Son District</p>
+                            <p>Da Nang City</p>
+
+                            <p><b>Phone</b>: 089-767-3600</p>
+                            <p><b>Email</b>: contact@gmail.com</p>
+                        </div>
+
+                        <div class="col-xs-4 to">
+                            <p class="lead marginbottom"><b>To</b> : <?= $order['fullname'] ?></p>
+                            <p><?= $order['address'] ?></p>
+
+                            <p><b>Phone</b>: <?= $order['phone'] ?></p>
+                            <p><b>Email</b>: <?= $order['email'] ?></p>
+
+                        </div>
+
+                        <div class="col-xs-4 text-right payment-details">
+                            <p class="lead marginbottom payment-info">Payment details</p>
+                            <p>Date: <?= date_format($time, 'd M Y') ?></p>
+                            <p>VAT: DK888-777 </p>
+                        </div>
+
+                    </div>
+
+                    <div class="row table-row">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width:5%">#</th>
+                                    <th style="width:50%">Name</th>
+                                    <th class="text-right" style="width:15%">Quantity</th>
+                                    <th class="text-right" style="width:15%">Unit Price</th>
+                                    <th class="text-right" style="width:15%">Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $total = 0;
+                                $pos = 1;
+                                foreach ($cartList as $item) {
+
+                                    $num = 0;
+
+                                    foreach ($or_de as $val) {
+                                        if ($val['product_id'] == $item['id']) {
+                                            $num = $val['num'];
+                                            $total += $num * $item['price'];
+                                            break;
+                                        }
+                                    }
+                                    echo '<tr>
+                                        <td class="text-center"> ' . $pos++ . '</td>
+                                        <td>' . $item['name'] . '</td>
+                                        <td class="text-right">' . $num . '</td>
+                                        <td class="text-right">$' . number_format($item['price'], '2', '.', '.') . '</td>
+                                        <td class="text-right">$' . number_format(($num * $item['price']), '2', '.', '.') . '</td>
+                                    </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 margintop">
+                            <p class="lead marginbottom">THANK YOU!</p>
+
+                            <a class="btn btn-success" href="print-invoice.php?id=<?= $id ?>" id="invoice-print"><i class="fa fa-print"></i> Print Invoice</a>
+                            <button class="btn btn-danger"><i class="fa fa-envelope-o"></i> Mail Invoice</button>
+                        </div>
+                        <div class="col-xs-6 text-right pull-right invoice-total">
+                            <?php
+
+                            $delivery = $total * .08;
+                            $discount = $total * 0.05;
+                            $totalAll = $total - $delivery - $discount;
+                            ?>
+                            <p><b>Subtotal</b> : $<?= number_format($total, '2', '.', '.') ?></p>
+                            <p><b>Delivery</b> (8%) : $<?= number_format($delivery, '2', '.', '.') ?></p>
+                            <p><b>Discount</b> (5%) : $<?= number_format($discount, '2', '.', '.') ?></p>
+                            <p><b>Total</b> : $<?= number_format($totalAll, '2', '.', '.') ?></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <br />
-        <div class="title">
-            INVOICE
-            <br />
-            -------oOo-------
-        </div>
-        <br />
-        <br />
-        <p><b>Fullname :</b> <?= $product['fullname'] ?></p>
-        <p><b>Address :</b> <?= $product['address'] ?></p>
-        <p><b>Phone number :</b> <?= $product['phone'] ?></p>
-        <p><b>Email : </b><?= $product['email'] ?><span style="padding-left: 8em;"><b>Invoice# </b><?= $product['id'] ?></span></p>
-        
-        <p style="padding-left: 22em;"><b>Date order: </b><?= $product['order_date'] ?> </p>
-        <table class="TableData">
-            <tr>
-                <th>STT</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-            <?php
-            $cart = [];
-            if (isset($_COOKIE['cart'])) {
-                $json = $_COOKIE['cart'];
-                $cart = json_decode($json, true);
-            }
-            $idList = [];
-            foreach ($cart as $item) {
-                $idList[] = $item['id'];
-            }
-            if (count($idList) > 0) {
-                $idList = implode(',', $idList);
-                //[2, 5, 6] => 2,5,6
-
-                $sql = "select * from product where id in ($idList)";
-
-                $cartList = executeResult($sql);
-            } else {
-                $cartList = [];
-            }
-            $total = 0;
-            $pos = 1;
-            foreach ($cartList as $item) {
-
-                $num = 0;
-                
-                foreach ($cart as $val) {
-                    if ($val['id'] == $item['id']) {
-                        $num = $val['num'];
-                        $total += $num * $item['price'];
-                        break;
-                    }
-                }
-                echo "<tr>";
-                echo "<td class=\"cotSTT\">" . $pos++ . "</td>";
-                echo "<td class=\"cotTenSanPham\">" . $item['name'] . "</td>";
-                echo "<td class=\"cotGia\"><div id='giasp" . $item['id'] . "' name='giasp" . $item['id'] . "' value='" . $item['price'] . "'>$" . number_format($item['price'], '2', '.', '.') . "</div></td>";
-                echo "<td class=\"cotSoLuong\" align='center'>" . $num . "</td>";
-                echo "<td class=\"cotSo\">$" . number_format(($num * $item['price']), '2', '.', '.') . "</td>";
-                echo "</tr>";
-                setcookie('cart', '[]', time()-1000, '/');
-            }
-            ?>
-            <tr>
-                <td colspan="4" class="tong">Total</td>
-                <td class="cotSo">$<?php echo number_format(($total), '2', '.', '.') ?></td>
-            </tr>
-        </table>
-        <div class="footer-left"><?php echo date('d,m-Y')?> , Vietnam<br />
-            CUSTOMER </div>
-        <div class="footer-right"> 
-            Email: vegeshop@gmail.com <br>
-            Phone : 090978855    
-        <hr>
-         Thank you for business with us<br />
-             </div>
     </div>
-</body>
+</div>
+<?php
+include_once('./inc/footer.php')
+?>

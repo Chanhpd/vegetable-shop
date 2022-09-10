@@ -28,6 +28,7 @@
 		<link rel="stylesheet" href="css/flaticon.css">
 		<link rel="stylesheet" href="css/icomoon.css">
 		<link rel="stylesheet" href="css/style.css">
+		
 		<!-- <script type="text/javascript">
 			$(document).on('click', 'ul li',function(){
 				$(this).addClass('active').siblings().removeClass('active');
@@ -92,7 +93,6 @@
 						}
 						?>
 						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?= $count ?>]</a></li>
-
 					</ul>
 				</div>
 			</div>

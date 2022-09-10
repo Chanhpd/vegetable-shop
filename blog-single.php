@@ -12,7 +12,7 @@ if ($blog == null) {
   die();
 }
 
-$sql = "select * from comment";
+$sql = "select * from comment ORDER BY created_at DESC";
 $list = executeResult($sql);
 ?>
 <!-- END nav -->
@@ -135,7 +135,7 @@ $list = executeResult($sql);
           <h3 class="heading">Recent Blog</h3>
           <?php
           $sql = "select * from blog limit 0,3";
-          
+
           $bloglist = executeResult($sql);
           foreach ($bloglist as $blog) {
             $time = date_create($blog['create_at']);
