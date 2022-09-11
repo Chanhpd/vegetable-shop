@@ -29,10 +29,10 @@ if (isset($_COOKIE['cart'])) {
 			<div class="col-md-10 mb-5 text-center">
 				<ul class="product-category">
 					<li><a href="shop.php" class="active">All</a></li>
-					<li><a href="?category=vegetables">Vegetables</a></li>
-					<li><a href="?category=fruit">Fruits</a></li>
-					<li><a href="?category=juice">Juice</a></li>
-					<li><a href="?category=dried">Dried</a></li>
+					<li><a href="?category=1">Vegetables</a></li>
+					<li><a href="?category=2">Fruits</a></li>
+					<li><a href="?category=3">Juice</a></li>
+					<li><a href="?category=4">Dried</a></li>
 				</ul>
 			</div>
 

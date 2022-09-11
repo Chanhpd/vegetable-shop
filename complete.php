@@ -2,6 +2,7 @@
 include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
+require('./mail/sendmail.php');
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $sql = "select * from orders where id =$id";
@@ -130,8 +131,39 @@ if (count($idList) > 0) {
                         <div class="col-xs-6 margintop">
                             <p class="lead marginbottom">THANK YOU!</p>
 
-                            <a class="btn btn-success" href="print-invoice.php?id=<?= $id ?>" id="invoice-print"><i class="fa fa-print"></i> Print Invoice</a>
-                            <button class="btn btn-danger"><i class="fa fa-envelope-o"></i> Mail Invoice</button>
+                            <form action="" method="POST">
+                                <a class="btn btn-success" href="print-invoice.php?id=<?= $id ?>" id="invoice-print"><i class="fa fa-print"></i> Print Invoice</a>
+                                <input type="submit" class="btn btn-danger" name="btn-mail" value=" Mail Invoice"><i class="fa fa-envelope-o"></i></input>
+                            </form>
+                            <?php
+                            if (isset($_POST['btn-mail'])) {
+                                $title = "Order website Vegetable Food successful";
+                                $content = "<p>Thank for your orders with order id #$id</p>
+                                <h4>The order has been set included :</h4>";
+                                foreach ($cartList as $item) {
+                                    $num = 0;
+                                    foreach ($or_de as $val) {
+                                        if ($val['product_id'] == $item['id']) {
+                                            $num = $val['num'];
+                                            $total += $num * $item['price'];
+                                            break;
+                                        }
+                                    }
+                                    $content .= "<ul style='border:1px solid blue;margin:10px'>
+                                                    <li>Product: " . $item['name'] . "</li>
+                                                    <li>Price: $" . number_format($item['price'], '2', '.', '.') . "</li>
+                                                    <li>Quantity: " . $num . "</li> </ul>";
+                                }
+                                $mailOrder = $order['email'];
+                                // echo $mailOrder;
+                                // $mailer = new Mailer();
+                                // $mailer->ordermail($title, $content, $mailOrder);
+                                
+                                var_dump($_POST['btn-mail']);
+                                unset($_POST);
+                                
+                            }
+                            ?>
                         </div>
                         <div class="col-xs-6 text-right pull-right invoice-total">
                             <?php
@@ -146,7 +178,6 @@ if (count($idList) > 0) {
                             <p><b>Total</b> : $<?= number_format($totalAll, '2', '.', '.') ?></p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

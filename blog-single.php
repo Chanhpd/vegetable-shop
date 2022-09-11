@@ -12,7 +12,7 @@ if ($blog == null) {
   die();
 }
 
-$sql = "select * from comment ORDER BY created_at DESC";
+$sql = "select * from comments where blog_id = $id ORDER BY created_at DESC";
 $list = executeResult($sql);
 ?>
 <!-- END nav -->
@@ -216,6 +216,11 @@ include_once('./inc/footer.php')
       var $name = $('#name').val();
       var $email = $('#email').val();
       var $message = $('#message').val();
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var $blogId = urlParams.get('id');
+      
+
       $.ajax({
         url: 'api/hanleComment.php',
         type: 'post',
@@ -223,7 +228,8 @@ include_once('./inc/footer.php')
         data: {
           name: $name,
           email: $email,
-          message: $message
+          message: $message,
+          blogId : $blogId
         }
       }).done(function(rs) {
         $('#result').html(rs);

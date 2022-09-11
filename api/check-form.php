@@ -20,7 +20,7 @@ if (!empty($_POST)) {
     if ($fullname != null && $address!=null && $email!=null) {
         $sql = "insert into orders (fullname, email, phone, address, note, order_date) values 
             ('$fullname','$email','$phone','$address','$note','$oder_date')";
-        execute($sql);
+            execute($sql);
 
         $sql = "select * from orders where order_date = '$oder_date'";
         $order = executeResult($sql, true);
@@ -54,6 +54,7 @@ if (!empty($_POST)) {
         }
         
     }
+
     header("Location: complete.php?id=$orderId");
     setcookie('cart', '[]', time()-1000, '/');
 }
