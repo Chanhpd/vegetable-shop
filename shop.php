@@ -35,7 +35,7 @@ if (isset($_COOKIE['cart'])) {
 					<li><a href="?category=4">Dried</a></li>
 				</ul>
 			</div>
-
+	
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 my-4">
 					<input type="text" name="search_text" id="search_text" placeholder="Search">
@@ -43,7 +43,7 @@ if (isset($_COOKIE['cart'])) {
 
 			</div>
 		</div>
-
+		
 		<div class="row" id="result">
 
 			<?php
@@ -100,7 +100,7 @@ if (isset($_COOKIE['cart'])) {
 				if ($row['sale'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
-					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/product/' . $row['img'] . '" alt="Colorlib Template">
+					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 						<span class="status">' . $row['sale'] . '%</span>
 						<div class="overlay"></div>
 					</a>
@@ -115,7 +115,7 @@ if (isset($_COOKIE['cart'])) {
 				} else {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 					<div class="product">
-						<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/product/' . $row['img'] . '" alt="Colorlib Template">
+						<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 							<div class="overlay"></div>
 						</a>
 						<div class="text py-3 pb-4 px-3 text-center">
@@ -132,12 +132,12 @@ if (isset($_COOKIE['cart'])) {
 									<a  href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 										<span><i class="ion-ios-menu"></i></span>
 									</a>
-									<a onclick=addToCart(' . $row['id'] . ') href="" class="buy-now d-flex justify-content-center align-items-center mx-1">
+									<button onclick=addToCart(' . $row['id'] . ') class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
 										<span><i class="ion-ios-cart"></i></span>
-									</a>
-									<a onclick=addToWishList(' . $row['id'] . ') href="" class="heart d-flex justify-content-center align-items-center ">
+									</button>
+									<button onclick=addToWishList(' . $row['id'] . ') class="btn btn-success heart d-flex justify-content-center align-items-center ">
 										<span><i class="ion-ios-heart"></i></span>
-									</a>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -164,19 +164,13 @@ if (isset($_COOKIE['cart'])) {
 								echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
 							}
 						}
-
-
-
 			mysqli_close($con);
 			?>
 		</div>
-						<!-- <li><a href="#">&lt;</a></li>
-						<li class="active"><span>1</span></li>
-						<li><a href="#">&gt;</a></li> -->
 					</ul>
 				</div>
 			</div>
-		</div> <!---->
+		</div>
 	</div>
 </section>
 

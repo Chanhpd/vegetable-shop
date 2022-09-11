@@ -36,7 +36,7 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 mb-5 ftco-animate">
-				<a href="images/product/<?= $product['img'] ?>" class="image-popup"><img src="images/product/<?= $product['img'] ?>" class="img-fluid" alt="Colorlib Template"></a>
+				<a href="<?= $product['img'] ?>" class="image-popup"><img src="<?= $product['img'] ?>" class="img-fluid" alt="Colorlib Template"></a>
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				<h3><?= $product['name'] ?></h3>
@@ -123,7 +123,7 @@ if (isset($_COOKIE['cart'])) {
 				if ($row['status'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 	<div class="product">
-		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/product/' . $row['img'] . '" alt="Colorlib Template">
+		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 			<span class="status">' . $row['status'] . '%</span>
 			<div class="overlay"></div>
 		</a>
@@ -138,7 +138,7 @@ if (isset($_COOKIE['cart'])) {
 				} else {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 		<div class="product">
-			<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/product/' . $row['img'] . '" alt="Colorlib Template">
+			<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 				<div class="overlay"></div>
 			</a>
 			<div class="text py-3 pb-4 px-3 text-center">
