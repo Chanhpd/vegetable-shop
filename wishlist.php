@@ -61,7 +61,7 @@ if (count($idList) > 0) {
 								</td>
 
 								<td class="image-prod">
-									<div class="img" style="background-image:url(images/' . $item['img'] . ');"></div>
+									<div class="img" style="background-image:url(images/product/' . $item['img'] . ');"></div>
 								</td>
 
 								<td class="product-name">
