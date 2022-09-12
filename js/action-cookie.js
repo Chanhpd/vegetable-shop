@@ -17,20 +17,23 @@ function deleteCart(id) {
         location.reload();
     })
 }
+
 // wish list
 function addToWishList(id) {
     $.post('api/cookie.php', {
         'action': 'addW',
-        'idW': id,
+        'id': id,
        
     }, function(data) {
-        location.reload();
+        // location.reload();
+        alert('Added to the favorite list');
     })
+    
 }
 function deleteToWishList(id) {
     $.post('api/cookie.php', {
         'action': 'deleteW',
-        'idW': id,
+        'id': id,
          
     }, function(data) {
         location.reload();

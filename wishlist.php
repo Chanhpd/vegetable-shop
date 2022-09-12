@@ -28,7 +28,7 @@ if (count($idList) > 0) {
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Wishlist</span></p>
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Wishlist</span></p>
 				<h1 class="mb-0 bread">My Wishlist</h1>
 			</div>
 		</div>
@@ -40,45 +40,45 @@ if (count($idList) > 0) {
 		<div class="row">
 			<div class="col-md-12 ftco-animate">
 				<div class="cart-list">
-					<table class="table">
+					<table class="table table-striped">
 						<thead class="thead-primary">
 							<tr class="text-center">
 								<th>&nbsp;</th>
 								<th>Product List</th>
-								<th>&nbsp;</th>
+								<th>Name</th>
 								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total</th>
+								<th>Add to cart</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-						<?php
-							
+							<?php
+
 							foreach ($wishList as $item) {
 								echo '<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+								<td class="product-remove"><a href ="" onclick=deleteToWishList(' . $item['id'] . ') >
+								<span class="ion-ios-close"></span></a>
+								</td>
 
 								<td class="image-prod">
-									<div class="img" style="background-image:url(images/'.$item['img'].');"></div>
+									<div class="img" style="background-image:url(' . $item['img'] . ');"></div>
 								</td>
 
 								<td class="product-name">
-									<h3>'.$item['name'].'</h3>
+									<h3>' . $item['name'] . '</h3>
 									
 								</td>
 
-								<td class="price">$'.$item['price'].'</td>
-
-								<td class="quantity">
-									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-									</div>
+								<td class="price">$' . number_format($item['price'], '2', '.', '.'). '</td>
+								<td class="add-to-cart">
+									<input type="button" onclick=addToCart('.$item['id'].') value="Add" class="btn btn-info">
 								</td>
-
-								<td class="total">$4.90</td>
+								
+								
+								
 							</tr>';
 							}
-								?>
+							?>
 							<!-- END TR-->
 
 						</tbody>
@@ -155,7 +155,7 @@ include_once('./inc/footer.php')
 
 	});
 </script>
-
+<script src="js/action-cookie.js"></script>
 </body>
 
 </html>

@@ -7,6 +7,7 @@ if ($id == null) {
 	$id = 1;
 }
 $product = executeResult('select * from product where id = ' . $id, true);
+
 if ($product == null) {
 	header('Location: index.php');
 	die();
@@ -35,7 +36,7 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 mb-5 ftco-animate">
-				<a href="images/<?= $product['img'] ?>" class="image-popup"><img src="images/<?= $product['img'] ?>" class="img-fluid" alt="Colorlib Template"></a>
+				<a href="<?= $product['img'] ?>" class="image-popup"><img src="<?= $product['img'] ?>" class="img-fluid" alt="Colorlib Template"></a>
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				<h3><?= $product['name'] ?></h3>
@@ -122,7 +123,7 @@ if (isset($_COOKIE['cart'])) {
 				if ($row['status'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 	<div class="product">
-		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
+		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 			<span class="status">' . $row['status'] . '%</span>
 			<div class="overlay"></div>
 		</a>
@@ -130,14 +131,14 @@ if (isset($_COOKIE['cart'])) {
 			<h3><a href="#">' . $row['name'] . '</a></h3>
 			<div class="d-flex">
 				<div class="pricing">
-					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['sale_price'], '2', '.', '.') . '$</span></p>
+					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.') . '$</span></p>
 				</div>
 			</div>
 			';
 				} else {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 		<div class="product">
-			<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="images/' . $row['img'] . '" alt="Colorlib Template">
+			<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
 				<div class="overlay"></div>
 			</a>
 			<div class="text py-3 pb-4 px-3 text-center">
@@ -157,7 +158,7 @@ if (isset($_COOKIE['cart'])) {
 						<a href="" onclick=addToCart('.$row['id'].') class="buy-now d-flex justify-content-center align-items-center mx-1">
 							<span><i class="ion-ios-cart"></i></span>
 						</a>
-						<a href="" class="heart d-flex justify-content-center align-items-center ">
+						<a onclick=addToWishList('.$row['id'].') href="" class="heart d-flex justify-content-center align-items-center ">
 							<span><i class="ion-ios-heart"></i></span>
 						</a>
 						

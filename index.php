@@ -2,12 +2,7 @@
 	include_once('./inc/header.php');
 	$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
 
-	$wish = [];
-	if (isset($_COOKIE['wish'])) {
-	$json = $_COOKIE['wish'];
-	$wish = json_decode($json, true);
-	}
-	?>
+	 ?>
  <!-- END nav -->
 
  <section id="home-section" class="hero">
@@ -18,7 +13,7 @@
  				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
  					<div class="col-md-12 ftco-animate text-center">
- 						<h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
+ 						<h1 class="mb-2">Fresh Vegestables &amp; Fruits</h1>
  						<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
  						<p><a href="#" class="btn btn-primary">View Details</a></p>
  					</div>
@@ -112,12 +107,12 @@
  					<div class="col-md-6">
  						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
  							<div class="text px-3 py-1">
- 								<h2 class="mb-0"><a href="#">Fruits</a></h2>
+ 								<h2 class="mb-0"><a href="shop.php?category=1">Vegetables</a></h2>
  							</div>
  						</div>
  						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
  							<div class="text px-3 py-1">
- 								<h2 class="mb-0"><a href="#">Vegetables</a></h2>
+ 								<h2 class="mb-0"><a href="shop.php?category=2">Fruits</a></h2>
  							</div>
  						</div>
  					</div>
@@ -127,12 +122,12 @@
  			<div class="col-md-4">
  				<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
  					<div class="text px-3 py-1">
- 						<h2 class="mb-0"><a href="#">Juices</a></h2>
+ 						<h2 class="mb-0"><a href="shop.php?category=3">Juices</a></h2>
  					</div>
  				</div>
  				<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
  					<div class="text px-3 py-1">
- 						<h2 class="mb-0"><a href="#">Dried</a></h2>
+ 						<h2 class="mb-0"><a href="shop.php?category=4">Dried</a></h2>
  					</div>
  				</div>
  			</div>
@@ -159,18 +154,18 @@
 				$i = 0;
 				while (($row = mysqli_fetch_array($result)) && $i < 8) {
 					++$i;
-					if ($row['status'] !== null) { ?>
+					if ($row['sale'] !== null) { ?>
  					<div class="col-md-6 col-lg-3 ftco-animate">
  						<div class="product">
- 							<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="images/<?= $row['img'] ?>" alt="Colorlib Template">
- 								<span class="status"><?= $row['status'] ?>%</span>
+ 							<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="<?= $row['img'] ?>" alt="Colorlib Template">
+ 								<span class="status"><?= $row['sale'] ?>%</span>
  								<div class="overlay"></div>
  							</a>
  							<div class="text py-3 pb-4 px-3 text-center">
  								<h3><a href="#"><?= $row['name'] ?></a></h3>
  								<div class="d-flex">
  									<div class="pricing">
- 										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['sale_price'], '2', '.', '.') ?></span></p>
+ 										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['price']*(100-$row['sale'])*0.01, '2', '.', '.') ?></span></p>
  									</div>
  								</div>
  							<?php ;
@@ -178,7 +173,7 @@
 								?>
  								<div class="col-md-6 col-lg-3 ftco-animate">
  									<div class="product">
- 										<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="images/<?= $row['img'] ?>" alt="Colorlib Template">
+ 										<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="<?= $row['img'] ?>" alt="Colorlib Template">
  											<div class="overlay"></div>
  										</a>
  										<div class="text py-3 pb-4 px-3 text-center">
@@ -199,7 +194,7 @@
  													<span><i class="ion-ios-menu"></i></span>
  												</button> -->
 
- 												<button onclick="addToCart(<?=$row['id']?>)" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 												<button onclick="addToCart(<?=$row['id']?>)"  id="add_to_cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
  													<span><i class="ion-ios-cart"></i></span>
  												</button>
  												<!-- 
@@ -209,7 +204,7 @@
  												<a href="#" class="heart d-flex justify-content-center align-items-center ">
  													<span><i class="ion-ios-heart"></i></span>
  												</a> -->
- 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+ 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
  													<span><i class="ion-ios-heart"></i></span>
  												</button>
  											</div>
@@ -241,7 +236,7 @@
  				<h3><a href="#">Spinach</a></h3>
  				<span class="price">$10 <a href="#">now $5 only</a></span>
  				<div id="timer" class="d-flex mt-5">
- 					<div class="time" id="days"></div>
+ 					<!-- <div class="time" id="days"></div> -->
  					<div class="time pl-3" id="hours"></div>
  					<div class="time pl-3" id="minutes"></div>
  					<div class="time pl-3" id="seconds"></div>
@@ -300,24 +295,23 @@
  	<div class="container">
  		<div class="row">
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/company.jpg" class="img-fluid" alt="Colorlib Template"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/partner_2.jpg" class="img-fluid" alt="Colorlib Template"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/food_safety.jpg" class="img-fluid" alt="Colorlib Template"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/fruit_company.jpg" class="img-fluid" alt="Colorlib Template"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/partner_5.jpg" class="img-fluid" alt="Colorlib Template"></a>
  			</div>
  		</div>
  	</div>
  </section>
-
  <?php
 	include_once('./inc/footer.php');
 	?>
@@ -349,6 +343,28 @@
  <script src="js/main.js"></script>
 
  <script src="js/action-cookie.js"></script>
+<script>
+	$(document).ready(function(){
+		
+		$("#add_to_cart").on('click',function(e){
+			e.preventDefault();
+			$.ajax({
+				url : "fetch.php",
+				method: "post",
+				dataType: "json",
+				data : {
+					id : $(this).attr("id"),
+					num : 1,
+					type : "ajax"
+				},
+				success : function (data){
+					console.log(data);
+					$("#num-cart").html(data);
+				}
+			})
+		})
+	})
+</script>
 
  </body>
 

@@ -3,15 +3,17 @@ include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
 $id = getGet('id');
-if($id == null){
-	$id = 1;
+if ($id == null) {
+  $id = 1;
 }
 $blog = executeResult('select * from blog where id = ' . $id, true);
 if ($blog == null) {
-	header('Location: index.php');
-	die();
-
+  header('Location: index.php');
+  die();
 }
+
+$sql = "select * from comments where blog_id = $id ORDER BY created_at DESC";
+$list = executeResult($sql);
 ?>
 <!-- END nav -->
 
@@ -30,10 +32,10 @@ if ($blog == null) {
   <div class="container">
     <div class="row">
       <div class="col-lg-8 ftco-animate">
-        <h2 class="mb-3"><?= $blog['title']?></h2>
+        <h2 class="mb-3"><?= $blog['title'] ?></h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
         <p>
-          <img src="images/<?= $blog['thumbnail']?>" alt="" class="img-fluid">
+          <img src="images/<?= $blog['thumbnail'] ?>" alt="" class="img-fluid">
         </p>
         <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
         <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
@@ -54,7 +56,7 @@ if ($blog == null) {
           </div>
         </div>
 
-        <div class="about-author d-flex p-4 bg-light">
+        <!-- <div class="about-author d-flex p-4 bg-light">
           <div class="bio align-self-md-center mr-4">
             <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
           </div>
@@ -62,115 +64,48 @@ if ($blog == null) {
             <h3>Lance Smith</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
           </div>
-        </div>
+        </div> -->
 
 
         <div class="pt-5 mt-5">
-          <h3 class="mb-5">6 Comments</h3>
-          <ul class="comment-list">
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_1.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">June 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-            </li>
-
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_1.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">June 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-
-              <ul class="children">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">June 27, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-
-
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard bio">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
-                      </div>
-                      <div class="comment-body">
-                        <h3>John Doe</h3>
-                        <div class="meta">June 27, 2018 at 2:21pm</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                        <p><a href="#" class="reply">Reply</a></p>
-                      </div>
-
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>John Doe</h3>
-                            <div class="meta">June 27, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                          </div>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <li class="comment">
-              <div class="vcard bio">
-                <img src="images/person_1.jpg" alt="Image placeholder">
-              </div>
-              <div class="comment-body">
-                <h3>John Doe</h3>
-                <div class="meta">June 27, 2018 at 2:21pm</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                <p><a href="#" class="reply">Reply</a></p>
-              </div>
-            </li>
+          <h3 class="mb-5"><?= count($list) ?> Comments</h3>
+          <ul class="comment-list" id="result">
+            <?php
+            foreach ($list as $item) {
+              echo '
+                  <li class="comment">
+                    <div class="vcard bio">
+                      <img src="images/' . $item['thumb'] . '" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                      <h3>' . $item['name_user'] . '</h3>
+                      <div class="meta">' . $item['created_at'] . '</div>
+                      <p>' . $item['content'] . '</p>
+                    </div>
+                  </li>
+                ';
+            }
+            ?>
           </ul>
           <!-- END comment-list -->
 
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
-            <form action="#" class="p-5 bg-light">
+            <form action="" method="post" class="p-5 bg-light">
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" name="name_user" class="form-control" id="name" required>
               </div>
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" class="form-control" id="email">
+                <input type="email" name="email" class="form-control" id="email" required>
               </div>
-              <div class="form-group">
-                <label for="website">Website</label>
-                <input type="url" class="form-control" id="website">
-              </div>
-
               <div class="form-group">
                 <label for="message">Message</label>
-                <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
               </div>
               <div class="form-group">
-                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary button">
               </div>
 
             </form>
@@ -198,39 +133,25 @@ if ($blog == null) {
 
         <div class="sidebar-box ftco-animate">
           <h3 class="heading">Recent Blog</h3>
-          <div class="block-21 mb-4 d-flex">
-            <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-            <div class="text">
-              <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="block-21 mb-4 d-flex">
-            <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-            <div class="text">
-              <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="block-21 mb-4 d-flex">
-            <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
-            <div class="text">
-              <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-              <div class="meta">
-                <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-              </div>
-            </div>
-          </div>
+          <?php
+          $sql = "select * from blog limit 0,3";
+
+          $bloglist = executeResult($sql);
+          foreach ($bloglist as $blog) {
+            $time = date_create($blog['create_at']);
+            echo '<div class="block-21 mb-4 d-flex">
+                    <a class="blog-img mr-4" style="background-image: url(images/' . $blog['thumbnail'] . ');"></a>
+                    <div class="text">
+                      <h3 class="heading-1"><a href="blog-single.php?id=' . $blog['id'] . '">' . $blog['title'] . '</a></h3>
+                      <div class="meta">
+                        <div><a href="#"><span class="icon-calendar"></span>' . date_format($time, "M d, Y") . '</a></div>
+                        <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                        <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                      </div>
+                    </div>
+                  </div>';
+          }
+          ?>
         </div>
 
         <div class="sidebar-box ftco-animate">
@@ -287,7 +208,36 @@ include_once('./inc/footer.php')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="js/google-map.js"></script>
 <script src="js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.button').click(function(e) {
+      e.preventDefault();
+      var $name = $('#name').val();
+      var $email = $('#email').val();
+      var $message = $('#message').val();
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var $blogId = urlParams.get('id');
+      
 
+      $.ajax({
+        url: 'api/hanleComment.php',
+        type: 'post',
+        dataType: 'html',
+        data: {
+          name: $name,
+          email: $email,
+          message: $message,
+          blogId : $blogId
+        }
+      }).done(function(rs) {
+        $('#result').html(rs);
+      })
+
+    });
+  });
+</script>
 </body>
 
 </html>

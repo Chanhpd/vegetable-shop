@@ -27,7 +27,7 @@ if (count($idList) > 0) {
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Cart</span></p>
 				<h1 class="mb-0 bread">My Cart</h1>
 			</div>
 		</div>
@@ -65,11 +65,11 @@ if (count($idList) > 0) {
 								}
 
 								echo '<tr class="text-center">
-							<td class="product-remove"><a onclick="deleteCart(' . $item['id'] . ')"><span class="ion-ios-close"></span></a></td>
+							<td class="product-remove"><a href="" onclick="deleteCart(' . $item['id'] . ') "><span class="ion-ios-close"></span></a></td>
 							
 
 							<td class="image-prod">
-								<div class="img" style="background-image:url(images/' . $item['img'] . ');"></div>
+								<div class="img" style="background-image:url(' . $item['img'] . ');"></div>
 							</td>
 
 							<td class="product-name">
@@ -108,7 +108,7 @@ if (count($idList) > 0) {
 						</div>
 					</form>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
 			</div>
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
@@ -129,7 +129,7 @@ if (count($idList) > 0) {
 						</div>
 					</form>
 				</div>
-				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Estimate</a></p>
 			</div>
 			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
