@@ -5,19 +5,22 @@ $message = [];
 if (isset($_POST['user-name']) && isset($_POST['password'])) {
      $user = $_POST['user-name'];
      $password = $_POST['password'];
-     $sql = "SELECT username, password from admin WHERE username = '$user'";
-
+     $sql = "SELECT user.name as user_name, password, role.name as name_role from user, role  WHERE user.name = '$user' and role.id = user.id_role";
      $response =
           executeResult($sql);
      if ($response) {
           $data = $response[0];
-          $checkPass = password_verify($password, $data['password']);
-          if ($checkPass) {
-               $_SESSION['admin'] =
-                    $user;
-               $message['type'] = 1;
+          if ($data['name_role'] == "admin") {
+               $checkPass = password_verify($password, $data['password']);
+               if ($checkPass) {
+                    $_SESSION['admin'] =
+                         $user;
+                    $message['type'] = 1;
+               } else {
+                    $message['error'] = "vui lòng nhập đúng mật khẩu!";
+               }
           } else {
-               $message['error'] = "vui lòng nhập đúng mật khẩu!";
+               $message['error'] = "Tài khoản không hợp lệ!";
           }
      } else {
           $message['error'] = "Tài khoản không tồn tại!";

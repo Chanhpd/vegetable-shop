@@ -6,14 +6,14 @@
 function execute($sql)
 {
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
+	$conn = mysqli_connect('localhost', 'root', '',  'vegefood');
 	mysqli_set_charset($conn, 'utf8');
+
 
 	//query
 	mysqli_query($conn, $sql);
-
 	//Dong ket noi
-	mysqli_close($conn); 
+	mysqli_close($conn);
 }
 
 /**
@@ -22,7 +22,7 @@ function execute($sql)
 function executeResult($sql, $onlyOne = false)
 {
 	//Mo ket noi toi database
-	$conn = mysqli_connect('localhost', 'root', '', 'shop_vegetable');
+	$conn = mysqli_connect('localhost', 'root', '', 'vegefood');
 	mysqli_set_charset($conn, 'utf8');
 
 	//query

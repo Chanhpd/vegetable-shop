@@ -1,6 +1,24 @@
 <?php session_start();
+require("../DB/dbhelper.php");
 if ($_SESSION["admin"]) {
      $name = $_SESSION["admin"];
+     // get quantity 
+     $sql = "select * from category";
+     $response =
+          executeResult($sql);
+     $countCate = count($response);
+     $sql = "select * from product";
+     $response =
+          executeResult($sql);
+     $countProduct = count($response);
+     $query = "select * from user";
+     $response =
+          executeResult($sql);
+     $countUser = count($response);
+     $query = "select * from orders";
+     $response =
+          executeResult($sql);
+     $countOrder = count($response);
 } else {
      header("location: index.php");
 }
@@ -398,7 +416,7 @@ if ($_SESSION["admin"]) {
                                                             Category
                                                        </div>
                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            5
+                                                            <?php echo $countCate ?>
                                                        </div>
                                                   </div>
                                                   <div class="col-auto">
@@ -420,7 +438,7 @@ if ($_SESSION["admin"]) {
                                                             Product
                                                        </div>
                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            50
+                                                            <?php echo $countProduct ?>
                                                        </div>
                                                   </div>
                                                   <div class="col-auto">
@@ -439,7 +457,7 @@ if ($_SESSION["admin"]) {
                                                   <div class="col mr-2">
                                                        <div
                                                             class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                            User
+                                                            <?php echo $countUser ?>
                                                        </div>
                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                             10
@@ -464,7 +482,7 @@ if ($_SESSION["admin"]) {
                                                             Order
                                                        </div>
                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            5
+                                                            <?php echo $countOrder ?>
                                                        </div>
                                                   </div>
                                                   <div class="col-auto">
