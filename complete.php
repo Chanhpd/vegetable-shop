@@ -156,10 +156,10 @@ if (count($idList) > 0) {
                                 }
                                 $mailOrder = $order['email'];
                                 // echo $mailOrder;
-                                // $mailer = new Mailer();
-                                // $mailer->ordermail($title, $content, $mailOrder);
+                                $mailer = new Mailer();
+                                $mailer->ordermail($title, $content, $mailOrder);
                                 
-                                var_dump($_POST['btn-mail']);
+                                // var_dump($_POST['btn-mail']);
                                 unset($_POST);
                                 
                             }

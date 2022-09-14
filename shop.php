@@ -8,6 +8,10 @@ if (isset($_COOKIE['cart'])) {
 	$json = $_COOKIE['cart'];
 	$cart = json_decode($json, true);
 }
+if(isset($_SERVER['HTTP_REFERER'])){
+	$activePage = basename($_SERVER['HTTP_REFERER']);
+	var_dump($activePage);
+}
 
 ?>
 <!-- END nav -->
@@ -24,49 +28,60 @@ if (isset($_COOKIE['cart'])) {
 </div>
 
 <section class="ftco-section">
+
 	<div class="container">
+
 		<div class="row justify-content-center">
+			<!-- <input type="text" name="search_text" id="search_text" class="center" placeholder="Search"> -->
+			<!-- <div class="form-group has-search">
+				<span class="fa fa-search form-control-feedback"></span>
+				<input type="text" class="form-control" placeholder="Search">
+			</div> -->
 			<div class="col-md-10 mb-5 text-center">
 				<ul class="product-category">
-					<li><a href="shop.php" class="active">All</a></li>
+					<!-- <li><a href="shop.php" class="active">All</a></li>
 					<li><a href="?category=1">Vegetables</a></li>
 					<li><a href="?category=2">Fruits</a></li>
 					<li><a href="?category=3">Juice</a></li>
-					<li><a href="?category=4">Dried</a></li>
+					<li><a href="?category=4">Dried</a></li> -->
+
+					<li><a class="<?= ($activePage == 'index.php') ? 'active':'';?>" href="shop.php">All</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=1') ? 'active':'';?>" href="?category=1">Vegetables</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=2') ? 'active':'';?>" href="?category=2">Fruits</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=3') ? 'active':'';?>" href="?category=3">Juice</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=4') ? 'active':'';?>" href="?category=4">Dried</a></li>
 				</ul>
 			</div>
-	
+
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 my-4">
-					<input type="text" name="search_text" id="search_text" placeholder="Search">
+				
+					<input type="text"  name="search_text" id="search_text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome">
 				</div>
 
 			</div>
 		</div>
-		
+
 		<div class="row" id="result">
 
 			<?php
-			
+
 			$category = '';
-			if(isset($_GET['category'])){
-				$category= $_GET['category'];
+			if (isset($_GET['category'])) {
+				$category = $_GET['category'];
 			}
 			$sql = 'select count(id) as number from product';
-			if(isset($_POST['category'])){
+			if (isset($_POST['category'])) {
 				$sql = 'SELECT count(id) as number FROM product ';
-			}
-			elseif($category==''){
+			} elseif ($category == '') {
 				$sql = 'SELECT count(id) as number FROM product ';
-			}
-			else{
+			} else {
 				$sql = "SELECT  count(id) as number FROM product where id_cate='$category'";
-				
 			}
 
 			$result = executeResult($sql);
 			$number = 0;
-			if ($result != null && count($result) > 0) {	
+			if ($result != null && count($result) > 0) {
 				$number = $result[0]['number'];
 			}
 			$page = ceil($number / 12);
@@ -78,20 +93,14 @@ if (isset($_COOKIE['cart'])) {
 			}
 			$index = ($current_page - 1) * 12;
 
-			if(isset($_POST['category'])){
+			if (isset($_POST['category'])) {
 				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
-				
-			}
-			elseif($category==''){
+			} elseif ($category == '') {
 				$sql = 'SELECT * FROM product limit ' . $index . ', 12';
-				
-			}
-			else{
+			} else {
 				$sql = "SELECT * FROM product where id_cate='$category' limit $index, 12";
-				
-				
 			}
-			
+
 
 			$result = mysqli_query($con, $sql);
 
@@ -108,7 +117,7 @@ if (isset($_COOKIE['cart'])) {
 						<h3><a href="#">' . $row['name'] . '</a></h3>
 						<div class="d-flex">
 							<div class="pricing">
-								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' .number_format($row['price']*(100-$row['sale'])*0.01, '2', '.', '.'). '$</span></p>
+								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['sale']) * 0.01, '2', '.', '.') . '$</span></p>
 							</div>
 						</div>
 						';
@@ -150,27 +159,27 @@ if (isset($_COOKIE['cart'])) {
 				<div class="col text-center">
 					<div class="block-27">
 						<ul>';
-						$pageNum = 1;
+			$pageNum = 1;
 
-						for ($i = 1; $i <= $page; $i++) {
-							if (isset($_GET['page'])) {
-								$pageNum = (int)$_GET['page'];
-							} else {
-								$pageNum = 1;;
-							}
-							if ($i == $pageNum) {
-								echo '<li class="active"><a href="?page=' . $i . '">' . $i . '</a></li>';
-							} else {
-								echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
-							}
-						}
+			for ($i = 1; $i <= $page; $i++) {
+				if (isset($_GET['page'])) {
+					$pageNum = (int)$_GET['page'];
+				} else {
+					$pageNum = 1;;
+				}
+				if ($i == $pageNum) {
+					echo '<li class="active"><a href="?page=' . $i . '">' . $i . '</a></li>';
+				} else {
+					echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
+				}
+			}
 			mysqli_close($con);
 			?>
 		</div>
-					</ul>
-				</div>
-			</div>
-		</div>
+		</ul>
+	</div>
+	</div>
+	</div>
 	</div>
 </section>
 
@@ -210,18 +219,18 @@ include_once('./inc/footer.php');
 	$(document).ready(function() {
 		$('#search_text').keyup(function() {
 			var txt = $(this).val();
-				$('#result').html('');
-				$.ajax({
-					url: "api/fetch-search.php",
-					method: "post",
-					data: {
-						search: txt
-					},
-					dataType: "text",
-					success: function(data) {
-						$('#result').html(data);
-					}
-				})
+			$('#result').html('');
+			$.ajax({
+				url: "api/fetch-search.php",
+				method: "post",
+				data: {
+					search: txt
+				},
+				dataType: "text",
+				success: function(data) {
+					$('#result').html(data);
+				}
+			})
 		});
 	});
 </script>

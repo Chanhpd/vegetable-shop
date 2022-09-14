@@ -71,7 +71,7 @@ if (count($idList) > 0) {
 
 								<td class="price">$' . number_format($item['price'], '2', '.', '.'). '</td>
 								<td class="add-to-cart">
-									<input type="button" onclick=addToCart('.$item['id'].') value="Add" class="btn btn-info">
+									<button onclick=addToCart('.$item['id'].') class="btn btn-light"><i class="fa-solid fa-circle-plus fa-beat"></i></button>
 								</td>
 								
 								

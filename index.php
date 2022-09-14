@@ -205,7 +205,7 @@
  													<span><i class="ion-ios-heart"></i></span>
  												</a> -->
  												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
- 													<span><i class="ion-ios-heart"></i></span>
+ 													<span><i class="fa-solid fa-heart fa-beat"></i></span>
  												</button>
  											</div>
  										</div>

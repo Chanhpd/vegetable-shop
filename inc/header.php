@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="css/owl.carousel.min.css">
 		<link rel="stylesheet" href="css/owl.theme.default.min.css">
 		<link rel="stylesheet" href="css/magnific-popup.css">
-
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="css/aos.css">
 
 		<link rel="stylesheet" href="css/ionicons.min.css">
@@ -30,7 +30,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		
 		<script type="text/javascript">
-			$(document).on('click', 'ul li',function(){
+			$(document).on('click', 'ul li', function() {
 				$(this).addClass('active').siblings().removeClass('active');
 			})
 		</script>
@@ -61,7 +61,11 @@
 						<li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
 						<li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
 						<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+
 						<?php
+						session_start();
+
+
 						$cart = [];
 						if (isset($_COOKIE['cart'])) {
 							$json = $_COOKIE['cart'];
@@ -73,8 +77,27 @@
 						}
 						?>
 						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?= $count ?>]</a></li>
+						
+
+						</li>
+						<?php
+						if (isset($_SESSION["user"])) {
+							echo '
+							<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-user"></i> '.$_SESSION["user"].'</a>
+							<div class="dropdown-menu" aria-labelledby="dropdown04">
+								<a class="dropdown-item" href="profile.php"><i class="fa-sharp fa-solid fa-address-card"></i> Profile</a>
+								<a class="dropdown-item" href="Login/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+								
+							</div>
+						</li>';
+						}
+						else {
+								echo '<li class="nav-item"><a href="Login/login.php" class="nav-link login"><i class="fa-solid fa-user"></i></a>';
+						}
+						?>
+						</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		
