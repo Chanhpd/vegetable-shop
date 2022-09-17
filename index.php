@@ -1,7 +1,6 @@
  <?php
 	include_once('./inc/header.php');
-	$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
-
+	require_once('./DB/dbhelper.php');
 	 ?>
  <!-- END nav -->
 
@@ -149,10 +148,10 @@
  		<div class="row">
  			<?php
 
-				$sql = "SELECT * FROM product";
-				$result = mysqli_query($con, $sql);
+				$sql = "SELECT * FROM product ORDER BY RAND ( ) limit 8";
+				$result = executeResult($sql);
 				$i = 0;
-				while (($row = mysqli_fetch_array($result)) && $i < 8) {
+				foreach($result as $row){
 					++$i;
 					if ($row['sale'] !== null) { ?>
  					<div class="col-md-6 col-lg-3 ftco-animate">
@@ -190,20 +189,10 @@
 											 <a  class="add-to-cart d-flex justify-content-center align-items-center text-center">
  													<span><i class="ion-ios-menu"></i></span>
  												</a>
- 												<!-- <button class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
- 													<span><i class="ion-ios-menu"></i></span>
- 												</button> -->
-
  												<button onclick="addToCart(<?=$row['id']?>)"  id="add_to_cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
  													<span><i class="ion-ios-cart"></i></span>
  												</button>
- 												<!-- 
- 												<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
- 													<span><i class="ion-ios-cart"></i></span>
- 												</a>
- 												<a href="#" class="heart d-flex justify-content-center align-items-center ">
- 													<span><i class="ion-ios-heart"></i></span>
- 												</a> -->
+ 												
  												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
  													<span><i class="fa-solid fa-heart fa-beat"></i></span>
  												</button>
@@ -219,7 +208,6 @@
  							<?php ;
 							}
 
-							mysqli_close($con);
 								?>
 
  							</div>
@@ -259,11 +247,11 @@
  			<div class="col-md-12">
  				<div class="carousel-testimony owl-carousel">
  					<?php
-						$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
-						$sql = "SELECT * FROM recommend";
-						$result = mysqli_query($con, $sql);
 
-						while ($row = mysqli_fetch_array($result)) {
+						$sql = "SELECT * FROM recommend";
+						$result = executeResult($sql);
+
+						foreach($result as $row){
 							echo '<div class="item">
 							<div class="testimony-wrap p-4 pb-5">
 								<div class="user-img mb-5" style="background-image: url(images/' . $row['thumbnail'] . ')">
@@ -280,7 +268,6 @@
 							</div>
 						</div>';
 						}
-						mysqli_close($con);
 						?>
 
  				</div>

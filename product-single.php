@@ -114,12 +114,12 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row">
 			<?php
-			$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
-			$sql = "SELECT * FROM product";
-			$result = mysqli_query($con, $sql);
-			$i = 0;
-			while (($row = mysqli_fetch_array($result)) && $i < 4) {
-				$i++;
+
+			$sql = "SELECT * FROM product ORDER BY RAND ( ) limit 4";
+			$result = executeResult($sql);
+
+			foreach ($result as $row) {
+
 				if ($row['status'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 	<div class="product">
@@ -131,7 +131,7 @@ if (isset($_COOKIE['cart'])) {
 			<h3><a href="#">' . $row['name'] . '</a></h3>
 			<div class="d-flex">
 				<div class="pricing">
-					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price']*(100-$row['status'])*0.01, '2', '.', '.') . '$</span></p>
+					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['status']) * 0.01, '2', '.', '.') . '$</span></p>
 				</div>
 			</div>
 			';
@@ -155,10 +155,10 @@ if (isset($_COOKIE['cart'])) {
 						<a href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 							<span><i class="ion-ios-menu"></i></span>
 						</a>
-						<a href="" onclick=addToCart('.$row['id'].') class="buy-now d-flex justify-content-center align-items-center mx-1">
+						<a href="" onclick=addToCart(' . $row['id'] . ') class="buy-now d-flex justify-content-center align-items-center mx-1">
 							<span><i class="ion-ios-cart"></i></span>
 						</a>
-						<a onclick=addToWishList('.$row['id'].') href="" class="heart d-flex justify-content-center align-items-center ">
+						<a onclick=addToWishList(' . $row['id'] . ') href="" class="heart d-flex justify-content-center align-items-center ">
 							<span><i class="ion-ios-heart"></i></span>
 						</a>
 						
@@ -168,12 +168,7 @@ if (isset($_COOKIE['cart'])) {
 		</div>
 	</div>';
 			}
-			mysqli_close($con);
 			?>
-			
-			
-			
-			
 		</div>
 	</div>
 </section>

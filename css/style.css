@@ -48,7 +48,9 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
+span.ion-ios-arrow-up {
+  font-size: 30px;
+}
 article,
 aside,
 figcaption,
@@ -163,6 +165,13 @@ input#inputEmailAddress {
 }
 a.btn.btn-black.py-3.px-5{
   background: linear-gradient(to right, rgb(255, 0, 0), rgb(26, 227, 96));
+  box-shadow: 0 0 15px #00ff08;
+  font-weight: 500;
+}a.btn.btn-black.py-3.px-5:hover{
+  color: #01f3e6;
+  background: linear-gradient(to right, rgb(20, 111, 167), rgb(23, 197, 23), rgb(136, 73, 138));
+  box-shadow: 0 0 15px #00ff08;
+  font-weight: 600;
 }
 
 hr {
@@ -602,7 +611,9 @@ img.img-fluid {
   margin-left: auto;
   margin-right: auto;
 }
-
+img.img-fluid.blog {
+  height: auto;
+}
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -3113,14 +3124,14 @@ button.btn.btn-default {
 
 .btn-success:hover {
   color: #fff;
-  background-color: #070705;
+  background-color: #d22a2a;
   border-color: #1e7e34;
 }
 
 .btn-success:focus,
 .btn-success.focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
-  box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(17, 20, 219, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(105, 241, 219, 0.5);
 }
 
 .btn-success.disabled,
@@ -13429,7 +13440,7 @@ textarea.form-control {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  color: #000000;
+  color: #154fa0;
 }
 
 .ftco-footer-social li a:hover {
@@ -13860,7 +13871,8 @@ textarea.form-control {
 .ftco-counter .text strong.number {
   font-weight: 400;
   font-size: 30px;
-  color: #000000;
+  color: #8b3535;
+  font-weight: 600;
 }
 
 .ftco-counter .text span {

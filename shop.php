@@ -1,16 +1,16 @@
 <?php
 include_once('./inc/header.php');
 include_once('./DB/dbhelper.php');
-$con = mysqli_connect('localhost', 'root', '', 'Vegefood');
+
 
 $cart = [];
 if (isset($_COOKIE['cart'])) {
 	$json = $_COOKIE['cart'];
 	$cart = json_decode($json, true);
 }
-if(isset($_SERVER['HTTP_REFERER'])){
+if (isset($_SERVER['HTTP_REFERER'])) {
 	$activePage = basename($_SERVER['HTTP_REFERER']);
-	var_dump($activePage);
+	// var_dump($activePage);
 }
 
 ?>
@@ -45,18 +45,19 @@ if(isset($_SERVER['HTTP_REFERER'])){
 					<li><a href="?category=3">Juice</a></li>
 					<li><a href="?category=4">Dried</a></li> -->
 
-					<li><a class="<?= ($activePage == 'index.php') ? 'active':'';?>" href="shop.php">All</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=1') ? 'active':'';?>" href="?category=1">Vegetables</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=2') ? 'active':'';?>" href="?category=2">Fruits</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=3') ? 'active':'';?>" href="?category=3">Juice</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=4') ? 'active':'';?>" href="?category=4">Dried</a></li>
+					<li><a class="<?= ($activePage == 'shop.php' || '') ? 'active' : ''; ?>" href="shop.php">All</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=1') ? 'active' : ''; ?>" href="?category=1">Vegetables</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=2') ? 'active' : ''; ?>" href="?category=2">Fruits</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=3') ? 'active' : ''; ?>" href="?category=3">Juice</a></li>
+					<li><a class="<?= ($activePage == 'shop.php?category=4') ? 'active' : ''; ?>" href="?category=4">Dried</a></li>
+
 				</ul>
 			</div>
 
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 my-4">
-				
-					<input type="text"  name="search_text" id="search_text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome">
+
+					<input type="text" name="search_text" id="search_text" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome">
 				</div>
 
 			</div>
@@ -102,9 +103,9 @@ if(isset($_SERVER['HTTP_REFERER'])){
 			}
 
 
-			$result = mysqli_query($con, $sql);
+			$result = executeResult($sql);
 
-			while ($row = mysqli_fetch_array($result)) {
+			foreach ($result as $row) {
 
 				if ($row['sale'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
@@ -173,14 +174,10 @@ if(isset($_SERVER['HTTP_REFERER'])){
 					echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
 				}
 			}
-			mysqli_close($con);
 			?>
 		</div>
 		</ul>
-	</div>
-	</div>
-	</div>
-	</div>
+
 </section>
 
 <?php
