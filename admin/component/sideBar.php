@@ -83,6 +83,20 @@
       </li>
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
+           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#blog" aria-expanded="true"
+                aria-controls="collapseUtilities">
+                <i class="fa-solid fa-border-all"></i>
+                <span>Blog</span>
+           </a>
+           <div id="blog" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                     <a class="collapse-item" href="blog.php">All Blog</a>
+                     <a class="collapse-item" href="addBlog.php">Add Blog</a>
+                </div>
+           </div>
+      </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
            <a class="nav-link collapsed" href="setting.php">
                 <i class="fa-solid fa-border-all"></i>
                 <span>Setting</span>

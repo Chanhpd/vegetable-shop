@@ -53,7 +53,6 @@ $dataUsers =
                                                   <th scope="row" class="text-center id_user">
                                                        <?php echo $user["id"] ?></th>
                                                   <th class="text-center" id="role">
-
                                                        <?php echo ($user["id_role"] == 1) ?  "admin" :  "user" ?>
                                                   </th>
                                                   <td id="name" class="text-center"><?php echo $user["name"] ?>
@@ -92,8 +91,8 @@ $dataUsers =
                </div>
                <!-- End of Main Content -->
                <!-- Begin modal edit user -->
-               <div class="modal_edit_user ">
-                    <div class="edit_user">
+               <div class="modal_edit ">
+                    <div class="edit">
                          <!-- Page Heading -->
                          <div class="d-sm-flex align-items-center justify-content-between mb-4">
                               <h1 class="h3 mb-0">Edit Users</h1>
@@ -129,7 +128,7 @@ $dataUsers =
                                                   placeholder="1234 Main St" />
                                         </div>
                                         <button type="submit" class="btn btn-primary">Edit</button>
-                                        <input type="hidden" id="hidden_user_id">
+                                        <input type="hidden" id="hidden_id">
                                    </form>
                               </div>
                          </div>
@@ -162,11 +161,11 @@ $dataUsers =
      <!-- Custom scripts for all pages-->
      <script src="js/sb-admin-2.min.js"></script>
      <script>
-     $(".modal_edit_user").click(function(event) {
+     $(".modal_edit").click(function(event) {
           event.stopPropagation();
-          $(".modal_edit_user").hide();
+          $(".modal_edit").hide();
      })
-     $(".edit_user").click(function(event) {
+     $(".edit").click(function(event) {
           event.stopPropagation();
      })
 
@@ -181,8 +180,8 @@ $dataUsers =
           $("#inputPhone").val(phoneUser);
           $("#inputEmail").val(emailUSer);
           $("#inputAddress").val(addressUser);
-          $("#hidden_user_id").val(id);
-          $(".modal_edit_user").show();
+          $("#hidden_id").val(id);
+          $(".modal_edit").show();
      }
 
      function handlerDeleteUer(id) {
@@ -203,7 +202,7 @@ $dataUsers =
                type: "POST",
                url: "./editUser.php",
                data: {
-                    id: $("#hidden_user_id").val(),
+                    id: $("#hidden_id").val(),
                     name: $("#inputName").val(),
                     email: $("#inputEmail").val(),
                     phone: $("#inputPhone").val(),

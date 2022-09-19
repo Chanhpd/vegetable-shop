@@ -15,8 +15,8 @@
 .mt-8 {
   margin-top: 8rem;
 }
-/* edit user */
-.modal_edit_user {
+/* edit */
+.modal_edit {
   position: fixed;
   top: 0;
   right: 0;
@@ -25,7 +25,7 @@
   background-color: rgba(0, 0, 0, 0.2);
   display: none;
 }
-.edit_user {
+.edit {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,9 +34,9 @@
   z-index: 10;
   background-color: #fff;
   padding: 40px;
-  height: 70%;
   border-radius: 30px;
   animation: fadeIn 0.3s linear forwards;
+  z-index: 20;
 }
 @keyframes fadeIn {
   0% {
@@ -75,4 +75,10 @@
 }
 .nav-pagination a:focus {
   box-shadow: none !important;
+}
+#contain-img {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
 }
