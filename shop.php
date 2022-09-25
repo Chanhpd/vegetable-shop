@@ -8,9 +8,8 @@ if (isset($_COOKIE['cart'])) {
 	$json = $_COOKIE['cart'];
 	$cart = json_decode($json, true);
 }
-if (isset($_SERVER['HTTP_REFERER'])) {
-	$activePage = basename($_SERVER['HTTP_REFERER']);
-	// var_dump($activePage);
+if (isset($_SERVER['QUERY_STRING'])) {
+	$activePage = basename($_SERVER['QUERY_STRING']);
 }
 
 ?>
@@ -45,12 +44,12 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 					<li><a href="?category=3">Juice</a></li>
 					<li><a href="?category=4">Dried</a></li> -->
 
-					<li><a class="<?= ($activePage == 'shop.php' || '') ? 'active' : ''; ?>" href="shop.php">All</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=1') ? 'active' : ''; ?>" href="?category=1">Vegetables</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=2') ? 'active' : ''; ?>" href="?category=2">Fruits</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=3') ? 'active' : ''; ?>" href="?category=3">Juice</a></li>
-					<li><a class="<?= ($activePage == 'shop.php?category=4') ? 'active' : ''; ?>" href="?category=4">Dried</a></li>
-
+					<li><a class="<?= ($activePage == '') ? 'active' : ''; ?>" href="shop.php">All</a></li>
+					<li><a class="<?= strlen(strstr($activePage, 'category=1')) > 0 ? 'active' : ''; ?>" href="?category=1">Vegetables</a></li>
+					<li><a class="<?= strlen(strstr($activePage, 'category=2')) > 0 ? 'active' : ''; ?>" href="?category=2">Fruits</a></li>
+					<li><a class="<?= strlen(strstr($activePage, 'category=3')) > 0 ? 'active' : ''; ?>" href="?category=3">Juice</a></li>
+					<li><a class="<?= strlen(strstr($activePage, 'category=4')) > 0 ? 'active' : ''; ?>" href="?category=4">Dried</a></li>
+					<!-- <li><a class="<?= ($activePage == 'category=4') ? 'active' : ''; ?>" href="?category=4">Dried</a></li> -->
 				</ul>
 			</div>
 
@@ -107,7 +106,7 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 
 			foreach ($result as $row) {
 
-				if ($row['sale'] !== null) {
+				if ($row['sale'] !== null && $row['sale'] != "0" ) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
 					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
@@ -163,6 +162,9 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 			$pageNum = 1;
 
 			for ($i = 1; $i <= $page; $i++) {
+				if (isset($_GET['category'])) {
+					$cat = $_GET['category'];
+				} else $cat = '';
 				if (isset($_GET['page'])) {
 					$pageNum = (int)$_GET['page'];
 				} else {
@@ -171,9 +173,10 @@ if (isset($_SERVER['HTTP_REFERER'])) {
 				if ($i == $pageNum) {
 					echo '<li class="active"><a href="?page=' . $i . '">' . $i . '</a></li>';
 				} else {
-					echo '<li><a href="?page=' . $i . '">' . $i . '</a></li>';
+					echo '<li><a href="?page=' . $i . '&category=' . $cat . '">' . $i . '</a></li>';
 				}
 			}
+			//?id=1&cat=2
 			?>
 		</div>
 		</ul>

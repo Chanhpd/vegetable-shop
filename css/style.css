@@ -48,9 +48,11 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 span.ion-ios-arrow-up {
   font-size: 30px;
 }
+
 article,
 aside,
 figcaption,
@@ -97,8 +99,11 @@ body {
 input.btn.btn-primary.btn-block.fa-lg.gradient-custom-2.mb-3 {
   background: linear-gradient(to right, #ff9900, #0fb909, #1a9136, #b44593);
 }
-input#search_text{
-  margin-bottom: 50px;
+
+input#search_text {
+
+  margin-top: -20%;
+  margin-bottom: 80px;
   width: 500px;
   border-radius: 20px;
   text-align: center;
@@ -106,16 +111,19 @@ input#search_text{
   font-size: 20px;
 
   outline: none !important;
-    border:1px solid red;
-    box-shadow: 0 0 15px #16c721;
+  border: 1px solid #28a745;
+  box-shadow: 0 0 10px #28a745;
 }
+
 a.nav-link.login {
   font-size: 25px !important;
- margin-right:0 ;
+  margin-right: 0;
 }
+
 i.fa-solid.fa-user:hover {
-  color:#27A800;
+  color: #27A800;
 }
+
 button.btn.btn-primary.btn-block.fa-lg.gradient-custom-2.mb-3:hover {
   /* background: linear-gradient(to right, #ff9900, #0fb909, #1a9136, #b44593); */
   color: #000;
@@ -138,14 +146,16 @@ button.btn.btn-primary.btn-block.fa-lg.gradient-custom-2.mb-3:hover {
     border-bottom-right-radius: .3rem;
   }
 }
+
 input#inputEmailAddress {
   opacity: 0.4;
 }
+
 /* register */
 .gradient-custom-3 {
   /* fallback for old browsers */
   background: #84fab0;
-  
+
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(to right, rgba(100, 219, 144, 0.5), rgba(24, 145, 205, 0.5));
 
@@ -163,15 +173,17 @@ input#inputEmailAddress {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgb(235, 50, 194), rgb(26, 227, 96))
 }
-a.btn.btn-black.py-3.px-5{
-  background: linear-gradient(to right, rgb(255, 0, 0), rgb(26, 227, 96));
-  box-shadow: 0 0 15px #00ff08;
+
+a.btn.btn-black.py-3.px-5 {
+  background: linear-gradient(to right, rgb(57, 56, 56),rgb(26, 35, 31),rgb(0, 2, 1));
+  box-shadow: 0 0 15px #8f5151;
   font-weight: 500;
-}a.btn.btn-black.py-3.px-5:hover{
-  color: #01f3e6;
-  background: linear-gradient(to right, rgb(20, 111, 167), rgb(23, 197, 23), rgb(136, 73, 138));
-  box-shadow: 0 0 15px #00ff08;
-  font-weight: 600;
+}
+
+a.btn.btn-black.py-3.px-5:hover {
+  color: #fff;
+  background: linear-gradient(to right, rgb(77, 79, 80), rgb(4, 138, 44), rgb(0, 115, 48));
+  
 }
 
 hr {
@@ -190,10 +202,9 @@ h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-i.fa-solid.fa-circle-plus.fa-beat {
-  font-size: 35px;
-  color: rgb(255, 6, 6);
-}
+
+
+
 p {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -611,9 +622,11 @@ img.img-fluid {
   margin-left: auto;
   margin-right: auto;
 }
+
 img.img-fluid.blog {
   height: auto;
 }
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -3031,17 +3044,23 @@ a.btn.disabled,
 fieldset:disabled a.btn {
   pointer-events: none;
 }
+
 button.btn.btn-default {
   color: rgb(255, 0, 0) !important;
   border: 1px solid rgb(0, 255, 213);
   background-color: #27A800;
 }
+
 .btn-primary {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
 }
 
+input#upload-btn {
+  display: none;
+  visibility: hidden;
+}
 .btn-primary:hover {
   color: #fff;
   background-color: #0069d9;
@@ -3275,7 +3294,9 @@ button.btn.btn-default {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
   box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
 }
-
+i.fa-sharp.fa-solid.fa-cart-plus {
+  font-size: 35px;
+}
 .btn-light {
   color: #212529;
   background-color: #f8f9fa;
@@ -4460,7 +4481,16 @@ input[type="button"].btn-block {
   border-color: #007bff;
   background-color: #007bff;
 }
-
+span.mr-2.price-dc {
+  text-decoration: line-through;
+  color: #b3b3b3 !important;
+  margin-right:10% !important;
+}
+.red-heart{
+  color: rgb(255, 255, 255) !important;
+  background-color: red;
+  
+}
 .custom-checkbox .custom-control-input:indeterminate~.custom-control-label::after {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3e%3cpath stroke='%23fff' d='M0 2h4'/%3e%3c/svg%3e");
 }
@@ -9187,7 +9217,10 @@ button.bg-dark:focus {
 .mx-2 {
   margin-left: 0.5rem !important;
 }
-
+img.img-account-profile.rounded-circle.mb-2 {
+  width: 300px;
+  height: 300px;
+}
 .m-3 {
   margin: 1rem !important;
 }
@@ -12926,6 +12959,7 @@ h5,
 .ftco-cart button,
 .ftco-cart .form-control {
   height: 54px !important;
+  width: 54px;
   text-align: center;
   bordeR: 1px solid rgba(0, 0, 0, 0.05) !important;
   color: #000000 !important;
@@ -14258,6 +14292,7 @@ textarea.form-control {
 
 .comment-list li .vcard img {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 

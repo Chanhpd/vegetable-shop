@@ -1,6 +1,7 @@
 <?php
 
 require("../DB/dbhelper.php");
+
 require('../vendor/autoload.php');
 require("../config.php");
 
@@ -25,8 +26,7 @@ if (
           $_POST['srcImg'];
      $data =   (new UploadApi())->upload($img);
      $url = $data['secure_url'];
-     $create_at =
-          date("Y/m/d");
+     $create_at = date("Y/m/d");
      $price = $_POST['price'];
      $sale = $_POST['sale'];
      $desc = $_POST['desc'];
@@ -67,14 +67,11 @@ if (
                                         <div class="form-row">
                                              <div class="form-group col-md-6">
                                                   <label for="inputName">Name Product</label>
-                                                  <input type="text" class="form-control" required name="name"
-                                                       id="inputName" placeholder="Full Name" />
+                                                  <input type="text" class="form-control" required name="name" id="inputName" placeholder="Full Name" />
                                              </div>
                                              <div class="form-group col-md-6">
                                                   <label for="inputImage">Image</label>
-                                                  <input required type="file" class="form-control"
-                                                       onchange="readURL(this);" id="inputImage"
-                                                       accept="image/png, image/jpeg" />
+                                                  <input required type="file" class="form-control" onchange="readURL(this);" id="inputImage" accept="image/png, image/jpeg" />
                                                   <img alt="" hidden id="contain-img">
                                                   <!-- " -->
                                              </div>
@@ -82,13 +79,11 @@ if (
                                         <div class="form-row">
                                              <div class="form-group col-md-6">
                                                   <label for="inputPrice">Price</label>
-                                                  <input required type="number" name="price" class="form-control"
-                                                       id="inputPrice" placeholder="Price" />
+                                                  <input required type="number" name="price" class="form-control" id="inputPrice" placeholder="Price" />
                                              </div>
                                              <div class="form-group col-md-6">
                                                   <label for="inputSale">Sale</label>
-                                                  <input required type="number" name="sale" class="form-control"
-                                                       id="inputSale" placeholder="Sale" />
+                                                  <input required type="number" name="sale" class="form-control" id="inputSale" placeholder="Sale" />
                                              </div>
 
                                         </div>
@@ -106,23 +101,20 @@ if (
                                              <div class="form-group col-md-6">
                                                   <label for="inputState">Size</label>
                                                   <div class="form-check">
-                                                       <input class="form-check-input" type="checkbox" value=""
-                                                            name="sizeM" id="sizeM" />
+                                                       <input class="form-check-input" type="checkbox" value="" name="sizeM" id="sizeM" />
                                                        <label class="form-check-label" for="sizeM">
                                                             Size M
                                                        </label>
                                                   </div>
 
                                                   <div class="form-check">
-                                                       <input class="form-check-input" name="sizeL" type="checkbox"
-                                                            value="" id="Size L" checked />
+                                                       <input class="form-check-input" name="sizeL" type="checkbox" value="" id="Size L" checked />
                                                        <label class="form-check-label" for="Size L">
                                                             Size L
                                                        </label>
                                                   </div>
                                                   <div class="form-check">
-                                                       <input name="sizeXL" class="form-check-input" type="checkbox"
-                                                            value="" id="sizeXL" />
+                                                       <input name="sizeXL" class="form-check-input" type="checkbox" value="" id="sizeXL" />
                                                        <label class="form-check-label" for="sizeXL">
                                                             Size XL
                                                        </label>
@@ -131,8 +123,7 @@ if (
                                         </div>
                                         <div class="form-group">
                                              <label for="inputDesc">Description</label>
-                                             <textarea required type="text" name="desc" class="form-control"
-                                                  id="inputDesc" placeholder="Description" rows="5"></textarea>
+                                             <textarea required type="text" name="desc" class="form-control" id="inputDesc" placeholder="Description" rows="5"></textarea>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -171,41 +162,41 @@ if (
      <!-- Custom scripts for all pages-->
      <script src="js/sb-admin-2.min.js"></script>
      <script>
-     function readURL(input) {
-          if (input.files && input.files[0]) {
-               var reader = new FileReader();
-               reader.onload = function(e) {
-                    $('#contain-img').attr('src', e.target.result);
-               };
-               reader.readAsDataURL(input.files[0]);
+          function readURL(input) {
+               if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                         $('#contain-img').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+               }
           }
-     }
-     $(document).ready(function() {
+          $(document).ready(function() {
 
-          $("#form_add_product").submit(function(event) {
-               event.preventDefault();
-               $.ajax({
-                    type: "POST",
-                    url: "./addProducts.php",
-                    data: {
-                         name: $("#inputName").val(),
-                         srcImg: $("#contain-img").attr('src'),
-                         price: $("#inputPrice").val(),
-                         sale: $("#inputSale").val(),
-                         cate: $("#inputCate").val(),
-                         desc: $("#inputDesc").val(),
-                    },
+               $("#form_add_product").submit(function(event) {
+                    event.preventDefault();
+                    $.ajax({
+                         type: "POST",
+                         url: "./addProducts.php",
+                         data: {
+                              name: $("#inputName").val(),
+                              srcImg: $("#contain-img").attr('src'),
+                              price: $("#inputPrice").val(),
+                              sale: $("#inputSale").val(),
+                              cate: $("#inputCate").val(),
+                              desc: $("#inputDesc").val(),
+                         },
 
-                    success: function(response) {
-                         if (response === "success") {
-                              alert("Thêm sản phẩm thành công")
-                              location.reload();
-                         } else
-                              alert(response)
-                    }
+                         success: function(response) {
+                              if (response === "success") {
+                                   alert("Thêm sản phẩm thành công")
+                                   location.reload();
+                              } else
+                                   alert(response)
+                         }
+                    })
                })
-          })
-     });
+          });
      </script>
 </body>
 

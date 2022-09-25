@@ -1,7 +1,9 @@
 <?php
+
 include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
+
 $id = getGet('id');
 if ($id == null) {
   $id = 1;
@@ -75,7 +77,7 @@ $list = executeResult($sql);
               echo '
                   <li class="comment">
                     <div class="vcard bio">
-                      <img src="images/' . $item['thumb'] . '" alt="Image placeholder">
+                      <img src="' . $item['thumb'] . '" alt="Image placeholder">
                     </div>
                     <div class="comment-body">
                       <h3>' . $item['name_user'] . '</h3>
@@ -91,24 +93,27 @@ $list = executeResult($sql);
 
           <div class="comment-form-wrap pt-5">
             <h3 class="mb-5">Leave a comment</h3>
-            <form action="" method="post" class="p-5 bg-light">
-              <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="text" name="name_user" class="form-control" id="name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" name="email" class="form-control" id="email" required>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary button">
-              </div>
-
-            </form>
+            <?php
+              if(isset($_SESSION['user'])){
+                  echo '<form action="" method="post" class="p-5 bg-light">
+                  <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" cols="20" rows="5" class="form-control"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary button">
+                  </div>
+                </form>';
+              }
+              else {
+                echo '<div class="p-5 bg-light">
+                <div>
+                  To comment on the artical , <a href="login/login.php"><b>login</b></a>
+                </div>
+              </div>';
+              }
+            ?>
+            
           </div>
         </div>
       </div> <!-- .col-md-8 -->
@@ -213,23 +218,21 @@ include_once('./inc/footer.php')
   $(document).ready(function() {
     $('.button').click(function(e) {
       e.preventDefault();
-      var $name = $('#name').val();
-      var $email = $('#email').val();
+      // var $name = $('#name').val();
+      // var $email = $('#email').val();
       var $message = $('#message').val();
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       var $blogId = urlParams.get('id');
-      
+
 
       $.ajax({
         url: 'api/hanleComment.php',
         type: 'post',
         dataType: 'html',
         data: {
-          name: $name,
-          email: $email,
           message: $message,
-          blogId : $blogId
+          blogId: $blogId
         }
       }).done(function(rs) {
         $('#result').html(rs);

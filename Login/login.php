@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $rs = executeResult($sql, true);
     $_SESSION["user"] = $rs['name'];
     if ($_SESSION["user"] != null) {
-        header('Location: ../index.php');
+        header('Location: ../profile.php');
     }
 }
 ?>

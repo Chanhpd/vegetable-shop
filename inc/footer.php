@@ -2,7 +2,7 @@
 	<div class="container py-4">
 		<div class="row d-flex justify-content-center py-5">
 			<div class="col-md-6">
-				<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+				<h2 style="font-size: 22px;" class="mb-0">Subscribe to our Newsletter</h2>
 				<span>Get e-mail updates about our latest shops and special offers</span>
 			</div>
 			<div class="col-md-6 d-flex align-items-center">
@@ -29,7 +29,7 @@
 			<div class="col-md">
 				<div class="ftco-footer-widget mb-4">
 					<h2 class="ftco-heading-2">Vegefoods</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+					<p>We guarantee to provide you with the greatest and best quality products.</p>
 					<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 						<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
 						<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -80,13 +80,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-
 				<p>
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					 &copy;<script>
 						document.write(new Date().getFullYear());
-					</script> All rights reserved | This Web is write <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="" target="_blank">Lemon</a>
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</script> All rights reserved |  <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="" target="_blank">Lemon</a>
 				</p>
 			</div>
 		</div>

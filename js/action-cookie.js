@@ -25,8 +25,10 @@ function addToWishList(id) {
         'id': id,
        
     }, function(data) {
-        // location.reload();
-        alert('Added to the favorite list');
+        // alert('Added to the favorite list');
+        $(".btn.btn-success.heart").click(function() {
+            $(this).toggleClass("red-heart");
+          });
     })
     
 }

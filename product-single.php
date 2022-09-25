@@ -56,7 +56,12 @@ if (isset($_COOKIE['cart'])) {
 						<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 					</p>
 				</div>
-				<p class="price"><span>$<?= number_format($product['price'], '2', '.', '.') ?></span></p>
+				<!-- <p class="price"><span>$<?= number_format($product['price'], '2', '.', '.') ?></span></p> -->
+				<?php if ($product['sale'] == null) {
+					echo '<p class="price"><span>$' . number_format($product['price'], '2', '.', '.') . '</span></p>';
+				} else echo '<p class="price"><span class="mr-2 price-dc">$'. number_format($product['price'], '2', '.', '.') .'</span>
+				<span class="price-sale">$'. number_format($product['price']*(100-$product['sale'])*0.01, '2', '.', '.') .'</span></p>';
+				?>
 				<p><?= $product['des'] ?>
 				</p>
 				<div class="row mt-4">
@@ -107,7 +112,7 @@ if (isset($_COOKIE['cart'])) {
 			<div class="col-md-12 heading-section text-center ftco-animate">
 				<span class="subheading">Products</span>
 				<h2 class="mb-4">Related Products</h2>
-				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+
 			</div>
 		</div>
 	</div>
@@ -120,18 +125,18 @@ if (isset($_COOKIE['cart'])) {
 
 			foreach ($result as $row) {
 
-				if ($row['status'] !== null) {
+				if ($row['sale'] !== null) {
 					echo '<div class="col-md-6 col-lg-3 ftco-animate">
 	<div class="product">
 		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
-			<span class="status">' . $row['status'] . '%</span>
+			<span class="status">' . $row['sale'] . '%</span>
 			<div class="overlay"></div>
 		</a>
 		<div class="text py-3 pb-4 px-3 text-center">
 			<h3><a href="#">' . $row['name'] . '</a></h3>
 			<div class="d-flex">
 				<div class="pricing">
-					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['status']) * 0.01, '2', '.', '.') . '$</span></p>
+					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['sale']) * 0.01, '2', '.', '.') . '$</span></p>
 				</div>
 			</div>
 			';

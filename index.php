@@ -194,7 +194,7 @@
  												</button>
  												
  												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
- 													<span><i class="fa-solid fa-heart fa-beat"></i></span>
+ 													<span><i class="ion-ios-heart"></i></span>
  												</button>
  											</div>
  										</div>
@@ -220,8 +220,8 @@
  			<div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
  				<span class="subheading">Best Price For You</span>
  				<h2 class="mb-4">Deal of the day</h2>
- 				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
- 				<h3><a href="#">Spinach</a></h3>
+ 				<p>Best discount goods today, you can buy at extremely preferential prices</p>
+ 				<h3><a href="shop.php">Salad</a></h3>
  				<span class="price">$10 <a href="#">now $5 only</a></span>
  				<div id="timer" class="d-flex mt-5">
  					<!-- <div class="time" id="days"></div> -->
@@ -240,7 +240,7 @@
  			<div class="col-md-7 heading-section ftco-animate text-center">
  				<span class="subheading">Testimony</span>
  				<h2 class="mb-4">Our satisfied customer says</h2>
- 				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+ 				<p>The best recommends from reliable guests help you better understand us.</p>
  			</div>
  		</div>
  		<div class="row ftco-animate">
@@ -317,7 +317,7 @@
  <script src="js/popper.min.js"></script>
  <script src="js/bootstrap.min.js"></script>
  <script src="js/jquery.easing.1.3.js"></script>
- <script src="js/jquery.waypoints.min.js"></script>
+ <!-- <script src="js/jquery.waypoints.min.js"></script> -->
  <script src="js/jquery.stellar.min.js"></script>
  <script src="js/owl.carousel.min.js"></script>
  <script src="js/jquery.magnific-popup.min.js"></script>
@@ -352,7 +352,6 @@
 		})
 	})
 </script>
-
  </body>
 
  </html>

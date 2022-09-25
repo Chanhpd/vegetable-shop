@@ -88,7 +88,6 @@
 							<div class="dropdown-menu" aria-labelledby="dropdown04">
 								<a class="dropdown-item" href="profile.php"><i class="fa-sharp fa-solid fa-address-card"></i> Profile</a>
 								<a class="dropdown-item" href="Login/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
-								
 							</div>
 						</li>';
 						}

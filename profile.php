@@ -1,10 +1,17 @@
 <?php
+
+require('./vendor/autoload.php');
+require("./config.php");
+
+use Cloudinary\Api\Upload\UploadApi;
+
 include_once('./inc/header.php');
 require('./DB/dbhelper.php');
 $name = $_SESSION['user'];
 $sql = "select * from user where name='$name'";
 $user = executeResult($sql, true);
-// $id = $user['id'];
+
+$_SESSION['img'] = $user['avatar'];
 
 //update information
 if (isset($_POST['sub-pro'])) {
@@ -13,9 +20,10 @@ if (isset($_POST['sub-pro'])) {
     $address = $_POST['address'];
     $sql = "update user set name = '$name', phone = '$phone', address='$address' where email ='" . $user['email'] . "'";
     execute($sql);
-    $_SESSION['user'] = $name;
+
     echo '<script>alert("Save profile successful")</script>';
     echo "<meta http-equiv='refresh' content='0'>";
+    $_SESSION['user'] = $name;
 }
 // update password
 if (isset($_POST['save-pass'])) {
@@ -32,6 +40,16 @@ if (isset($_POST['save-pass'])) {
     } elseif ($pass != $pass_corr) {
         echo '<script>alert("Incorrect password")</script>';
     } else echo '<script>alert("Password is Wrong")</script>';
+}
+// change profile picture
+if (isset($_POST['srcImg'])) {
+    $img = $_POST['srcImg'];
+    var_dump($img);
+    $data = (new UploadApi())->upload($img);
+    $url = $data['secure_url'];
+    $sql = "update user set avatar = '$url' where email ='" . $user['email'] . "'";
+    execute($sql);
+    $_SESSION['img']= $url;
 }
 ?>
 
@@ -51,11 +69,21 @@ if (isset($_POST['save-pass'])) {
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" id="contain-img" src="<?= $user['avatar'] ?>" alt="">
+
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                    <form id="form-save-img">
+                        <div>
+                        <label for="upload-btn" class="btn btn-primary"><i class="fa fa-upload"></i>Upload Image</label>
+                        <input class="btn btn-primary file" id="upload-btn" name="input-file" type="file" onchange="readURL(this);"></input>
+                        </div>
+
+                        <input type="submit" name="save-img" class="btn btn-primary" value="Save">
+
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -68,7 +96,7 @@ if (isset($_POST['save-pass'])) {
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <input name="name" class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="<?= $user['name'] ?>">
+                            <input name="name" class="form-control" id="inputUsername" type="text" readonly="readonly" placeholder="Enter your username" value="<?= $user['name'] ?>">
                         </div>
                         <!-- Form Row-->
 
@@ -126,3 +154,62 @@ if (isset($_POST['save-pass'])) {
         </div>
     </div>
 </div>
+
+
+<?php
+include_once('./inc/footer.php')
+?>
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
+    </svg></div>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="js/google-map.js"></script>
+<script src="js/main.js"></script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#contain-img').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function() {
+
+        $("#form-save-img").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "./profile.php",
+                data: {
+                    srcImg: $("#contain-img").attr('src')
+                },
+
+                success: function(response) {
+                     alert("Change success");
+                }
+            })
+        })
+    });
+</script>
