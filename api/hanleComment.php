@@ -19,13 +19,14 @@ if ($name != null && $message != null) {
     $sql = "select * from comments where blog_id = $blogId order by created_at DESC";
     $list = executeResult($sql);
     foreach ($list as $item) {
+      $tg = date_create($item['created_at']);
         echo '<li class="comment">
         <div class="vcard bio">
           <img src="' . $item['thumb'] . '" alt="Image placeholder">
         </div>
         <div class="comment-body">
           <h3>' . $item['name_user'] . '</h3>
-          <div class="meta">' . $item['created_at'] . '</div>
+          <div class="meta">' .date_format($tg, "H:i:a M d, Y") . '</div>
           <p>' . $item['content'] . '</p>
           
         </div>

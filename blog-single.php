@@ -74,6 +74,7 @@ $list = executeResult($sql);
           <ul class="comment-list" id="result">
             <?php
             foreach ($list as $item) {
+              $tg = date_create($item['created_at']);
               echo '
                   <li class="comment">
                     <div class="vcard bio">
@@ -81,7 +82,7 @@ $list = executeResult($sql);
                     </div>
                     <div class="comment-body">
                       <h3>' . $item['name_user'] . '</h3>
-                      <div class="meta">' . $item['created_at'] . '</div>
+                      <div class="meta">' . date_format($tg, "H:i:a M d, Y") . '</div>
                       <p>' . $item['content'] . '</p>
                     </div>
                   </li>
