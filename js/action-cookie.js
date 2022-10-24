@@ -20,16 +20,29 @@ function deleteCart(id) {
 
 // wish list
 function addToWishList(id) {
+
     $.post('api/cookie.php', {
         'action': 'addW',
         'id': id,
        
     }, function(data) {
-        // alert('Added to the favorite list');
+        // alert('');
         $(".btn.btn-success.heart").click(function() {
             $(this).toggleClass("red-heart");
           });
-    })
+          
+    }).then(function() 
+    {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Added success !',
+            showConfirmButton: false,
+            timer: 1000
+          })
+    }) 
+
+
     
 }
 function deleteToWishList(id) {

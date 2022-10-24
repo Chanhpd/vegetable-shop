@@ -97,7 +97,7 @@ include('./inc/header.php');
           <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 text-center">
               <div class="text">
-                <strong class="number" data-number="8225">0</strong>
+                <strong class="number" data-number="8225">8225</strong>
                 <span>Happy Customers</span>
               </div>
             </div>
@@ -105,7 +105,7 @@ include('./inc/header.php');
           <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 text-center">
               <div class="text">
-                <strong class="number" data-number="45">0</strong>
+                <strong class="number" data-number="45">45</strong>
                 <span>Branches</span>
               </div>
             </div>
@@ -113,7 +113,7 @@ include('./inc/header.php');
           <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 text-center">
               <div class="text">
-                <strong class="number" data-number="560">0</strong>
+                <strong class="number" data-number="560">560</strong>
                 <span>Partner</span>
               </div>
             </div>
@@ -121,7 +121,7 @@ include('./inc/header.php');
           <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
             <div class="block-18 text-center">
               <div class="text">
-                <strong class="number" data-number="89">0</strong>
+                <strong class="number" data-number="89">89</strong>
                 <span>Awards</span>
               </div>
             </div>

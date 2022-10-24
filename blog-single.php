@@ -125,7 +125,7 @@ $list = executeResult($sql);
               <span class="icon ion-ios-search"></span>
               <input type="text" class="form-control" placeholder="Search...">
             </div>
-          </form>
+          
         </div>
         <div class="sidebar-box ftco-animate">
           <h3 class="heading">Categories</h3>
@@ -219,13 +219,11 @@ include_once('./inc/footer.php')
   $(document).ready(function() {
     $('.button').click(function(e) {
       e.preventDefault();
-      // var $name = $('#name').val();
-      // var $email = $('#email').val();
       var $message = $('#message').val();
+
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       var $blogId = urlParams.get('id');
-
 
       $.ajax({
         url: 'api/hanleComment.php',

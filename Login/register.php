@@ -1,6 +1,8 @@
 <?php
 require('../DB/dbhelper.php');
-if (isset($_POST['submit'])) {
+$mess = '';
+if (isset($_POST['submit']) && $_POST['name'] && $_POST['email']) {
+
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -8,16 +10,26 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['password'];
     $re_pass = $_POST['repeat-password'];
     $created_at = date('Y-m-d H:i:s');
-    if ($pass == $re_pass) {
-        $sql = "Insert into user (id_role,name,password,email,phone,address,created_at) 
-            values(2,'$name', '$pass','$email','$phone','$address','$created_at')
-            ";
-        execute($sql);
+    // if($name =='' && $email==''&&$phone==''&& $address =='' && $pass =='' ){
+    //     $mess = "No empty input";
+    // }
+    $sqlo = "select email from user where email ='$email'";
+    $rs = executeResult($sqlo);
+    if ($rs != null) {
+        $mess = 'Email is exist !';
     } else {
-        echo '<script>alert("Password is not valid")</script>';
+        if ($pass == $re_pass) {
+            $sql = "Insert into user (id_role,name,password,email,phone,address,created_at) 
+                values(2,'$name', '$pass','$email','$phone','$address','$created_at')
+                ";
+            execute($sql);
+        } else {
+            echo '<script>alert("Password is not valid")</script>';
+        }
+        echo '<script>alert("Register successful")</script>';
     }
-    echo '<script>alert("Register successful")</script>';
-    header('Location: login.php');
+
+    // header('Location: login.php');
 }
 ?>
 <!DOCTYPE html>
@@ -40,7 +52,8 @@ if (isset($_POST['submit'])) {
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-
+                                <p style="color:red ;">
+                                    <?= $mess ?></p>
                                 <form method="POST">
 
                                     <div class="form-outline mb-4">

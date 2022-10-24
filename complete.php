@@ -133,7 +133,7 @@ if (count($idList) > 0) {
 
                             <form action="" method="POST">
                                 <a class="btn btn-success" href="print-invoice.php?id=<?= $id ?>" id="invoice-print"><i class="fa fa-print"></i> Print Invoice</a>
-                                <input type="submit" class="btn btn-danger" name="btn-mail" value=" Mail Invoice"><i class="fa fa-envelope-o"></i></input>
+                                <button type="submit" class="btn btn-danger" name="btn-mail"><i class="fa fa-envelope-o"></i> Mail Invoice</button>
                             </form>
                             <?php
                             if (isset($_POST['btn-mail'])) {

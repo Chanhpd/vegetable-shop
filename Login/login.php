@@ -1,14 +1,19 @@
 <?php
 require('../DB/dbhelper.php');
 session_start();
+$message = '';
 if (isset($_POST['submit'])) {
     $acc = $_POST['account'];
     $pass = $_POST['password'];
     $sql = "select * from user where email = '$acc' and password='$pass'";
     $rs = executeResult($sql, true);
-    $_SESSION["user"] = $rs['name'];
-    if ($_SESSION["user"] != null) {
-        header('Location: ../profile.php');
+    if ($rs == null) {
+        $message = 'Wrong account or password. Please try again !';
+    } else {
+        $_SESSION["user"] = $rs['name'];
+        if ($_SESSION["user"] != null) {
+            header('Location: ../profile.php');
+        }
     }
 }
 ?>
@@ -37,7 +42,9 @@ if (isset($_POST['submit'])) {
                                         <img src="https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902407/product/mint_vheujt.jpg" style="width: 185px;" alt="logo">
                                         <h4 class="mt-1 mb-5 pb-1">We are The Vegefoods Team</h4>
                                     </div>
-
+                                    <h6 style="color:red">
+                                        <?=$message?>
+                                    </h6>
                                     <form method="POST">
                                         <div class="form-outline mb-4">
                                             <input type="text" id="form2Example11" name="account" class="form-control" placeholder="Email address" />

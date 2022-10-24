@@ -28,6 +28,7 @@
 		<link rel="stylesheet" href="css/flaticon.css">
 		<link rel="stylesheet" href="css/icomoon.css">
 		<link rel="stylesheet" href="css/style.css">
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		
 		<script type="text/javascript">
 			$(document).on('click', 'ul li', function() {
