@@ -80,9 +80,11 @@ if (count($idList) > 0) {
 							<td class="price">$' . number_format($item['price'], '2', '.', '.')  . '</td>
 
 							<td class="quantity">
-								<div class="input-group mb-3">
-									<input type="text" name="quantity" class="quantity form-control input-number" value="' . $num . '" min="1" max="100">
-								</div>
+								
+								
+								<h6>' . $num . '</h6>
+									
+								
 							</td>
 
 							<td class="total">$' . number_format($item['price'] * $num, '2', '.', '.') . '</td>
@@ -90,14 +92,14 @@ if (count($idList) > 0) {
 							}
 							?>
 							<!-- END TR-->
-
+							
 
 					</table>
 				</div>
 			</div>
 		</div>
 		<div class="row justify-content-end">
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+			<div class="col-lg-5 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Coupon Code</h3>
 					<p>Enter your coupon code if you have one</p>
@@ -110,7 +112,7 @@ if (count($idList) > 0) {
 				</div>
 				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
 			</div>
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+			<!-- <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Estimate shipping and tax</h3>
 					<p>Enter your destination to get a shipping estimate</p>
@@ -130,8 +132,8 @@ if (count($idList) > 0) {
 					</form>
 				</div>
 				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Estimate</a></p>
-			</div>
-			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+			</div> -->
+			<div class="col-lg-5 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Cart Totals</h3>
 					<?php

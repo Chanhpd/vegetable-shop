@@ -39,8 +39,8 @@ if (isset($_POST['submit'])) {
                                 <div class="card-body p-md- mx-md-8">
 
                                     <div class="text-center">
-                                        <img src="https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902407/product/mint_vheujt.jpg" style="width: 185px;" alt="logo">
-                                        <h4 class="mt-1 mb-5 pb-1">We are The Vegefoods Team</h4>
+                                        <img src="../images/img_login.webp" style="width: 185px;" alt="logo">
+                                        <h4 class="mt-1 mb-5 pb-1 title">We are The Vegefoods Team</h4>
                                     </div>
                                     <h6 style="color:red">
                                         <?=$message?>
@@ -72,10 +72,8 @@ if (isset($_POST['submit'])) {
                             </div>
                             <div class="col-lg-4 d-flex align-items-center gradient-custom-2">
                                 <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                                    <h4 class="mb-4">We are more than just a company</h4>
-                                    <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <h4 class="mb-4 text-center">We are more than just a company</h4>
+                                    <p class="small mb-0 text-center">Sign up for the best experience</p>
                                 </div>
                             </div>
                         </div>

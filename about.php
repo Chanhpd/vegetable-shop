@@ -17,7 +17,7 @@ include('./inc/header.php');
 <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
+      <div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/partner_about.jpg);">
         <a href="https://vimeo.com/97697006" class="icon popup-vimeo d-flex justify-content-center align-items-center">
           <span class="icon-play"></span>
         </a>
