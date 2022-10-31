@@ -162,8 +162,13 @@ $dataCate = executeResult($sql);
                data: {
                     idCate: id
                },
-               success: function() {
-                    location.reload();
+               success: function(response) {
+                    if (response.trim() === "success") {
+                         alert("Xóa category thành công!")
+                         location.reload();
+                    } else {
+                         alert("Không thể xóa category này!")
+                    }
                }
           })
      }
@@ -192,9 +197,8 @@ $dataCate = executeResult($sql);
                     id: $("#hidden_id").val(),
                     name: $("#inputName").val(),
                },
-               success: function(res) {
-                    console.log(res);
-                    alert("Chỉnh sửa sản phẩm thành công")
+               success: function() {
+                    alert("Chỉnh sửa category thành công")
                     location.reload();
                }
           })

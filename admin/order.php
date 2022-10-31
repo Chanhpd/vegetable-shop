@@ -109,10 +109,10 @@ $dataOrder = executeResult($sql);
      <script src="js/sb-admin-2.min.js"></script>
      <script>
      function handlerDelete(id) {
-          alert("Bạn có chắc chắn muốn xóa category này!");
+          alert("Bạn có chắc chắn muốn xóa order này!");
           $.ajax({
                type: "POST",
-               url: "./deleteCate.php",
+               url: "./deleteOrder.php",
                data: {
                     idOrderDetail: id
                },
