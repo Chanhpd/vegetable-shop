@@ -89,3 +89,13 @@
 		</div>
 	</div>
 </footer>
+
+<!-- Floating Contact Widgets -->
+<div class="floating-contact position-fixed" style="bottom: 25px; right: 25px; z-index: 1040;">
+	<a href="tel:085868788" class="btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center mb-2" style="width: 52px; height: 52px;" title="Gọi Hotline">
+		<i class="fa-solid fa-phone text-white h5 mb-0"></i>
+	</a>
+	<a href="https://zalo.me" target="_blank" class="btn btn-info rounded-circle shadow-lg d-flex align-items-center justify-content-center" style="width: 52px; height: 52px;" title="Chat Zalo">
+		<span class="font-weight-bold text-white small">Zalo</span>
+	</a>
+</div>

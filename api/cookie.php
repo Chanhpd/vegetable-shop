@@ -1,15 +1,33 @@
 <?php
-require_once('../db/util.php');
-// cart
+if (file_exists('DB/util.php')) {
+	require_once('DB/util.php');
+} else {
+	require_once('../DB/util.php');
+}
+
+header('Content-Type: application/json; charset=utf-8');
+
 if (!empty($_POST)) {
 	$action = getPost('action');
-	$id = getPost('id');
-	$num = getPost('num');
+	$id = intval(getPost('id'));
+	$num = intval(getPost('num'));
 
 	$cart = [];
 	if (isset($_COOKIE['cart'])) {
 		$json = $_COOKIE['cart'];
-		$cart = json_decode($json, true); 
+		$cart = json_decode($json, true);
+		if (!is_array($cart)) {
+			$cart = [];
+		}
+	}
+
+	$wish = [];
+	if (isset($_COOKIE['wish'])) {
+		$json = $_COOKIE['wish'];
+		$wish = json_decode($json, true);
+		if (!is_array($wish)) {
+			$wish = [];
+		}
 	}
 
 	switch ($action) {
@@ -22,7 +40,6 @@ if (!empty($_POST)) {
 					break;
 				}
 			}
-
 			if (!$isFind) {
 				$cart[] = [
 					'id' => $id,
@@ -31,6 +48,21 @@ if (!empty($_POST)) {
 			}
 			setcookie('cart', json_encode($cart), time() + 30 * 24 * 60 * 60, '/');
 			break;
+
+		case 'update':
+			for ($i = 0; $i < count($cart); $i++) {
+				if ($cart[$i]['id'] == $id) {
+					if ($num <= 0) {
+						array_splice($cart, $i, 1);
+					} else {
+						$cart[$i]['num'] = $num;
+					}
+					break;
+				}
+			}
+			setcookie('cart', json_encode($cart), time() + 30 * 24 * 60 * 60, '/');
+			break;
+
 		case 'delete':
 			for ($i = 0; $i < count($cart); $i++) {
 				if ($cart[$i]['id'] == $id) {
@@ -40,40 +72,21 @@ if (!empty($_POST)) {
 			}
 			setcookie('cart', json_encode($cart), time() + 30 * 24 * 60 * 60, '/');
 			break;
-	}
-}
 
-// wish list
-if (!empty($_POST)) {
-	$action = getPost('action');
-	$id = getPost('id');
-
-
-	$wish = [];
-	if (isset($_COOKIE['wish'])) {
-		$json = $_COOKIE['wish'];
-		$wish = json_decode($json, true);
-	}
-
-	switch ($action) {
 		case 'addW':
 			$isFind = false;
 			for ($i = 0; $i < count($wish); $i++) {
 				if ($wish[$i]['id'] == $id) {
-
 					$isFind = true;
 					break;
 				}
 			}
-
 			if (!$isFind) {
-				$wish[] = [
-					'id' => $id,
-
-				];
+				$wish[] = ['id' => $id];
 			}
 			setcookie('wish', json_encode($wish), time() + 30 * 24 * 60 * 60, '/');
 			break;
+
 		case 'deleteW':
 			for ($i = 0; $i < count($wish); $i++) {
 				if ($wish[$i]['id'] == $id) {
@@ -84,4 +97,19 @@ if (!empty($_POST)) {
 			setcookie('wish', json_encode($wish), time() + 30 * 24 * 60 * 60, '/');
 			break;
 	}
+
+	$cartCount = 0;
+	foreach ($cart as $item) {
+		if (isset($item['num'])) {
+			$cartCount += intval($item['num']);
+		}
+	}
+
+	echo json_encode([
+		'status' => 'success',
+		'cartCount' => $cartCount,
+		'wishCount' => count($wish)
+	]);
+	exit();
 }
+

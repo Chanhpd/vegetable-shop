@@ -80,8 +80,8 @@ require_once('api/check-form.php');
 					</div>
 					<!--form || END -->
 			</div>
-			<div class="col-xl-5">
-				<div class="row mt-5 pt-3">
+			<div class="col-xl-5" style="position: sticky; top: 90px; align-self: flex-start;">
+				<div class="row mt-3">
 					<div class="col-md-12 d-flex mb-5">
 						<div class="cart-detail cart-total p-3 p-md-4">
 							<h3 class="billing-heading mb-4">Cart Total</h3>
@@ -90,17 +90,19 @@ require_once('api/check-form.php');
 							if (isset($_COOKIE['cart'])) {
 								$json = $_COOKIE['cart'];
 								$cart = json_decode($json, true);
+								if (!is_array($cart)) {
+									$cart = [];
+								}
 							}
 							$idList = [];
 							foreach ($cart as $item) {
-								$idList[] = $item['id'];
+								if (isset($item['id'])) {
+									$idList[] = intval($item['id']);
+								}
 							}
 							if (count($idList) > 0) {
-								$idList = implode(',', $idList);
-								//[2, 5, 6] => 2,5,6
-
-								$sql = "select * from product where id in ($idList)";
-
+								$idStr = implode(',', $idList);
+								$sql = "select * from product where id in ($idStr)";
 								$cartList = executeResult($sql);
 							} else {
 								$cartList = [];
@@ -108,37 +110,48 @@ require_once('api/check-form.php');
 
 							$total = 0;
 							foreach ($cartList as $item) {
-
 								$num = 0;
 								foreach ($cart as $val) {
 									if ($val['id'] == $item['id']) {
-										$num = $val['num'];
-										$total += $num * $item['price'];
+										$num = intval($val['num']);
+										$total += $num * floatval($item['price']);
 										break;
 									}
 								}
 							}
 
-							$delivery = $total * .08;
-							$discount = $total * 0.01;
-							$totalAll = $total - $delivery - $discount;
+							$delivery = ($total > 0 && $total < 100) ? 5.00 : 0.00;
+							$discount = 0;
+
+							if (isset($_SESSION['coupon'])) {
+								$c = $_SESSION['coupon'];
+								if ($c['type'] === 'percent') {
+									$discount = $total * ($c['val'] / 100);
+								} else if ($c['type'] === 'fixed') {
+									$discount = $c['val'];
+								} else if ($c['type'] === 'freeship') {
+									$delivery = 0.00;
+								}
+							}
+
+							$totalAll = max(0, $total + $delivery - $discount);
 							?>
 							<p class="d-flex">
 								<span>Subtotal</span>
-								<span>$<?= number_format($total, '2', '.', '.') ?></span>
+								<span>$<?= number_format($total, 2, '.', '.') ?></span>
 							</p>
 							<p class="d-flex">
 								<span>Delivery</span>
-								<span>$<?= number_format($delivery, '2', '.', '.') ?></span>
+								<span>$<?= number_format($delivery, 2, '.', '.') ?></span>
 							</p>
 							<p class="d-flex">
 								<span>Discount</span>
-								<span>$<?= number_format($discount, '2', '.', '.') ?></span>
+								<span>-$<?= number_format($discount, 2, '.', '.') ?></span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
 								<span>Total</span>
-								<span>$<?= number_format($totalAll, '2', '.', '.') ?></span>
+								<span>$<?= number_format($totalAll, 2, '.', '.') ?></span>
 							</p>
 						</div>
 					</div>

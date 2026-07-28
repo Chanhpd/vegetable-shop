@@ -14587,3 +14587,25 @@ p.small.mb-0 {
     stroke-dashoffset: -136px;
   }
 }
+
+/* Custom UI/UX Enhancements */
+.product .img-prod {
+  overflow: hidden;
+}
+.product .img-prod img {
+  transition: transform 0.35s ease;
+}
+.product:hover .img-prod img {
+  transform: scale(1.06);
+}
+.heart.red-heart, .heart.red-heart i {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: #fff !important;
+}
+.floating-contact a {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.floating-contact a:hover {
+  transform: scale(1.12);
+}

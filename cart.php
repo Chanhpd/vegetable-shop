@@ -1,21 +1,41 @@
 <?php
 include('./inc/header.php');
 require_once('./DB/dbhelper.php');
+
+$couponMsg = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['coupon_code'])) {
+	$code = strtoupper(trim($_POST['coupon_code']));
+	if ($code === 'VEGE10') {
+		$_SESSION['coupon'] = ['code' => 'VEGE10', 'type' => 'percent', 'val' => 10];
+		$couponMsg = '<div class="alert alert-success mt-2">Coupon VEGE10 applied! (10% OFF)</div>';
+	} else if ($code === 'FREESHIP') {
+		$_SESSION['coupon'] = ['code' => 'FREESHIP', 'type' => 'freeship', 'val' => 0];
+		$couponMsg = '<div class="alert alert-success mt-2">Coupon FREESHIP applied! (Free Delivery)</div>';
+	} else if ($code === 'DISCOUNT20') {
+		$_SESSION['coupon'] = ['code' => 'DISCOUNT20', 'type' => 'fixed', 'val' => 20];
+		$couponMsg = '<div class="alert alert-success mt-2">Coupon DISCOUNT20 applied! ($20 OFF)</div>';
+	} else {
+		$couponMsg = '<div class="alert alert-danger mt-2">Invalid coupon code. Try VEGE10, FREESHIP, or DISCOUNT20</div>';
+	}
+}
+
 $cart = [];
 if (isset($_COOKIE['cart'])) {
 	$json = $_COOKIE['cart'];
 	$cart = json_decode($json, true);
+	if (!is_array($cart)) {
+		$cart = [];
+	}
 }
 $idList = [];
 foreach ($cart as $item) {
-	$idList[] = $item['id'];
+	if (isset($item['id'])) {
+		$idList[] = intval($item['id']);
+	}
 }
 if (count($idList) > 0) {
-	$idList = implode(',', $idList);
-	//[2, 5, 6] => 2,5,6
-
-	$sql = "select * from product where id in ($idList)";
-
+	$idStr = implode(',', $idList);
+	$sql = "select * from product where id in ($idStr)";
 	$cartList = executeResult($sql);
 } else {
 	$cartList = [];
@@ -54,46 +74,44 @@ if (count($idList) > 0) {
 							<?php
 							$total = 0;
 							foreach ($cartList as $item) {
-
 								$num = 0;
 								foreach ($cart as $val) {
 									if ($val['id'] == $item['id']) {
-										$num = $val['num'];
-										$total += $num * $item['price'];
+										$num = intval($val['num']);
+										$total += $num * floatval($item['price']);
 										break;
 									}
 								}
 
+								$pName = htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8');
+								$pImg = htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8');
+								$pPrice = floatval($item['price']);
+
 								echo '<tr class="text-center">
-							<td class="product-remove"><a href="" onclick="deleteCart(' . $item['id'] . ') "><span class="ion-ios-close"></span></a></td>
-							
-
+							<td class="product-remove"><a href="javascript:void(0)" onclick="deleteCart(' . intval($item['id']) . ')"><span class="ion-ios-close"></span></a></td>
 							<td class="image-prod">
-								<div class="img" style="background-image:url(' . $item['img'] . ');"></div>
+								<div class="img" style="background-image:url(' . $pImg . ');"></div>
 							</td>
-
 							<td class="product-name">
-								<h3>' . $item['name'] . '</h3>
-								
+								<h3>' . $pName . '</h3>
 							</td>
-
-							<td class="price">$' . number_format($item['price'], '2', '.', '.')  . '</td>
-
+							<td class="price">$' . number_format($pPrice, 2, '.', '.') . '</td>
 							<td class="quantity">
-								
-								
-								<h6>' . $num . '</h6>
-									
-								
+								<div class="input-group justify-content-center m-auto" style="max-width: 110px;">
+									<div class="input-group-prepend">
+										<button class="btn btn-outline-success btn-sm px-2" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num - 1) . ')">-</button>
+									</div>
+									<input type="text" class="form-control form-control-sm text-center px-0 font-weight-bold" value="' . $num . '" readonly style="max-width: 40px; background-color: #fff;">
+									<div class="input-group-append">
+										<button class="btn btn-outline-success btn-sm px-2" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num + 1) . ')">+</button>
+									</div>
+								</div>
 							</td>
-
-							<td class="total">$' . number_format($item['price'] * $num, '2', '.', '.') . '</td>
+							<td class="total">$' . number_format($pPrice * $num, 2, '.', '.') . '</td>
 						</tr>';
 							}
 							?>
-							<!-- END TR-->
-							
-
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -102,61 +120,53 @@ if (count($idList) > 0) {
 			<div class="col-lg-5 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Coupon Code</h3>
-					<p>Enter your coupon code if you have one</p>
-					<form action="#" class="info">
+					<p>Enter your coupon code (Try: VEGE10, FREESHIP, DISCOUNT20)</p>
+					<form action="cart.php" method="POST" class="info">
 						<div class="form-group">
-							<label for="">Coupon code</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
+							<label for="coupon_code">Coupon code</label>
+							<input type="text" name="coupon_code" id="coupon_code" class="form-control text-left px-3" placeholder="e.g. VEGE10" value="<?= isset($_SESSION['coupon']) ? htmlspecialchars($_SESSION['coupon']['code'], ENT_QUOTES, 'UTF-8') : '' ?>">
 						</div>
+						<button type="submit" class="btn btn-primary py-2 px-4 mt-2">Apply Coupon</button>
 					</form>
+					<?= $couponMsg ?>
 				</div>
-				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
 			</div>
-			<!-- <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-				<div class="cart-total mb-3">
-					<h3>Estimate shipping and tax</h3>
-					<p>Enter your destination to get a shipping estimate</p>
-					<form action="#" class="info">
-						<div class="form-group">
-							<label for="">Country</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-						<div class="form-group">
-							<label for="country">State/Province</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-						<div class="form-group">
-							<label for="country">Zip/Postal Code</label>
-							<input type="text" class="form-control text-left px-3" placeholder="">
-						</div>
-					</form>
-				</div>
-				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Estimate</a></p>
-			</div> -->
 			<div class="col-lg-5 mt-5 cart-wrap ftco-animate">
 				<div class="cart-total mb-3">
 					<h3>Cart Totals</h3>
 					<?php
-					$delivery = $total * .08;
-					$discount = $total * 0.01;
-					$totalAll = $total - $delivery - $discount;
+					$delivery = ($total > 0 && $total < 100) ? 5.00 : 0.00;
+					$discount = 0;
+
+					if (isset($_SESSION['coupon'])) {
+						$c = $_SESSION['coupon'];
+						if ($c['type'] === 'percent') {
+							$discount = $total * ($c['val'] / 100);
+						} else if ($c['type'] === 'fixed') {
+							$discount = $c['val'];
+						} else if ($c['type'] === 'freeship') {
+							$delivery = 0.00;
+						}
+					}
+
+					$totalAll = max(0, $total + $delivery - $discount);
 					?>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span>$<?= number_format($total, '2', '.', '.') ?></span>
+						<span>$<?= number_format($total, 2, '.', '.') ?></span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
-						<span>$<?= number_format($delivery, '2', '.', '.') ?></span>
+						<span>$<?= number_format($delivery, 2, '.', '.') ?></span>
 					</p>
 					<p class="d-flex">
 						<span>Discount</span>
-						<span>$<?= number_format($discount, '2', '.', '.') ?></span>
+						<span>-$<?= number_format($discount, 2, '.', '.') ?></span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span>$<?= number_format($totalAll, '2', '.', '.') ?></span>
+						<span>$<?= number_format($totalAll, 2, '.', '.') ?></span>
 					</p>
 				</div>
 				<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

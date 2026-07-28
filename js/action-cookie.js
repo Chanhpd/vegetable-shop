@@ -1,56 +1,88 @@
-// Cart
-function addToCart(id) {
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+});
+
+// Cart - Add
+function addToCart(id, num = 1) {
+    num = parseInt(num) || 1;
     $.post('api/cookie.php', {
         'action': 'add',
         'id': id,
-        'num': 1
-    }, function(data) {
-        location.reload();
-    })
+        'num': num
+    }, function(res) {
+        if (res && res.cartCount !== undefined) {
+            $('#num-cart').text(res.cartCount);
+        }
+        Toast.fire({
+            icon: 'success',
+            title: 'Đã thêm vào giỏ hàng thành công!'
+        });
+    }, 'json');
 }
+
+// Cart - Update
+function updateCartNum(id, num) {
+    num = parseInt(num) || 0;
+    $.post('api/cookie.php', {
+        'action': 'update',
+        'id': id,
+        'num': num
+    }, function(res) {
+        if (res && res.cartCount !== undefined) {
+            $('#num-cart').text(res.cartCount);
+        }
+        location.reload();
+    }, 'json');
+}
+
+// Cart - Delete
 function deleteCart(id) {
     $.post('api/cookie.php', {
         'action': 'delete',
-        'id': id,
-         
-    }, function(data) {
-        location.reload();
-    })
+        'id': id
+    }, function(res) {
+        if (res && res.cartCount !== undefined) {
+            $('#num-cart').text(res.cartCount);
+        }
+        Toast.fire({
+            icon: 'info',
+            title: 'Đã xóa sản phẩm khỏi giỏ hàng!'
+        }).then(() => {
+            location.reload();
+        });
+    }, 'json');
 }
 
-// wish list
-function addToWishList(id) {
-
+// Wishlist - Add
+function addToWishList(id, btn) {
+    if (btn) {
+        $(btn).toggleClass("red-heart");
+    }
     $.post('api/cookie.php', {
         'action': 'addW',
-        'id': id,
-       
-    }, function(data) {
-        // alert('');
-        $(".btn.btn-success.heart").click(function() {
-            $(this).toggleClass("red-heart");
-          });
-          
-    }).then(function() 
-    {
-        Swal.fire({
-            position: 'top-end',
+        'id': id
+    }, function(res) {
+        Toast.fire({
             icon: 'success',
-            title: 'Added success !',
-            showConfirmButton: false,
-            timer: 1000
-          })
-    }) 
-
-
-    
+            title: 'Đã thêm vào danh sách yêu thích! ❤️'
+        });
+    }, 'json');
 }
+
+// Wishlist - Delete
 function deleteToWishList(id) {
     $.post('api/cookie.php', {
         'action': 'deleteW',
-        'id': id,
-         
-    }, function(data) {
+        'id': id
+    }, function(res) {
         location.reload();
-    })
+    }, 'json');
 }

@@ -2,8 +2,8 @@
 include('./inc/header.php');
 require_once('./DB/util.php');
 require_once('./DB/dbhelper.php');
-$id = getGet('id');
-if ($id == null) {
+$id = intval(getGet('id'));
+if ($id <= 0) {
 	$id = 1;
 }
 $product = executeResult('select * from product where id = ' . $id, true);
@@ -18,6 +18,11 @@ if (isset($_COOKIE['cart'])) {
 	$cart = json_decode($json, true);
 }
 
+$prodName = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8');
+$prodImg = htmlspecialchars($product['img'], ENT_QUOTES, 'UTF-8');
+$prodDes = htmlspecialchars($product['des'], ENT_QUOTES, 'UTF-8');
+$prodPrice = floatval($product['price']);
+$prodSale = ($product['sale'] !== null) ? floatval($product['sale']) : null;
 ?>
 <!-- END nav -->
 
@@ -25,8 +30,8 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center">
 			<div class="col-md-9 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
-				<h1 class="mb-0 bread">Product Single</h1>
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span class="mr-2"><a href="shop.php">Product</a></span> <span>Product Single</span></p>
+				<h1 class="mb-0 bread"><?= $prodName ?></h1>
 			</div>
 		</div>
 	</div>
@@ -36,10 +41,10 @@ if (isset($_COOKIE['cart'])) {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 mb-5 ftco-animate">
-				<a href="<?= $product['img'] ?>" class="image-popup"><img src="<?= $product['img'] ?>" class="img-fluid" alt="Colorlib Template"></a>
+				<a href="<?= $prodImg ?>" class="image-popup"><img src="<?= $prodImg ?>" class="img-fluid" alt="<?= $prodName ?>"></a>
 			</div>
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-				<h3><?= $product['name'] ?></h3>
+				<h3><?= $prodName ?></h3>
 				<div class="rating d-flex">
 					<p class="text-left mr-4">
 						<a href="#" class="mr-2">5.0</a>
@@ -56,24 +61,22 @@ if (isset($_COOKIE['cart'])) {
 						<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
 					</p>
 				</div>
-				<!-- <p class="price"><span>$<?= number_format($product['price'], '2', '.', '.') ?></span></p> -->
-				<?php if ($product['sale'] == null) {
-					echo '<p class="price"><span>$' . number_format($product['price'], '2', '.', '.') . '</span></p>';
-				} else echo '<p class="price"><span class="mr-2 price-dc">$'. number_format($product['price'], '2', '.', '.') .'</span>
-				<span class="price-sale">$'. number_format($product['price']*(100-$product['sale'])*0.01, '2', '.', '.') .'</span></p>';
+				<?php if ($prodSale === null || $prodSale <= 0) {
+					echo '<p class="price"><span>$' . number_format($prodPrice, '2', '.', '.') . '</span></p>';
+				} else echo '<p class="price"><span class="mr-2 price-dc">$' . number_format($prodPrice, '2', '.', '.') . '</span>
+				<span class="price-sale">$' . number_format($prodPrice * (100 - $prodSale) * 0.01, '2', '.', '.') . '</span></p>';
 				?>
-				<p><?= $product['des'] ?>
-				</p>
+				<p><?= $prodDes ?></p>
 				<div class="row mt-4">
 					<div class="col-md-6">
 						<div class="form-group d-flex">
 							<div class="select-wrap">
 								<div class="icon"><span class="ion-ios-arrow-down"></span></div>
-								<select name="" id="" class="form-control">
-									<option value="">Small</option>
-									<option value="">Medium</option>
-									<option value="">Large</option>
-									<option value="">Extra Large</option>
+								<select name="size" id="size" class="form-control">
+									<option value="Small">Small</option>
+									<option value="Medium">Medium</option>
+									<option value="Large">Large</option>
+									<option value="Extra Large">Extra Large</option>
 								</select>
 							</div>
 						</div>
@@ -94,17 +97,29 @@ if (isset($_COOKIE['cart'])) {
 					</div>
 					<div class="w-100"></div>
 					<div class="col-md-12">
-						<p style="color: #000;">600 kg available</p>
+						<p style="color: #000;">In Stock</p>
 					</div>
 				</div>
 				<p>
-					<a class="btn btn-black py-3 px-5" onclick="addToCart(<?= $id ?>)">Add to Cart</a>
-					<!-- <button class="btn btn-dark py-3 px-5" onclick="addToCart(<?= $id ?>)">Add to Cart</button> -->
+					<button type="button" class="btn btn-black py-3 px-5" onclick="addToCart(<?= $id ?>, $('#quantity').val())">Add to Cart</button>
 				</p>
 			</div>
 		</div>
 	</div>
 </section>
+
+<!-- Mobile Sticky Add to Cart Bar -->
+<div class="mobile-sticky-bar d-block d-md-none fixed-bottom bg-white p-3 border-top shadow-lg" style="z-index: 1050;">
+	<div class="d-flex align-items-center justify-content-between">
+		<div>
+			<small class="text-muted d-block font-weight-bold"><?= $prodName ?></small>
+			<strong class="text-success h5 mb-0">$<?= number_format(($prodSale !== null && $prodSale > 0) ? $prodPrice * (100 - $prodSale) * 0.01 : $prodPrice, 2, '.', '.') ?></strong>
+		</div>
+		<button type="button" class="btn btn-primary py-2 px-4 font-weight-bold" onclick="addToCart(<?= $id ?>, $('#quantity').val())">
+			<i class="ion-ios-cart mr-1"></i> Add to Cart
+		</button>
+	</div>
+</div>
 
 <section class="ftco-section">
 	<div class="container">
@@ -112,68 +127,61 @@ if (isset($_COOKIE['cart'])) {
 			<div class="col-md-12 heading-section text-center ftco-animate">
 				<span class="subheading">Products</span>
 				<h2 class="mb-4">Related Products</h2>
-
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<?php
-
-			$sql = "SELECT * FROM product ORDER BY RAND ( ) limit 4";
+			$sql = "SELECT * FROM product ORDER BY RAND() LIMIT 4";
 			$result = executeResult($sql);
 
 			foreach ($result as $row) {
-
-				if ($row['sale'] !== null) {
-					echo '<div class="col-md-6 col-lg-3 ftco-animate">
-	<div class="product">
-		<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
-			<span class="status">' . $row['sale'] . '%</span>
-			<div class="overlay"></div>
-		</a>
-		<div class="text py-3 pb-4 px-3 text-center">
-			<h3><a href="#">' . $row['name'] . '</a></h3>
-			<div class="d-flex">
-				<div class="pricing">
-					<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['sale']) * 0.01, '2', '.', '.') . '$</span></p>
-				</div>
-			</div>
-			';
-				} else {
-					echo '<div class="col-md-6 col-lg-3 ftco-animate">
-		<div class="product">
-			<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
-				<div class="overlay"></div>
-			</a>
-			<div class="text py-3 pb-4 px-3 text-center">
-				<h3><a href="#">' . $row['name'] . '</a></h3>
-				<div class="d-flex">
-					<div class="pricing">
-						<p class="price"><span>$' . number_format($row['price'], '2', '.', '.') . '</span></p>
-					</div>
-				</div>
-				';
-				}
-				echo 	'<div class="bottom-area d-flex px-3">
-					<div class="m-auto d-flex">
-						<a href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-							<span><i class="ion-ios-menu"></i></span>
-						</a>
-						<a href="" onclick=addToCart(' . $row['id'] . ') class="buy-now d-flex justify-content-center align-items-center mx-1">
-							<span><i class="ion-ios-cart"></i></span>
-						</a>
-						<a onclick=addToWishList(' . $row['id'] . ') href="" class="heart d-flex justify-content-center align-items-center ">
-							<span><i class="ion-ios-heart"></i></span>
-						</a>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>';
-			}
+				$relId = intval($row['id']);
+				$relName = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+				$relImg = htmlspecialchars($row['img'], ENT_QUOTES, 'UTF-8');
+				$relPrice = floatval($row['price']);
+				$relSale = ($row['sale'] !== null) ? floatval($row['sale']) : null;
 			?>
+				<div class="col-md-6 col-lg-3 ftco-animate">
+					<div class="product">
+						<a href="product-single.php?id=<?= $relId ?>" class="img-prod"><img class="img-fluid" src="<?= $relImg ?>" alt="<?= $relName ?>">
+							<?php if ($relSale !== null && $relSale > 0): ?>
+								<span class="status"><?= $relSale ?>%</span>
+							<?php endif; ?>
+							<div class="overlay"></div>
+						</a>
+						<div class="text py-3 pb-4 px-3 text-center">
+							<h3><a href="product-single.php?id=<?= $relId ?>"><?= $relName ?></a></h3>
+							<div class="d-flex">
+								<div class="pricing">
+									<p class="price">
+										<?php if ($relSale !== null && $relSale > 0): ?>
+											<span class="mr-2 price-dc">$<?= number_format($relPrice, 2, '.', '.') ?></span>
+											<span class="price-sale">$<?= number_format($relPrice * (100 - $relSale) * 0.01, 2, '.', '.') ?></span>
+										<?php else: ?>
+											<span>$<?= number_format($relPrice, 2, '.', '.') ?></span>
+										<?php endif; ?>
+									</p>
+								</div>
+							</div>
+							<div class="bottom-area d-flex px-3">
+								<div class="m-auto d-flex">
+									<a href="product-single.php?id=<?= $relId ?>" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+										<span><i class="ion-ios-menu"></i></span>
+									</a>
+									<button onclick="addToCart(<?= $relId ?>)" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+										<span><i class="ion-ios-cart"></i></span>
+									</button>
+									<button onclick="addToWishList(<?= $relId ?>)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+										<span><i class="ion-ios-heart"></i></span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 </section>

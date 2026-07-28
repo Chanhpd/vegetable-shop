@@ -1,40 +1,45 @@
 <?php
-require_once('DB/util.php');
-require_once('DB/dbhelper.php');
+if (file_exists('DB/util.php')) {
+    require_once('DB/util.php');
+    require_once('DB/dbhelper.php');
+} else {
+    require_once('../DB/util.php');
+    require_once('../DB/dbhelper.php');
+}
+
 if (!empty($_POST)) {
     $cart = [];
     if (isset($_COOKIE['cart'])) {
         $json = $_COOKIE['cart'];
         $cart = json_decode($json, true);
     }
-    if($cart == null || count($cart) ==0){
+    if ($cart == null || !is_array($cart) || count($cart) == 0) {
         header('Location: index.php');
+        exit();
     }
 
-    $fullname = getPost('fullname');
-    $address = getPost('address');
-    $phone = getPost('phone');
-    $email = getPost('email');
-    $note = getPost('note');
-    $oder_date = date('Y-m-d H:i:s');
-    if ($fullname != null && $address!=null && $email!=null) {
-        $sql = "insert into orders (fullname, email, phone, address, note, order_date) values 
-            ('$fullname','$email','$phone','$address','$note','$oder_date')";
-            execute($sql);
+    $fullname = escapeSql(getPost('fullname'));
+    $address = escapeSql(getPost('address'));
+    $phone = escapeSql(getPost('phone'));
+    $email = escapeSql(getPost('email'));
+    $note = escapeSql(getPost('note'));
+    $order_date = date('Y-m-d H:i:s');
+    $orderId = 0;
 
-        $sql = "select * from orders where order_date = '$oder_date'";
-        $order = executeResult($sql, true);
-
-        $orderId = $order['id'];
+    if (!empty($fullname) && !empty($address) && !empty($email)) {
+        $sql = "INSERT INTO orders (fullname, email, phone, address, note, order_date) VALUES 
+            ('$fullname', '$email', '$phone', '$address', '$note', '$order_date')";
+        $orderId = executeGetId($sql);
 
         $idList = [];
         foreach ($cart as $item) {
-            $idList[] = $item['id'];
+            if (isset($item['id'])) {
+                $idList[] = intval($item['id']);
+            }
         }
         if (count($idList) > 0) {
-            $idList = implode(',', $idList);
-
-            $sql = "select * from product where id in ($idList)";
+            $idStr = implode(',', $idList);
+            $sql = "SELECT * FROM product WHERE id IN ($idStr)";
             $cartList = executeResult($sql);
         } else {
             $cartList = [];
@@ -44,18 +49,29 @@ if (!empty($_POST)) {
             $num = 0;
             foreach ($cart as $value) {
                 if ($value['id'] == $item['id']) {
-                    $num = $value['num'];
+                    $num = intval($value['num']);
                     break;
                 }
             }
 
-            $sql = "insert into order_details (id_order, price, num, product_id) values ($orderId, " . $item['price'] . ", $num, " . $item['id'] . ")";
+            $pId = intval($item['id']);
+            $pPrice = floatval($item['price']);
+
+            $sql = "INSERT INTO order_details (id_order, price, num, product_id) VALUES ($orderId, $pPrice, $num, $pId)";
             execute($sql);
         }
-        
-    }
 
-    header("Location: complete.php?id=$orderId");
-    setcookie('cart', '[]', time()-1000, '/');
+        setcookie('cart', '[]', time() - 1000, '/');
+        if (isset($_SESSION['coupon'])) {
+            unset($_SESSION['coupon']);
+        }
+
+        header("Location: complete.php?id=$orderId");
+        exit();
+    } else {
+        header("Location: checkout.php");
+        exit();
+    }
 }
+
  

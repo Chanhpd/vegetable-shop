@@ -144,74 +144,59 @@
  			</div>
  		</div>
  	</div>
- 	<div class="container">
+  	<div class="container">
  		<div class="row">
  			<?php
-
-				$sql = "SELECT * FROM product ORDER BY RAND ( ) limit 8";
-				$result = executeResult($sql);
-				$i = 0;
-				foreach($result as $row){
-					++$i;
-					if ($row['sale'] !== null) { ?>
+ 				$sql = "SELECT * FROM product ORDER BY RAND() LIMIT 8";
+ 				$result = executeResult($sql);
+ 				foreach($result as $row){
+ 					$id = intval($row['id']);
+ 					$name = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+ 					$img = htmlspecialchars($row['img'], ENT_QUOTES, 'UTF-8');
+ 					$price = floatval($row['price']);
+ 					$sale = ($row['sale'] !== null) ? floatval($row['sale']) : null;
+ 			?>
  					<div class="col-md-6 col-lg-3 ftco-animate">
  						<div class="product">
- 							<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="<?= $row['img'] ?>" alt="Colorlib Template">
- 								<span class="status"><?= $row['sale'] ?>%</span>
+ 							<a href="product-single.php?id=<?= $id ?>" class="img-prod"><img class="img-fluid" src="<?= $img ?>" alt="<?= $name ?>">
+ 								<?php if ($sale !== null && $sale > 0): ?>
+ 									<span class="status"><?= $sale ?>%</span>
+ 								<?php endif; ?>
  								<div class="overlay"></div>
  							</a>
  							<div class="text py-3 pb-4 px-3 text-center">
- 								<h3><a href="#"><?= $row['name'] ?></a></h3>
+ 								<h3><a href="product-single.php?id=<?= $id ?>"><?= $name ?></a></h3>
  								<div class="d-flex">
  									<div class="pricing">
- 										<p class="price"><span class="mr-2 price-dc">$ <?= number_format($row['price'], '2', '.', '.') ?></span><span class="price-sale">$<?= number_format($row['price']*(100-$row['sale'])*0.01, '2', '.', '.') ?></span></p>
+ 										<p class="price">
+ 											<?php if ($sale !== null && $sale > 0): ?>
+ 												<span class="mr-2 price-dc">$<?= number_format($price, 2, '.', '.') ?></span>
+ 												<span class="price-sale">$<?= number_format($price * (100 - $sale) * 0.01, 2, '.', '.') ?></span>
+ 											<?php else: ?>
+ 												<span>$<?= number_format($price, 2, '.', '.') ?></span>
+ 											<?php endif; ?>
+ 										</p>
  									</div>
  								</div>
- 							<?php ;
-							} else {
-								?>
- 								<div class="col-md-6 col-lg-3 ftco-animate">
- 									<div class="product">
- 										<a href="product-single.php?id=<?= $row['id'] ?>" class="img-prod"><img class="img-fluid" src="<?= $row['img'] ?>" alt="Colorlib Template">
- 											<div class="overlay"></div>
+ 								<div class="bottom-area d-flex px-3">
+ 									<div class="m-auto d-flex">
+ 										<a href="product-single.php?id=<?= $id ?>" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+ 											<span><i class="ion-ios-menu"></i></span>
  										</a>
- 										<div class="text py-3 pb-4 px-3 text-center">
- 											<h3><a href="#"><?= $row['name'] ?></a></h3>
- 											<div class="d-flex">
- 												<div class="pricing">
- 													<p class="price"><span>$<?= number_format($row['price'], '2', '.', '.') ?></span></p>
- 												</div>
- 											</div>
- 										<?php ;
-										} ?>
- 										<div class="bottom-area d-flex px-3">
- 											<div class="m-auto d-flex">
-											 <a  class="add-to-cart d-flex justify-content-center align-items-center text-center">
- 													<span><i class="ion-ios-menu"></i></span>
- 												</a>
- 												<button onclick="addToCart(<?=$row['id']?>)"  id="add_to_cart" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
- 													<span><i class="ion-ios-cart"></i></span>
- 												</button>
- 												
- 												<button onclick="addToWishList(<?=$row['id']?>)" class="btn btn-success heart d-flex justify-content-center align-items-center" id="heart">
- 													<span><i class="ion-ios-heart"></i></span>
- 												</button>
- 											</div>
- 										</div>
-
- 										</div>
- 										<div>
-
- 										</div>
+ 										<button onclick="addToCart(<?= $id ?>)" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+ 											<span><i class="ion-ios-cart"></i></span>
+ 										</button>
+ 										<button onclick="addToWishList(<?= $id ?>, this)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+ 											<span><i class="ion-ios-heart"></i></span>
+ 										</button>
  									</div>
  								</div>
- 							<?php ;
-							}
-
-								?>
-
  							</div>
  						</div>
+ 					</div>
+ 			<?php } ?>
+ 		</div>
+ 	</div>
  </section>
 
  <section class="ftco-section img" style="background-image: url(images/bg_3.jpg);">
@@ -221,13 +206,32 @@
  				<span class="subheading">Best Price For You</span>
  				<h2 class="mb-4">Deal of the day</h2>
  				<p>Best discount goods today, you can buy at extremely preferential prices</p>
- 				<h3><a href="shop.php">Salad</a></h3>
- 				<span class="price">$10 <a href="#">now $5 only</a></span>
- 				<div id="timer" class="d-flex mt-5">
- 					<!-- <div class="time" id="days"></div> -->
- 					<div class="time pl-3" id="hours"></div>
- 					<div class="time pl-3" id="minutes"></div>
- 					<div class="time pl-3" id="seconds"></div>
+ 				<h3><a href="shop.php">Salad Sạch Hữu Cơ</a></h3>
+ 				<span class="price">$10 <a href="shop.php" class="text-success font-weight-bold">now $5 only</a></span>
+
+ 				<div id="timer" class="d-flex mt-4 mb-3">
+ 					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
+ 						<span id="timer-hours" class="h3 font-weight-bold d-block text-success mb-0">00</span>
+ 						<small class="text-uppercase text-muted font-weight-bold">Giờ</small>
+ 					</div>
+ 					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
+ 						<span id="timer-minutes" class="h3 font-weight-bold d-block text-success mb-0">00</span>
+ 						<small class="text-uppercase text-muted font-weight-bold">Phút</small>
+ 					</div>
+ 					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
+ 						<span id="timer-seconds" class="h3 font-weight-bold d-block text-success mb-0">00</span>
+ 						<small class="text-uppercase text-muted font-weight-bold">Giây</small>
+ 					</div>
+ 				</div>
+
+ 				<div class="deal-progress my-3 pr-md-5">
+ 					<div class="d-flex justify-content-between mb-1">
+ 						<small class="font-weight-bold text-dark">🔥 Đã bán: 75/100 kg</small>
+ 						<small class="text-danger font-weight-bold">Chỉ còn 25 kg!</small>
+ 					</div>
+ 					<div class="progress" style="height: 12px; border-radius: 6px; background-color: #e9ecef;">
+ 						<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%; border-radius: 6px;"></div>
+ 					</div>
  				</div>
  			</div>
  		</div>
@@ -247,29 +251,30 @@
  			<div class="col-md-12">
  				<div class="carousel-testimony owl-carousel">
  					<?php
+ 						$sql = "SELECT * FROM recommend";
+ 						$result = executeResult($sql);
 
-						$sql = "SELECT * FROM recommend";
-						$result = executeResult($sql);
-
-						foreach($result as $row){
-							echo '<div class="item">
-							<div class="testimony-wrap p-4 pb-5">
-								<div class="user-img mb-5" style="background-image: url(images/' . $row['thumbnail'] . ')">
-									<span class="quote d-flex align-items-center justify-content-center">
-										<i class="icon-quote-left"></i>
-									</span>
-								</div>
-								<div class="text text-center">
-									<p class="mb-5 pl-4 line">' . $row['comment'] . '</p>
-									<p class="name">' . $row['name'] . '</p>
-									<span class="position">' . $row['position'] . '</span>
-								</div>
-								
-							</div>
-						</div>';
-						}
-						?>
-
+ 						foreach($result as $row){
+ 							$thumbnail = htmlspecialchars($row['thumbnail'], ENT_QUOTES, 'UTF-8');
+ 							$comment = htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8');
+ 							$name = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+ 							$position = htmlspecialchars($row['position'], ENT_QUOTES, 'UTF-8');
+ 							echo '<div class="item">
+ 							<div class="testimony-wrap p-4 pb-5">
+ 								<div class="user-img mb-5" style="background-image: url(images/' . $thumbnail . ')">
+ 									<span class="quote d-flex align-items-center justify-content-center">
+ 										<i class="icon-quote-left"></i>
+ 									</span>
+ 								</div>
+ 								<div class="text text-center">
+ 									<p class="mb-5 pl-4 line">' . $comment . '</p>
+ 									<p class="name">' . $name . '</p>
+ 									<span class="position">' . $position . '</span>
+ 								</div>
+ 							</div>
+ 						</div>';
+ 						}
+ 						?>
  				</div>
  			</div>
  		</div>
@@ -282,26 +287,26 @@
  	<div class="container">
  		<div class="row">
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/company.jpg" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/company.jpg" class="img-fluid" alt="Partner"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner_2.jpg" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/partner_2.jpg" class="img-fluid" alt="Partner"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/food_safety.jpg" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/food_safety.jpg" class="img-fluid" alt="Partner"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/fruit_company.jpg" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/fruit_company.jpg" class="img-fluid" alt="Partner"></a>
  			</div>
  			<div class="col-sm ftco-animate">
- 				<a href="#" class="partner"><img src="images/partner_5.jpg" class="img-fluid" alt="Colorlib Template"></a>
+ 				<a href="#" class="partner"><img src="images/partner_5.jpg" class="img-fluid" alt="Partner"></a>
  			</div>
  		</div>
  	</div>
  </section>
  <?php
-	include_once('./inc/footer.php');
-	?>
+ 	include_once('./inc/footer.php');
+ 	?>
 
 
 
@@ -325,32 +330,35 @@
  <script src="js/jquery.animateNumber.min.js"></script>
  <script src="js/bootstrap-datepicker.js"></script>
  <script src="js/scrollax.min.js"></script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
- <script src="js/google-map.js"></script>
  <script src="js/main.js"></script>
 
  <script src="js/action-cookie.js"></script>
 <script>
+	function makeTimer() {
+		var endTime = new Date();
+		endTime.setHours(23, 59, 59, 999);
+		var now = new Date();
+		var timeLeft = (endTime.getTime() - now.getTime()) / 1000;
+
+		if (timeLeft < 0) timeLeft = 0;
+
+		var hours = Math.floor(timeLeft / 3600);
+		var minutes = Math.floor((timeLeft - (hours * 3600)) / 60);
+		var seconds = Math.floor((timeLeft - (hours * 3600) - (minutes * 60)));
+
+		if (hours < 10) { hours = "0" + hours; }
+		if (minutes < 10) { minutes = "0" + minutes; }
+		if (seconds < 10) { seconds = "0" + seconds; }
+
+		$("#timer-hours").text(hours);
+		$("#timer-minutes").text(minutes);
+		$("#timer-seconds").text(seconds);
+	}
+
 	$(document).ready(function(){
-		
-		$("#add_to_cart").on('click',function(e){
-			e.preventDefault();
-			$.ajax({
-				url : "fetch.php",
-				method: "post",
-				dataType: "json",
-				data : {
-					id : $(this).attr("id"),
-					num : 1,
-					type : "ajax"
-				},
-				success : function (data){
-					console.log(data);
-					$("#num-cart").html(data);
-				}
-			})
-		})
-	})
+		makeTimer();
+		setInterval(makeTimer, 1000);
+	});
 </script>
  </body>
 

@@ -1,5 +1,10 @@
-<!DOCTYPE php>
-<php lang="en">
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
 
 	<head>
 		<title>Shop vegetables</title>
@@ -29,16 +34,9 @@
 		<link rel="stylesheet" href="css/icomoon.css">
 		<link rel="stylesheet" href="css/style.css">
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		
-		<script type="text/javascript">
-			$(document).on('click', 'ul li', function() {
-				$(this).addClass('active').siblings().removeClass('active');
-			})
-		</script>
 	</head>
 
 	<body class="goto-here">
-		</div>
 		<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 			<div class="container">
 				<a class="navbar-brand title" href="index.php">Vegefoods</a>
@@ -64,39 +62,38 @@
 						<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
 
 						<?php
-						session_start();
-
-
 						$cart = [];
 						if (isset($_COOKIE['cart'])) {
 							$json = $_COOKIE['cart'];
 							$cart = json_decode($json, true);
+							if (!is_array($cart)) {
+								$cart = [];
+							}
 						}
 						$count = 0;
 						foreach ($cart as $item) {
-							$count += $item['num'];
+							if (isset($item['num'])) {
+								$count += intval($item['num']);
+							}
 						}
 						?>
-						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?= $count ?>]</a></li>
-						
+						<li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<span id="num-cart"><?= $count ?></span>]</a></li>
 
-						</li>
 						<?php
 						if (isset($_SESSION["user"])) {
 							echo '
 							<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-user"></i> '.$_SESSION["user"].'</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown04">
+							<a class="nav-link dropdown-toggle" href="#" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-user"></i> ' . htmlspecialchars($_SESSION["user"], ENT_QUOTES, 'UTF-8') . '</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownUser">
 								<a class="dropdown-item" href="profile.php"><i class="fa-sharp fa-solid fa-address-card"></i> Profile</a>
 								<a class="dropdown-item" href="Login/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
 							</div>
 						</li>';
 						}
 						else {
-								echo '<li class="nav-item"><a href="Login/login.php" class="nav-link login"><i class="fa-solid fa-user"></i></a>';
+								echo '<li class="nav-item"><a href="Login/login.php" class="nav-link login"><i class="fa-solid fa-user"></i></a></li>';
 						}
 						?>
-						</a></li>
 					</ul>
 				</div>
 			</div>
