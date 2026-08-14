@@ -79,21 +79,32 @@ if (count($idList) > 0) {
                 $" . number_format(($num * $item['price']), '2', '.', '.') . "</td>";
                 echo "</tr>";
             }
-            $delivery = $total * .08;
-            $discount = $total * 0.05;
-            $totalAll = $total - $delivery - $discount;
+            ?>
+            <?php
+            $delivery = ($total > 0 && $total < 100) ? 5.00 : 0.00;
+            $discount = 0;
+            if (isset($_SESSION['coupon'])) {
+                $c = $_SESSION['coupon'];
+                if ($c['type'] === 'percent') {
+                    $discount = $total * ($c['val'] / 100);
+                } else if ($c['type'] === 'fixed') {
+                    $discount = $c['val'];
+                } else if ($c['type'] === 'freeship') {
+                    $delivery = 0.00;
+                }
+            }
+            $totalAll = max(0, $total + $delivery - $discount);
             ?>
             <tr>
-                <td colspan="4" class="tong">Delivery(8%) <br>Discount(5%)</td>
+                <td colspan="4" class="tong">Delivery<br>Discount</td>
                 <td class="cotSo">
                     $<?php echo number_format(($delivery), '2', '.', '.') ?><br>
-                    $<?php echo number_format(($discount), '2', '.', '.') ?><br>
+                    -$<?php echo number_format(($discount), '2', '.', '.') ?><br>
+                </td>
             </tr>
             <tr>
                 <td colspan="4" class="tong">Total</td>
-                <td class="cotSo">
-                    
-                    $<?php echo number_format(($total), '2', '.', '.') ?></td>
+                <td class="cotSo"><b>$<?php echo number_format(($totalAll), '2', '.', '.') ?></b></td>
             </tr>
 
         </table>

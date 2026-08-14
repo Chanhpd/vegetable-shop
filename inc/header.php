@@ -45,21 +45,21 @@ if (session_status() === PHP_SESSION_NONE) {
 				</button>
 
 				<div class="collapse navbar-collapse" id="ftco-nav">
+					<?php $curr = basename($_SERVER['PHP_SELF']); ?>
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active"><a href="index.php" class="nav-link">Home</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+						<li class="nav-item <?= ($curr == 'index.php' || $curr == '') ? 'active' : '' ?>"><a href="index.php" class="nav-link">Home</a></li>
+						<li class="nav-item dropdown <?= (in_array($curr, ['shop.php', 'wishlist.php', 'product-single.php', 'cart.php', 'checkout.php'])) ? 'active' : '' ?>">
+							<a class="nav-link dropdown-toggle" href="shop.php" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
 							<div class="dropdown-menu" aria-labelledby="dropdown04">
 								<a class="dropdown-item" href="shop.php">Shop</a>
 								<a class="dropdown-item" href="wishlist.php">Wishlist</a>
-								<a class="dropdown-item" href="product-single.php">Single Product</a>
 								<a class="dropdown-item" href="cart.php">Cart</a>
 								<a class="dropdown-item" href="checkout.php">Checkout</a>
 							</div>
 						</li>
-						<li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-						<li class="nav-item"><a href="blog.php" class="nav-link">Blog</a></li>
-						<li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
+						<li class="nav-item <?= ($curr == 'about.php') ? 'active' : '' ?>"><a href="about.php" class="nav-link">About</a></li>
+						<li class="nav-item <?= ($curr == 'blog.php' || $curr == 'blog-single.php') ? 'active' : '' ?>"><a href="blog.php" class="nav-link">Blog</a></li>
+						<li class="nav-item <?= ($curr == 'contact.php') ? 'active' : '' ?>"><a href="contact.php" class="nav-link">Contact</a></li>
 
 						<?php
 						$cart = [];

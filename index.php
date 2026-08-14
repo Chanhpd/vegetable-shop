@@ -12,9 +12,9 @@
  				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
  					<div class="col-md-12 ftco-animate text-center">
- 						<h1 class="mb-2">Fresh Vegestables &amp; Fruits</h1>
+ 						<h1 class="mb-2">Fresh Vegetables &amp; Fruits</h1>
  						<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
- 						<p><a href="#" class="btn btn-primary">View Details</a></p>
+ 						<p><a href="shop.php" class="btn btn-primary">View Details</a></p>
  					</div>
 
  				</div>
@@ -29,7 +29,7 @@
  					<div class="col-sm-12 ftco-animate text-center">
  						<h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
  						<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
- 						<p><a href="#" class="btn btn-primary">View Details</a></p>
+ 						<p><a href="shop.php" class="btn btn-primary">View Details</a></p>
  					</div>
 
  				</div>
@@ -59,7 +59,7 @@
  					</div>
  					<div class="media-body">
  						<h3 class="heading">Always Fresh</h3>
- 						<span>Product well package</span>
+ 						<span>Product well packaged</span>
  					</div>
  				</div>
  			</div>
@@ -140,7 +140,7 @@
  			<div class="col-md-12 heading-section text-center ftco-animate">
  				<span class="subheading">Featured Products</span>
  				<h2 class="mb-4">Our Products</h2>
- 				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+ 				<p>Fresh organic foods harvested directly from farms straight to consumers</p>
  			</div>
  		</div>
  	</div>
@@ -206,28 +206,28 @@
  				<span class="subheading">Best Price For You</span>
  				<h2 class="mb-4">Deal of the day</h2>
  				<p>Best discount goods today, you can buy at extremely preferential prices</p>
- 				<h3><a href="shop.php">Salad Sạch Hữu Cơ</a></h3>
+ 				<h3><a href="shop.php">Organic Fresh Salad</a></h3>
  				<span class="price">$10 <a href="shop.php" class="text-success font-weight-bold">now $5 only</a></span>
 
  				<div id="timer" class="d-flex mt-4 mb-3">
  					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
  						<span id="timer-hours" class="h3 font-weight-bold d-block text-success mb-0">00</span>
- 						<small class="text-uppercase text-muted font-weight-bold">Giờ</small>
+ 						<small class="text-uppercase text-muted font-weight-bold">Hours</small>
  					</div>
  					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
  						<span id="timer-minutes" class="h3 font-weight-bold d-block text-success mb-0">00</span>
- 						<small class="text-uppercase text-muted font-weight-bold">Phút</small>
+ 						<small class="text-uppercase text-muted font-weight-bold">Minutes</small>
  					</div>
  					<div class="time-box bg-white text-dark p-3 rounded text-center mr-2 shadow-sm" style="min-width: 75px;">
  						<span id="timer-seconds" class="h3 font-weight-bold d-block text-success mb-0">00</span>
- 						<small class="text-uppercase text-muted font-weight-bold">Giây</small>
+ 						<small class="text-uppercase text-muted font-weight-bold">Seconds</small>
  					</div>
  				</div>
 
  				<div class="deal-progress my-3 pr-md-5">
  					<div class="d-flex justify-content-between mb-1">
- 						<small class="font-weight-bold text-dark">🔥 Đã bán: 75/100 kg</small>
- 						<small class="text-danger font-weight-bold">Chỉ còn 25 kg!</small>
+ 						<small class="font-weight-bold text-dark">🔥 Sold: 75/100 kg</small>
+ 						<small class="text-danger font-weight-bold">Only 25 kg left!</small>
  					</div>
  					<div class="progress" style="height: 12px; border-radius: 6px; background-color: #e9ecef;">
  						<div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%; border-radius: 6px;"></div>
@@ -244,7 +244,7 @@
  			<div class="col-md-7 heading-section ftco-animate text-center">
  				<span class="subheading">Testimony</span>
  				<h2 class="mb-4">Our satisfied customer says</h2>
- 				<p>The best recommends from reliable guests help you better understand us.</p>
+ 				<p>Genuine feedback from customer who have trusted and used our products</p>
  			</div>
  		</div>
  		<div class="row ftco-animate">

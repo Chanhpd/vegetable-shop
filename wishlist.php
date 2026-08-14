@@ -40,49 +40,50 @@ if (count($idList) > 0) {
 		<div class="row">
 			<div class="col-md-12 ftco-animate">
 				<div class="cart-list">
+					<?php if (count($wishList) > 0): ?>
 					<table class="table table-striped">
 						<thead class="thead-primary">
 							<tr class="text-center">
-								<th>&nbsp;</th>
-								<th>Product List</th>
-								<th>Name</th>
-								<th>Price</th>
-								<th>Add to cart</th>
-								
+								<th class="product-remove">&nbsp;</th>
+								<th class="image-prod">Product</th>
+								<th class="product-name">Name</th>
+								<th class="price">Price</th>
+								<th class="add-to-cart">Add to cart</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-
 							foreach ($wishList as $item) {
 								echo '<tr class="text-center">
-								<td class="product-remove"><a href ="" onclick=deleteToWishList(' . $item['id'] . ') >
+								<td class="product-remove"><a href="javascript:void(0)" onclick="deleteToWishList(' . intval($item['id']) . ')">
 								<span class="ion-ios-close"></span></a>
 								</td>
 
 								<td class="image-prod">
-									<div class="img" style="background-image:url(' . $item['img'] . ');"></div>
+									<div class="img" style="background-image:url(' . htmlspecialchars($item['img'], ENT_QUOTES, 'UTF-8') . ');"></div>
 								</td>
 
 								<td class="product-name">
-									<h3>' . $item['name'] . '</h3>
-									
+									<h3><a href="product-single.php?id=' . intval($item['id']) . '">' . htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8') . '</a></h3>
 								</td>
 
-								<td class="price">$' . number_format($item['price'], '2', '.', '.'). '</td>
+								<td class="price">$' . number_format(floatval($item['price']), 2, '.', '.') . '</td>
 								<td class="add-to-cart">
-									<button onclick=addToCart('.$item['id'].') class="btn btn-add"><i class="fa-sharp fa-solid fa-cart-plus"></i></button>
+									<button onclick="addToCart(' . intval($item['id']) . ')" class="btn btn-primary py-2 px-3"><i class="fa-sharp fa-solid fa-cart-plus mr-1"></i> Add to Cart</button>
 								</td>
-								
-								
-								
 							</tr>';
 							}
 							?>
-							<!-- END TR-->
-
 						</tbody>
 					</table>
+					<?php else: ?>
+					<div class="text-center py-5">
+						<span class="ion-ios-heart-empty display-1 text-muted"></span>
+						<h3 class="mt-3">Your wishlist is empty</h3>
+						<p class="text-muted">Explore our store and save your favorite fresh products!</p>
+						<a href="shop.php" class="btn btn-primary py-3 px-5 mt-2">Start Shopping</a>
+					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

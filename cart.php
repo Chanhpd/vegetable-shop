@@ -62,12 +62,12 @@ if (count($idList) > 0) {
 					<table class="table">
 						<thead class="thead-primary">
 							<tr class="text-center">
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>Product name</th>
-								<th>Price</th>
-								<th>Quantity</th>
-								<th>Total</th>
+								<th class="product-remove">&nbsp;</th>
+								<th class="image-prod">&nbsp;</th>
+								<th class="product-name">Product name</th>
+								<th class="price">Price</th>
+								<th class="quantity">Quantity</th>
+								<th class="total">Total</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,13 +97,13 @@ if (count($idList) > 0) {
 							</td>
 							<td class="price">$' . number_format($pPrice, 2, '.', '.') . '</td>
 							<td class="quantity">
-								<div class="input-group justify-content-center m-auto" style="max-width: 110px;">
+								<div class="input-group flex-nowrap justify-content-center m-auto" style="max-width: 130px;">
 									<div class="input-group-prepend">
-										<button class="btn btn-outline-success btn-sm px-2" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num - 1) . ')">-</button>
+										<button class="btn btn-outline-success btn-sm" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num - 1) . ')">-</button>
 									</div>
-									<input type="text" class="form-control form-control-sm text-center px-0 font-weight-bold" value="' . $num . '" readonly style="max-width: 40px; background-color: #fff;">
+									<input type="text" class="form-control form-control-sm text-center px-0 font-weight-bold" value="' . $num . '" readonly>
 									<div class="input-group-append">
-										<button class="btn btn-outline-success btn-sm px-2" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num + 1) . ')">+</button>
+										<button class="btn btn-outline-success btn-sm" type="button" onclick="updateCartNum(' . intval($item['id']) . ', ' . ($num + 1) . ')">+</button>
 									</div>
 								</div>
 							</td>

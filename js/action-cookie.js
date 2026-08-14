@@ -23,7 +23,7 @@ function addToCart(id, num = 1) {
         }
         Toast.fire({
             icon: 'success',
-            title: 'Đã thêm vào giỏ hàng thành công!'
+            title: 'Added to cart successfully!'
         });
     }, 'json');
 }
@@ -54,7 +54,7 @@ function deleteCart(id) {
         }
         Toast.fire({
             icon: 'info',
-            title: 'Đã xóa sản phẩm khỏi giỏ hàng!'
+            title: 'Removed item from cart!'
         }).then(() => {
             location.reload();
         });
@@ -72,7 +72,7 @@ function addToWishList(id, btn) {
     }, function(res) {
         Toast.fire({
             icon: 'success',
-            title: 'Đã thêm vào danh sách yêu thích! ❤️'
+            title: 'Added to wishlist! ❤️'
         });
     }, 'json');
 }

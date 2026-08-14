@@ -105,53 +105,49 @@ if (isset($_SERVER['QUERY_STRING'])) {
 			$result = executeResult($sql);
 
 			foreach ($result as $row) {
+				$pId = intval($row['id']);
+				$pName = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+				$pImg = htmlspecialchars($row['img'], ENT_QUOTES, 'UTF-8');
+				$pPrice = floatval($row['price']);
+				$pSale = ($row['sale'] !== null && $row['sale'] != "0") ? floatval($row['sale']) : null;
 
-				if ($row['sale'] !== null && $row['sale'] != "0" ) {
-					echo '<div class="col-md-6 col-lg-3 ftco-animate">
+				echo '<div class="col-md-6 col-lg-3 ftco-animate">
 				<div class="product">
-					<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
-						<span class="status">' . $row['sale'] . '%</span>
-						<div class="overlay"></div>
+					<a href="product-single.php?id=' . $pId . '" class="img-prod"><img class="img-fluid" src="' . $pImg . '" alt="' . $pName . '">';
+				if ($pSale !== null && $pSale > 0) {
+					echo '<span class="status">' . $pSale . '%</span>';
+				}
+				echo '<div class="overlay"></div>
 					</a>
 					<div class="text py-3 pb-4 px-3 text-center">
-						<h3><a href="#">' . $row['name'] . '</a></h3>
+						<h3><a href="product-single.php?id=' . $pId . '">' . $pName . '</a></h3>
 						<div class="d-flex">
 							<div class="pricing">
-								<p class="price"><span class="mr-2 price-dc">$' . number_format($row['price'], '2', '.', '.') . '</span><span class="price-sale">' . number_format($row['price'] * (100 - $row['sale']) * 0.01, '2', '.', '.') . '$</span></p>
+								<p class="price">';
+				if ($pSale !== null && $pSale > 0) {
+					echo '<span class="mr-2 price-dc">$' . number_format($pPrice, 2, '.', '.') . '</span><span class="price-sale">$' . number_format($pPrice * (100 - $pSale) * 0.01, 2, '.', '.') . '</span>';
+				} else {
+					echo '<span>$' . number_format($pPrice, 2, '.', '.') . '</span>';
+				}
+				echo '</p>
 							</div>
 						</div>
-						';
-				} else {
-					echo '<div class="col-md-6 col-lg-3 ftco-animate">
-					<div class="product">
-						<a href="product-single.php?id=' . $row['id'] . '" class="img-prod"><img class="img-fluid" src="' . $row['img'] . '" alt="Colorlib Template">
-							<div class="overlay"></div>
-						</a>
-						<div class="text py-3 pb-4 px-3 text-center">
-							<h3><a href="#">' . $row['name'] . '</a></h3>
-							<div class="d-flex">
-								<div class="pricing">
-									<p class="price"><span>$' . number_format($row['price'], '2', '.', '.') . '</span></p>
-								</div>
-							</div>
-							';
-				}
-				echo 	'<div class="bottom-area d-flex px-3">
-								<div class="m-auto d-flex">
-									<a  href="" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-										<span><i class="ion-ios-menu"></i></span>
-									</a>
-									<button onclick=addToCart(' . $row['id'] . ') class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
-										<span><i class="ion-ios-cart"></i></span>
-									</button>
-									<button onclick=addToWishList(' . $row['id'] . ') class="btn btn-success heart d-flex justify-content-center align-items-center ">
-										<span><i class="ion-ios-heart"></i></span>
-									</button>
-								</div>
+						<div class="bottom-area d-flex px-3">
+							<div class="m-auto d-flex">
+								<a href="product-single.php?id=' . $pId . '" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+									<span><i class="ion-ios-menu"></i></span>
+								</a>
+								<button onclick="addToCart(' . $pId . ')" class="btn btn-success buy-now d-flex justify-content-center align-items-center mx-1">
+									<span><i class="ion-ios-cart"></i></span>
+								</button>
+								<button onclick="addToWishList(' . $pId . ', this)" class="btn btn-success heart d-flex justify-content-center align-items-center">
+									<span><i class="ion-ios-heart"></i></span>
+								</button>
 							</div>
 						</div>
 					</div>
-				</div>';
+				</div>
+			</div>';
 			}
 			echo '</div>
 
@@ -160,23 +156,21 @@ if (isset($_SERVER['QUERY_STRING'])) {
 					<div class="block-27">
 						<ul>';
 			$pageNum = 1;
+			$cat = isset($_GET['category']) ? $_GET['category'] : '';
 
 			for ($i = 1; $i <= $page; $i++) {
-				if (isset($_GET['category'])) {
-					$cat = $_GET['category'];
-				} else $cat = '';
 				if (isset($_GET['page'])) {
 					$pageNum = (int)$_GET['page'];
 				} else {
-					$pageNum = 1;;
+					$pageNum = 1;
 				}
+				$catParam = ($cat != '') ? '&category=' . urlencode($cat) : '';
 				if ($i == $pageNum) {
-					echo '<li class="active"><a href="?page=' . $i . '">' . $i . '</a></li>';
+					echo '<li class="active"><a href="?page=' . $i . $catParam . '">' . $i . '</a></li>';
 				} else {
-					echo '<li><a href="?page=' . $i . '&category=' . $cat . '">' . $i . '</a></li>';
+					echo '<li><a href="?page=' . $i . $catParam . '">' . $i . '</a></li>';
 				}
 			}
-			//?id=1&cat=2
 			?>
 		</div>
 		</ul>

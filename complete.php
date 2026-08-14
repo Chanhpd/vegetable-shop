@@ -167,14 +167,23 @@ if (count($idList) > 0) {
                         </div>
                         <div class="col-xs-6 text-right pull-right invoice-total">
                             <?php
-
-                            $delivery = $total * .08;
-                            $discount = $total * 0.05;
-                            $totalAll = $total - $delivery - $discount;
+                            $delivery = ($total > 0 && $total < 100) ? 5.00 : 0.00;
+                            $discount = 0;
+                            if (isset($_SESSION['coupon'])) {
+                                $c = $_SESSION['coupon'];
+                                if ($c['type'] === 'percent') {
+                                    $discount = $total * ($c['val'] / 100);
+                                } else if ($c['type'] === 'fixed') {
+                                    $discount = $c['val'];
+                                } else if ($c['type'] === 'freeship') {
+                                    $delivery = 0.00;
+                                }
+                            }
+                            $totalAll = max(0, $total + $delivery - $discount);
                             ?>
                             <p><b>Subtotal</b> : $<?= number_format($total, '2', '.', '.') ?></p>
-                            <p><b>Delivery</b> (8%) : $<?= number_format($delivery, '2', '.', '.') ?></p>
-                            <p><b>Discount</b> (5%) : $<?= number_format($discount, '2', '.', '.') ?></p>
+                            <p><b>Delivery</b> : $<?= number_format($delivery, '2', '.', '.') ?></p>
+                            <p><b>Discount</b> : -$<?= number_format($discount, '2', '.', '.') ?></p>
                             <p><b>Total</b> : $<?= number_format($totalAll, '2', '.', '.') ?></p>
                         </div>
                     </div>

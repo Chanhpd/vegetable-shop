@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 25, 2022 lúc 10:18 AM
+-- Thời gian đã tạo: Th8 13, 2026 lúc 10:18 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 7.4.29
 
@@ -42,12 +42,12 @@ CREATE TABLE `blog` (
 --
 
 INSERT INTO `blog` (`id`, `title`, `thumbnail`, `short`, `des`, `create_at`, `id_user`) VALUES
-(1, 'Organic foods is good for your health', 'image_1.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-31', 1),
-(2, 'Creative WordPress Themes', 'image_2.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26', 1),
-(3, 'Even the all-powerful Pointing has no control about the blind texts', 'image_3.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26', 1),
-(4, 'Even the all-powerful Pointing has no control about the blind texts', 'image_4.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26', 1),
-(5, 'Even the all-powerful Pointing has no control about the blind texts', 'image_5.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-26', 1),
-(6, 'Even the all-powerful Pointing has no control about the blind texts', 'image_6.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2022-08-06', 1);
+(1, 'Organic foods is good for your health', 'image_1.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-31', 1),
+(2, 'Creative WordPress Themes', 'image_2.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-26', 1),
+(3, 'Even the all-powerful Pointing has no control about the blind texts', 'image_3.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-26', 1),
+(4, 'Even the all-powerful Pointing has no control about the blind texts', 'image_4.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-26', 1),
+(5, 'Even the all-powerful Pointing has no control about the blind texts', 'image_5.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-26', 1),
+(6, 'Even the all-powerful Pointing has no control about the blind texts', 'image_6.jpg', 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.', NULL, '2026-08-06', 1);
 
 -- --------------------------------------------------------
 
@@ -90,17 +90,17 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `name_user`, `blog_id`, `created_at`, `thumb`, `content`) VALUES
-(1, 'Yi', 1, '2022-09-11 04:36:21', 'person_1.jpg', 'I love it very much'),
-(2, 'chanhpro', 1, '2022-09-11 04:36:21', 'person_2.jpg', 'This is a wonderful website.I can see more vegetab'),
-(3, 'Tinh121131', 2, '2022-09-11 04:52:25', 'person_1.jpg', 'sad'),
-(4, 'Pham duy chánh', 3, '2022-09-11 04:56:06', 'person_1.jpg', 'This paragraph is excited '),
-(6, 'admin', 1, '2022-09-24 06:15:03', NULL, 'I love it very much'),
-(7, 'Yi', 1, '2022-09-25 04:14:00', 'person_1.jpg', 'aa'),
-(8, 'Yi', 1, '2022-09-25 04:14:57', 'person_1.jpg', 'Everything are greatful\n'),
-(9, 'Yi', 2, '2022-09-25 08:35:17', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', 'very interesting'),
-(15, 'Yi', 2, '2022-09-25 08:43:05', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', 'aa'),
-(21, 'Pham duy chánh', 5, '2022-09-25 09:29:02', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', 'Very good'),
-(25, 'Pham duy chánh', 2, '2022-09-25 10:16:39', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', 'Very well');
+(1, 'Yi', 1, '2026-09-11 04:36:21', 'person_1.jpg', 'I love it very much'),
+(2, 'Minh Sang', 1, '2026-09-11 04:36:21', 'person_2.jpg', 'This is a wonderful website.I can see more vegetab'),
+(3, 'HoangNam', 2, '2026-09-11 04:52:25', 'person_1.jpg', 'sad'),
+(4, 'Phạm Minh Sang', 3, '2026-09-11 04:56:06', 'person_1.jpg', 'This paragraph is excited '),
+(6, 'admin', 1, '2026-09-24 06:15:03', NULL, 'I love it very much'),
+(7, 'Yi', 1, '2026-09-25 04:14:00', 'person_1.jpg', 'aa'),
+(8, 'Yi', 1, '2026-09-25 04:14:57', 'person_1.jpg', 'Everything are greatful\n'),
+(9, 'Yi', 2, '2026-09-25 08:35:17', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', 'very interesting'),
+(15, 'Yi', 2, '2026-09-25 08:43:05', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', 'aa'),
+(21, 'Phạm Minh Sang', 5, '2026-09-25 09:29:02', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', 'Very good'),
+(25, 'Phạm Minh Sang', 2, '2026-09-25 10:16:39', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', 'Very well');
 
 -- --------------------------------------------------------
 
@@ -139,19 +139,19 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `fullname`, `email`, `phone`, `address`, `note`, `order_date`, `status`) VALUES
-(1, 1, 'Phạm Duy Chánh', 'chanhpd.21it@vku.udn.vn', '0205851198', 'tịnh hà', 'fdfdfdsf', '2022-09-04 10:45:49', NULL),
-(13, 1, 'Văn Hậu ', 'adasd@gmail.com', '444889555', 'Viet Han', '', '2022-09-04 11:05:10', NULL),
-(14, 1, 'Văn Hậu ', 'd@gmail.com', '0205851198', 'Viet Han', '', '2022-09-04 11:06:11', NULL),
-(15, 1, 'Văn Hậu ', '', '0205851198', 'Viet Han', 'd', '2022-09-04 11:07:06', NULL),
-(16, 1, 'Văn Hậu ', '', '0205851198', 'Viet Han', 'd', '2022-09-04 11:19:49', NULL),
-(17, 1, 'Phạm Văn Nam', 'phamduychanh1904@gmail.c', '0845305767', 'Viet Han', 'sdffdsfsdf', '2022-09-04 11:20:23', NULL),
-(26, 1, 'Phạm Duy Chánh', 'dddd@gmail.com', '0205851198', 'Viet Han', 'dasdasdadasdada', '2022-09-04 15:56:38', NULL),
-(27, 1, 'Chansh', 'd@gmail.com', 'wdwd', 'wdwd', 'wdadawd', '2022-09-04 15:57:58', NULL),
-(28, 1, 'Văn Hậu ', 'fb88@r.com', '0205851198', '470 tran dai nghia', 'dddd', '2022-09-04 15:58:41', NULL),
-(35, NULL, 'Le Duan', 'landisuderland@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', 'adasdasd', '2022-09-11 05:25:20', NULL),
-(36, NULL, 'Le Duan', 'landisuderland@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', 'adasdasd', '2022-09-11 05:26:16', NULL),
-(37, NULL, 'John', 'landisuderland@gmail.com', '0022259999', 'Wishdom', 'note', '2022-09-11 11:10:10', NULL),
-(38, NULL, 'Nhan', 'tinhtd2.21it@vku.udn.vn', '123', '5500 Viet Nam', '123124', '2022-09-13 17:20:12', NULL);
+(1, 1, 'Minh Sang', 'sang@gmail.com', '0205851198', 'Đà Nẵng', 'fdfdfdsf', '2026-09-04 10:45:49', NULL),
+(13, 1, 'Văn Hậu ', 'adasd@gmail.com', '444889555', 'Viet Han', '', '2026-09-04 11:05:10', NULL),
+(14, 1, 'Văn Hậu ', 'd@gmail.com', '0205851198', 'Viet Han', '', '2026-09-04 11:06:11', NULL),
+(15, 1, 'Văn Hậu ', '', '0205851198', 'Viet Han', 'd', '2026-09-04 11:07:06', NULL),
+(16, 1, 'Văn Hậu ', '', '0205851198', 'Viet Han', 'd', '2026-09-04 11:19:49', NULL),
+(17, 1, 'Phạm Văn Nam', 'phamvannam@gmail.com', '0845305767', 'Viet Han', 'sdffdsfsdf', '2026-09-04 11:20:23', NULL),
+(26, 1, 'Minh Sang', 'sang@gmail.com', '0205851198', 'Viet Han', 'dasdasdadasdada', '2026-09-04 15:56:38', NULL),
+(27, 1, 'Minh Sang', 'sang@gmail.com', 'wdwd', 'wdwd', 'wdadawd', '2026-09-04 15:57:58', NULL),
+(28, 1, 'Văn Hậu ', 'fb88@r.com', '0205851198', '470 tran dai nghia', 'dddd', '2026-09-04 15:58:41', NULL),
+(35, NULL, 'Le Duan', 'landisuderland@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', 'adasdasd', '2026-09-11 05:25:20', NULL),
+(36, NULL, 'Le Duan', 'landisuderland@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', 'adasdasd', '2026-09-11 05:26:16', NULL),
+(37, NULL, 'John', 'landisuderland@gmail.com', '0022259999', 'Wishdom', 'note', '2026-09-11 11:10:10', NULL),
+(38, NULL, 'Nhan', 'nhan@gmail.com', '123', '5500 Viet Nam', '123124', '2026-09-13 17:20:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -238,8 +238,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `img`, `id_cate`, `price`, `sale`, `des`, `created_at`, `updated_at`, `deleted_at`, `size`, `status`) VALUES
-(1, 'Bell Pepper', 'https://res.cloudinary.com/vku-university/image/upload/v1663725637/xovwssvbv6i1vmrbna5t.jpg', 1, 15, 30, 'Bell peppers, also known as sweet peppers or capsicums, are incredibly nutritious. They contain antioxidants called carotenoids that may reduce inflammation, decrease cancer risk and protect cholesterol and fats from oxidative damage', NULL, '2022-09-21', NULL, NULL, NULL),
-(2, 'Strawberry', 'https://res.cloudinary.com/vku-university/image/upload/v1663757344/qi0ya7niogeycwjiy9kd.jpg', 2, 25, 0, 'These potent little packages protect your heart, increase HDL (good) cholesterol, lower your blood pressure, and guard against cancer. Packed with vitamins, fiber, and particularly high levels of antioxidants known as polyphenols, strawberries are a sodium-free, fat-free, cholesterol-free, low-calorie food.', NULL, '2022-09-21', NULL, NULL, NULL),
+(1, 'Bell Pepper', 'https://res.cloudinary.com/vku-university/image/upload/v1663725637/xovwssvbv6i1vmrbna5t.jpg', 1, 15, 30, 'Bell peppers, also known as sweet peppers or capsicums, are incredibly nutritious. They contain antioxidants called carotenoids that may reduce inflammation, decrease cancer risk and protect cholesterol and fats from oxidative damage', NULL, '2026-09-21', NULL, NULL, NULL),
+(2, 'Strawberry', 'https://res.cloudinary.com/vku-university/image/upload/v1663757344/qi0ya7niogeycwjiy9kd.jpg', 2, 25, 0, 'These potent little packages protect your heart, increase HDL (good) cholesterol, lower your blood pressure, and guard against cancer. Packed with vitamins, fiber, and particularly high levels of antioxidants known as polyphenols, strawberries are a sodium-free, fat-free, cholesterol-free, low-calorie food.', NULL, '2026-09-21', NULL, NULL, NULL),
 (3, 'Green Beans', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893518/product/product-3_updx4o.jpg', 1, 18, NULL, 'Green beans are full of fiber, which is an important nutrient for many reasons. Soluble fiber, in particular, may help to improve the health of your heart by lowering your LDL cholesterol (bad cholesterol) levels', NULL, NULL, NULL, NULL, NULL),
 (4, 'Purple Cabbage', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893519/product/product-4_zurizp.jpg', 1, 20, NULL, 'Purple cabbage is a nutrient-rich vegetable linked to a variety of health benefits. These include reduced inflammation, a healthier heart, stronger bones, improved gut function, and perhaps even a lower risk of certain cancers.', NULL, NULL, NULL, NULL, NULL),
 (5, 'Tomatoe', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893515/product/product-5_hth3h3.jpg', 1, 15, 30, 'Tomatoes are juicy and sweet, full of antioxidants, and may help fight several diseases. They are especially high in lycopene, a plant compound linked to improved heart health, cancer prevention, and protection against sunburns.', NULL, NULL, NULL, NULL, NULL),
@@ -259,7 +259,7 @@ INSERT INTO `product` (`id`, `name`, `img`, `id_cate`, `price`, `sale`, `des`, `
 (19, 'Pomegranate Juice', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893518/product/Pomegranate_Juice_njcinb.jpg', 3, 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (20, 'Blueberry Juice', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893518/product/Blueberry_Juice_umwxvw.jpg', 3, 50, 12, NULL, NULL, NULL, NULL, NULL, NULL),
 (21, 'Tart Cherry Juice', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893518/product/Tart_Cherry_Juice_ixyqfq.jpg', 3, 30, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 'Prunes', 'https://res.cloudinary.com/vku-university/image/upload/v1663730531/yfkpx8kdta28unwcj2wb.webp', 4, 44, NULL, 'Dried prunes are an important source of the mineral boron, which can help build strong bones and muscles. It may also help with improving mental', NULL, '2022-09-21', NULL, NULL, NULL),
+(22, 'Prunes', 'https://res.cloudinary.com/vku-university/image/upload/v1663730531/yfkpx8kdta28unwcj2wb.webp', 4, 44, NULL, 'Dried prunes are an important source of the mineral boron, which can help build strong bones and muscles. It may also help with improving mental', NULL, '2026-09-21', NULL, NULL, NULL),
 (23, 'Walnuts', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893516/product/Walnuts_vv4lzw.jpg', 4, 55, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (24, 'Raisins', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893517/product/Raisins_yk9kjq.jpg', 4, 60, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (25, 'Almond', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662893516/product/Almond_oekj5f.webp', 4, 80, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -268,11 +268,11 @@ INSERT INTO `product` (`id`, `name`, `img`, `id_cate`, `price`, `sale`, `des`, `
 (28, 'Cashew', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662900472/product/gia-hat-dieu-2_w5l8ec.jpg', 4, 50, 80, NULL, NULL, NULL, NULL, NULL, NULL),
 (29, 'Banana', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662900272/product/banane-large_w0yhaf.jpg', 2, 25, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (30, 'Grape', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662900390/product/grape_229112122_lenw8c.jpg', 2, 50, 20, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 'Cauliflower', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662901184/product/cauliflower_vso80q.jpg', 1, 35, NULL, NULL, '2022-09-11', NULL, NULL, NULL, NULL),
+(31, 'Cauliflower', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662901184/product/cauliflower_vso80q.jpg', 1, 35, NULL, NULL, '2026-09-11', NULL, NULL, NULL, NULL),
 (33, 'Mint', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902407/product/mint_vheujt.jpg', 1, 18, NULL, 'Mint is a particularly good source of vitamin A, a fat-soluble vitamin that is critical for eye health and night vision ( 2 ). It is also a potent source of antioxidants, especially when compared to other herbs and spices.', NULL, NULL, NULL, NULL, NULL),
-(34, 'Mushroom', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902408/product/mushroom_j8nkiq.jpg', 1, 42, 15, 'Mushrooms are a rich, low calorie source of fiber, protein, and antioxidants. They may also mitigate the risk of developing serious health conditions, such as Alzheimer\'s, heart disease, cancer, and diabetes.', '2022-08-31', NULL, NULL, NULL, NULL),
-(35, 'mangosteen', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902409/product/mangosteen_zubpn1.jpg', 2, 75, NULL, ' Mangosteen is a rich source of antioxidants and vitamins. The special antioxidant found in abundance that gives the fruit a superior edge', '2022-09-11', NULL, NULL, NULL, NULL),
-(36, 'Mango', 'https://res.cloudinary.com/vku-university/image/upload/v1663727088/u7ktfrod9qn6cbinvxfk.jpg', 2, 12, 5, 'Mango, the “King of the fruits” is a drupe fruit that grows in tropical regions. It has yellow-coloured tangy pulp, with a unique flavour and fragrance.', '2022-09-21', '2022-09-21', NULL, NULL, NULL);
+(34, 'Mushroom', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902408/product/mushroom_j8nkiq.jpg', 1, 42, 15, 'Mushrooms are a rich, low calorie source of fiber, protein, and antioxidants. They may also mitigate the risk of developing serious health conditions, such as Alzheimer\'s, heart disease, cancer, and diabetes.', '2026-08-31', NULL, NULL, NULL, NULL),
+(35, 'mangosteen', 'https://res.cloudinary.com/dxzr2klk5/image/upload/v1662902409/product/mangosteen_zubpn1.jpg', 2, 75, NULL, ' Mangosteen is a rich source of antioxidants and vitamins. The special antioxidant found in abundance that gives the fruit a superior edge', '2026-09-11', NULL, NULL, NULL, NULL),
+(36, 'Mango', 'https://res.cloudinary.com/vku-university/image/upload/v1663727088/u7ktfrod9qn6cbinvxfk.jpg', 2, 12, 5, 'Mango, the “King of the fruits” is a drupe fruit that grows in tropical regions. It has yellow-coloured tangy pulp, with a unique flavour and fragrance.', '2026-09-21', '2026-09-21', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -343,11 +343,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `id_role`, `name`, `password`, `email`, `phone`, `address`, `avatar`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 2, 'Yi', '123', 'user1@gmail.com', '046020011133', '4700 Trần Đại Nghĩa, Đà Nẵng', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', '2022-09-22', NULL, NULL),
-(2, 1, 'admin', '$2y$10$GYvWbtLWkBDDRl1Fg/j0puw45aCpcPJv3aOPUC3QQXAGQmTK.2pV2', 'admin123@gmail.com', '9438504353', '30 Hai Bà Trưng - Đà Nẵng', '', '2022-09-07', NULL, NULL),
-(3, 2, 'chanhpro', '123456', 'd@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', NULL, '2022-09-12', NULL, NULL),
-(7, 2, 'Tinh121131', '', '', '55212322212', '470 Trần Đại Nghĩa, Đà Nẵng', NULL, '2022-09-12', NULL, NULL),
-(29, 2, 'Pham duy chánh', '1234', 'chanhpd@gmail.com', '123456789', '9900 Tran THu Do Ha Noi', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', '2022-09-12', NULL, NULL);
+(1, 2, 'Yi', '123', 'user1@gmail.com', '046020011133', '4700 Trần Đại Nghĩa, Đà Nẵng', 'https://res.cloudinary.com/vku-university/image/upload/v1664087620/umqhljdbff6paj6hf5bh.jpg', '2026-09-22', NULL, NULL),
+(2, 1, 'admin', '$2y$10$GYvWbtLWkBDDRl1Fg/j0puw45aCpcPJv3aOPUC3QQXAGQmTK.2pV2', 'admin123@gmail.com', '9438504353', '30 Hai Bà Trưng - Đà Nẵng', '', '2026-09-07', NULL, NULL),
+(3, 2, 'Minh Sang', '123456', 'sang@gmail.com', '0205851198', '9900 Tran THu Do Ha Noi', NULL, '2026-09-12', NULL, NULL),
+(7, 2, 'HoangNam', '', 'hoangnam@gmail.com', '55212322212', '470 Trần Đại Nghĩa, Đà Nẵng', NULL, '2026-09-12', NULL, NULL),
+(29, 2, 'Phạm Minh Sang', '1234', 'minhsang@gmail.com', '123456789', '9900 Tran THu Do Ha Noi', 'https://res.cloudinary.com/vku-university/image/upload/v1664090919/j8r9ejay03konw5xepzx.jpg', '2026-09-12', NULL, NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
